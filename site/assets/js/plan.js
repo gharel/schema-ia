@@ -277,6 +277,12 @@ export const CHAPITRES = [
       ),
       p(
         '7.7',
+        'Mêmes outils, autres noms',
+        null,
+        'claude, chatgpt, correspondance, noms, projets, compétences, connecteurs, apps, plugins, cowork, work, code, codex',
+      ),
+      p(
+        '7.8',
         'Plus d’accès, plus de risque',
         M,
         'risque, accès, permissions, autorisation, lecture seule',
