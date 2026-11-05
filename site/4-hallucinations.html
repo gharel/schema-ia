@@ -198,9 +198,9 @@
                 <text class="t-s c-alerte" x="1240" y="537">Inventé</text>
               </g>
               <g data-etape="3">
-                <rect class="piste" x="100" y="700" width="1000" height="36" rx="18" />
-                <rect class="aplat-p" x="100" y="700" width="1000" height="36" rx="18" />
-                <text class="t-m c-p" x="1500" y="734" text-anchor="end">Même ton assuré</text>
+                <text class="t-m c-p" x="800" y="740" text-anchor="middle">
+                  Les trois sont écrites avec le même ton assuré
+                </text>
               </g>
             </svg>
           </div>
@@ -316,9 +316,9 @@
         <section
           class="planche"
           id="p-4-3"
+          data-depart="0"
           data-partie="2"
           data-parcours="intermediaire"
-          data-depart="0"
           aria-labelledby="t-4-3"
         >
           <header class="planche__tete">
@@ -329,10 +329,11 @@
             <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-4-3 de-4-3">
               <title id="ti-4-3">Les leviers contre l’invention</title>
               <desc id="de-4-3">
-                Au départ, une jauge de risque d’invention pleine. Chaque levier retire un
-                bloc&nbsp;: fournir un document, activer la recherche web, autoriser «&nbsp;je ne
-                sais pas&nbsp;», demander les sources, choisir un sujet connu plutôt que récent. Le
-                socle reste&nbsp;: le risque n’est jamais à zéro.
+                Une question sur un sujet rare&nbsp;: sans aide, le risque que l’IA invente est
+                d’environ 68&nbsp;%. Chaque levier le fait baisser&nbsp;: un document fourni,
+                24&nbsp;%&nbsp;; la recherche web, 13&nbsp;%&nbsp;; autoriser «&nbsp;je ne sais
+                pas&nbsp;», 9&nbsp;%&nbsp;; demander les sources, 7&nbsp;%. Il ne tombe jamais à
+                zéro.
               </desc>
               <defs>
                 <pattern
@@ -345,89 +346,108 @@
                   <path class="hach-alerte" d="M0 0V26" />
                 </pattern>
               </defs>
-              <rect class="aplat-alerte" x="1000" y="100" width="180" height="90" rx="20" />
-              <rect class="aplat-alerte" x="1000" y="220" width="180" height="90" rx="20" />
-              <rect class="aplat-alerte" x="1000" y="340" width="180" height="90" rx="20" />
-              <rect class="aplat-alerte" x="1000" y="460" width="180" height="90" rx="20" />
-              <rect class="aplat-alerte" x="1000" y="580" width="180" height="90" rx="20" />
-              <rect class="badge-alerte" x="1000" y="700" width="180" height="90" rx="20" />
-              <rect class="remplis-h43" x="1000" y="700" width="180" height="90" rx="20" />
-              <text class="t-m c-alerte" x="1230" y="130">Risque</text>
-              <text class="t-m c-alerte" x="1230" y="178">d’invention</text>
+              <text class="t-s c-legende" x="100" y="120">Une question sur un sujet rare</text>
+              <text class="t-s c-alerte" x="1100" y="120">Risque d’invention</text>
+              <use
+                class="ico-legende"
+                href="assets/img/icones.svg#i-circle-help"
+                x="100"
+                y="212"
+                width="56"
+                height="56"
+              />
+              <text class="t-s c-legende" x="180" y="262">Sans aide</text>
+              <text class="t-m c-alerte" x="960" y="265" text-anchor="end">68&nbsp;%</text>
+              <rect class="surface" x="1088" y="140" width="204" height="620" />
+              <rect class="piste" x="1100" y="150" width="180" height="600" rx="24" />
+
+              <rect class="aplat-alerte" x="1100" y="342" width="180" height="408" rx="24" />
+              <rect class="surface" x="1290" y="120" width="310" height="700" />
+              <text class="t-xl c-alerte" x="1310" y="376">68&nbsp;%</text>
               <g data-etape="1">
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-file-text"
                   x="100"
-                  y="113"
-                  width="64"
-                  height="64"
+                  y="332"
+                  width="56"
+                  height="56"
                 />
-                <text class="t-m c-fort" x="196" y="160">Un document fourni</text>
-                <path class="trait-legende tirets" d="M840 145H970" />
-                <rect class="fantome" x="994" y="96" width="192" height="98" rx="24" />
+                <text class="t-s c-fort" x="180" y="382">Un document fourni</text>
+                <text class="t-m c-alerte" x="960" y="385" text-anchor="end">24&nbsp;%</text>
+                <rect class="surface" x="1088" y="140" width="204" height="620" />
+                <rect class="piste" x="1100" y="150" width="180" height="600" rx="24" />
+                <rect class="fantome" x="1100" y="342" width="180" height="408" rx="24" />
+                <rect class="aplat-alerte" x="1100" y="606" width="180" height="144" rx="24" />
+                <rect class="surface" x="1290" y="120" width="310" height="700" />
+                <text class="t-xl c-alerte" x="1310" y="640">24&nbsp;%</text>
               </g>
               <g data-etape="2">
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-globe"
                   x="100"
-                  y="233"
-                  width="64"
-                  height="64"
+                  y="452"
+                  width="56"
+                  height="56"
                 />
-                <text class="t-m c-fort" x="196" y="280">La recherche web</text>
-                <path class="trait-legende tirets" d="M840 265H970" />
-                <rect class="fantome" x="994" y="216" width="192" height="98" rx="24" />
+                <text class="t-s c-fort" x="180" y="502">La recherche web</text>
+                <text class="t-m c-alerte" x="960" y="505" text-anchor="end">13&nbsp;%</text>
+                <rect class="surface" x="1088" y="140" width="204" height="620" />
+                <rect class="piste" x="1100" y="150" width="180" height="600" rx="24" />
+                <rect class="fantome" x="1100" y="606" width="180" height="144" rx="24" />
+                <rect class="aplat-alerte" x="1100" y="672" width="180" height="78" rx="24" />
+                <rect class="surface" x="1290" y="120" width="310" height="700" />
+                <text class="t-xl c-alerte" x="1310" y="706">13&nbsp;%</text>
               </g>
               <g data-etape="3">
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-hand"
                   x="100"
-                  y="353"
-                  width="64"
-                  height="64"
+                  y="572"
+                  width="56"
+                  height="56"
                 />
-                <text class="t-m c-fort" x="196" y="400">
+                <text class="t-s c-fort" x="180" y="622">
                   Autoriser «&nbsp;je ne sais pas&nbsp;»
                 </text>
-                <path class="trait-legende tirets" d="M840 385H970" />
-                <rect class="fantome" x="994" y="336" width="192" height="98" rx="24" />
+                <text class="t-m c-alerte" x="960" y="625" text-anchor="end">9&nbsp;%</text>
+                <rect class="surface" x="1088" y="140" width="204" height="620" />
+                <rect class="piste" x="1100" y="150" width="180" height="600" rx="24" />
+                <rect class="fantome" x="1100" y="672" width="180" height="78" rx="24" />
+                <rect class="aplat-alerte" x="1100" y="696" width="180" height="54" rx="24" />
+                <rect class="surface" x="1290" y="120" width="310" height="700" />
+                <text class="t-xl c-alerte" x="1310" y="730">9&nbsp;%</text>
               </g>
               <g data-etape="4">
                 <use
                   class="ico-p"
-                  href="assets/img/icones.svg#i-quote"
+                  href="assets/img/icones.svg#i-link"
                   x="100"
-                  y="473"
-                  width="64"
-                  height="64"
+                  y="692"
+                  width="56"
+                  height="56"
                 />
-                <text class="t-m c-fort" x="196" y="520">Demander les sources</text>
-                <path class="trait-legende tirets" d="M840 505H970" />
-                <rect class="fantome" x="994" y="456" width="192" height="98" rx="24" />
+                <text class="t-s c-fort" x="180" y="742">Demander les sources</text>
+                <text class="t-m c-alerte" x="960" y="745" text-anchor="end">7&nbsp;%</text>
+                <rect class="surface" x="1088" y="140" width="204" height="620" />
+                <rect class="piste" x="1100" y="150" width="180" height="600" rx="24" />
+                <rect class="fantome" x="1100" y="696" width="180" height="54" rx="24" />
+                <rect class="aplat-alerte" x="1100" y="708" width="180" height="42" rx="21" />
+                <rect class="surface" x="1290" y="120" width="310" height="700" />
+                <text class="t-xl c-alerte" x="1310" y="742">7&nbsp;%</text>
               </g>
               <g data-etape="5">
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-calendar"
-                  x="100"
-                  y="593"
-                  width="64"
-                  height="64"
-                />
-                <text class="t-m c-fort" x="196" y="640">Un sujet connu, pas récent</text>
-                <path class="trait-legende tirets" d="M840 625H970" />
-                <rect class="fantome" x="994" y="576" width="192" height="98" rx="24" />
-                <text class="t-m c-alerte" x="1230" y="735">Jamais</text>
-                <text class="t-m c-alerte" x="1230" y="783">à zéro</text>
+                <rect class="badge-alerte" x="1100" y="708" width="180" height="42" rx="21" />
+                <rect class="remplis-h43" x="1100" y="708" width="180" height="42" rx="21" />
+                <text class="t-s c-alerte" x="1100" y="810">Jamais à zéro</text>
               </g>
             </svg>
           </div>
           <p class="planche__source">
-            Schéma illustratif, sans pourcentage&nbsp;: les leviers réduisent le risque sans
-            l’annuler. Source&nbsp;: Permis IA, fiche 4.
+            Estimation du simulateur Permis IA, fiche&nbsp;4, pour comprendre&nbsp;: le vrai risque
+            dépend du modèle et de la question. Sur un fait très connu, il part de 5&nbsp;%.
           </p>
         </section>
 
@@ -441,53 +461,72 @@
             <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-4-4 de-4-4">
               <title id="ti-4-4">Les documents presque justes</title>
               <desc id="de-4-4">
-                À gauche, Llama 2 avec 0 à 18 documents en trop&nbsp;: les bonnes réponses sur 100
-                tombent de 56 à 35 avec des documents pris au hasard, mais à 23 avec des documents
-                qui ressemblent à la réponse. À droite, pour Gemini 2.5 Pro, le score sur 100 est de
-                78 sans rien ajouter, 71 avec des documents au hasard et 48 avec des documents
-                presque justes.
+                Une IA récente (Gemini 2.5 Pro) répond à des questions. Sans rien en plus, elle
+                marque 78 sur 100. Avec des documents pris au hasard en plus, comme une recette de
+                crêpes, 71. Avec des documents presque justes, comme les tarifs de l’an dernier,
+                48&nbsp;: le pire piège est ce qui ressemble à la réponse.
               </desc>
+
               <g data-etape="1">
-                <text class="t-xs c-legende" x="100" y="130">
-                  Llama 2, de 0 à 18 documents en trop
-                </text>
-                <path class="trait-legende" d="M120 700H600" />
-                <path
-                  class="trait-legende tirets"
-                  d="M120 308L216 371L312 434L408 483L504 483L600 455"
+                <text class="t-s c-legende" x="100" y="110">Ce qu’on ajoute à la question</text>
+                <text class="t-s c-legende" x="900" y="110">Score sur 100</text>
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-message-square"
+                  x="100"
+                  y="190"
+                  width="64"
+                  height="64"
                 />
-                <path class="trait-alerte" d="M120 308L216 378L312 455L408 511L504 518L600 539" />
-                <circle class="neutre" cx="120" cy="308" r="12" />
-                <rect class="neutre" x="589" y="444" width="22" height="22" rx="4" />
-                <circle class="aplat-alerte" cx="600" cy="539" r="12" />
-                <text class="t-m c-fort" x="100" y="266">56</text>
-                <text class="t-m c-fort" x="640" y="445">35</text>
-                <text class="t-xs c-legende" x="640" y="481">au hasard</text>
-                <text class="t-m c-alerte" x="640" y="565">23</text>
-                <text class="t-xs c-alerte" x="640" y="603">qui ressemblent</text>
+                <text class="t-s c-fort" x="190" y="226">Rien</text>
+                <text class="t-xs c-legende" x="190" y="270">la question seule</text>
+                <rect class="piste" x="900" y="194" width="500" height="72" rx="18" />
+                <rect class="neutre" x="900" y="194" width="390" height="72" rx="18" />
+                <text class="t-l c-fort" x="1420" y="252">78</text>
               </g>
               <g data-etape="2">
-                <text class="t-xs c-legende" x="960" y="130">Gemini 2.5 Pro, score sur 100</text>
-                <text class="t-xs c-fort" x="960" y="218">Sans ajout</text>
-                <rect class="piste" x="960" y="240" width="540" height="72" rx="20" />
-                <rect class="neutre" x="960" y="240" width="421.2" height="72" rx="20" />
-                <text class="t-l c-fort" x="1405.2" y="296">78</text>
-                <text class="t-xs c-fort" x="960" y="408">Documents au hasard</text>
-                <rect class="piste" x="960" y="430" width="540" height="72" rx="20" />
-                <rect class="neutre" x="960" y="430" width="383.4" height="72" rx="20" />
-                <text class="t-l c-fort" x="1367.4" y="486">71</text>
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-dices"
+                  x="100"
+                  y="380"
+                  width="64"
+                  height="64"
+                />
+                <text class="t-s c-fort" x="190" y="416">Des documents au hasard</text>
+                <text class="t-xs c-legende" x="190" y="460">ex. une recette de crêpes</text>
+                <rect class="piste" x="900" y="384" width="500" height="72" rx="18" />
+                <rect class="neutre" x="900" y="384" width="355" height="72" rx="18" />
+                <text class="t-l c-fort" x="1420" y="442">71</text>
+                <path class="trait-legende tirets" d="M1290 370V470" />
               </g>
               <g data-etape="3">
-                <text class="t-xs c-fort" x="960" y="598">Documents presque justes</text>
-                <rect class="piste" x="960" y="620" width="540" height="72" rx="20" />
-                <rect class="aplat-alerte" x="960" y="620" width="259.2" height="72" rx="20" />
-                <text class="t-l c-alerte" x="1243.2" y="676">48</text>
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-file-warning"
+                  x="100"
+                  y="570"
+                  width="64"
+                  height="64"
+                />
+                <text class="t-s c-fort" x="190" y="606">Des documents presque justes</text>
+                <text class="t-xs c-legende" x="190" y="650">ex. les tarifs de l’an dernier</text>
+                <rect class="piste" x="900" y="574" width="500" height="72" rx="18" />
+                <rect class="aplat-alerte" x="900" y="574" width="240" height="72" rx="18" />
+                <text class="t-l c-alerte" x="1420" y="632">48</text>
+                <path class="trait-legende tirets" d="M1290 560V660" />
+              </g>
+              <g data-etape="4">
+                <text class="t-m c-alerte" x="100" y="800">
+                  Le pire piège&nbsp;: ce qui ressemble à la réponse
+                </text>
               </g>
             </svg>
           </div>
           <p class="planche__source">
-            Gauche&nbsp;: Cuconasu et al., SIGIR 2024 (Llama 2, arrondi). Droite&nbsp;: Lee et al.,
-            janvier 2026 (Gemini 2.5 Pro, 11 tests, pas encore relu par d’autres chercheurs).
+            Lee et al., «&nbsp;Lost in the Noise&nbsp;», janvier 2026, non relu par des pairs&nbsp;:
+            Gemini 2.5 Pro, moyenne de 11 tests. Exemples illustratifs. Même constat en 2024 sur une
+            IA plus ancienne (Cuconasu et al.). Permis IA, fiche&nbsp;4.
           </p>
         </section>
 
@@ -507,98 +546,90 @@
             <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-4-5 de-4-5">
               <title id="ti-4-5">Quoi vérifier</title>
               <desc id="de-4-5">
-                Sept types d’éléments à vérifier dans une réponse d’IA&nbsp;: les dates, les
-                chiffres, les noms, les citations, les lois, les liens et le mot
-                «&nbsp;officiel&nbsp;». Pour chacun, on cherche une vraie source.
+                Six types d’éléments à vérifier dans une réponse d’IA&nbsp;: les dates, les
+                chiffres, les noms, les citations, les lois et les liens. Pour chacun, on cherche la
+                vraie source.
               </desc>
+
               <g data-etape="1">
-                <circle class="fond-p" cx="275" cy="250" r="70" />
+                <circle class="fond-p" cx="250" cy="250" r="70" />
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-calendar"
-                  x="241"
+                  x="216"
                   y="216"
                   width="68"
                   height="68"
                 />
-                <text class="t-m c-fort" x="275" y="390" text-anchor="middle">Dates</text>
-                <circle class="fond-p" cx="625" cy="250" r="70" />
+                <text class="t-s c-fort" x="250" y="367" text-anchor="middle">Dates</text>
+                <circle class="fond-p" cx="600" cy="250" r="70" />
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-coins"
-                  x="591"
+                  x="566"
                   y="216"
                   width="68"
                   height="68"
                 />
-                <text class="t-m c-fort" x="625" y="390" text-anchor="middle">Chiffres</text>
-                <circle class="fond-p" cx="975" cy="250" r="70" />
+                <text class="t-s c-fort" x="600" y="367" text-anchor="middle">Chiffres</text>
+                <circle class="fond-p" cx="950" cy="250" r="70" />
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-user"
-                  x="941"
+                  x="916"
                   y="216"
                   width="68"
                   height="68"
                 />
-                <text class="t-m c-fort" x="975" y="390" text-anchor="middle">Noms</text>
-                <circle class="fond-p" cx="1325" cy="250" r="70" />
+                <text class="t-s c-fort" x="950" y="367" text-anchor="middle">Noms</text>
+              </g>
+              <g data-etape="2">
+                <circle class="fond-p" cx="250" cy="560" r="70" />
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-quote"
-                  x="1291"
-                  y="216"
+                  x="216"
+                  y="526"
                   width="68"
                   height="68"
                 />
-                <text class="t-m c-fort" x="1325" y="390" text-anchor="middle">Citations</text>
-              </g>
-              <g data-etape="2">
-                <circle class="fond-p" cx="275" cy="560" r="70" />
+                <text class="t-s c-fort" x="250" y="677" text-anchor="middle">Citations</text>
+                <circle class="fond-p" cx="600" cy="560" r="70" />
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-gavel"
-                  x="241"
+                  x="566"
                   y="526"
                   width="68"
                   height="68"
                 />
-                <text class="t-m c-fort" x="275" y="700" text-anchor="middle">Lois</text>
-                <circle class="fond-p" cx="625" cy="560" r="70" />
+                <text class="t-s c-fort" x="600" y="677" text-anchor="middle">Lois</text>
+                <circle class="fond-p" cx="950" cy="560" r="70" />
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-link"
-                  x="591"
+                  x="916"
                   y="526"
                   width="68"
                   height="68"
                 />
-                <text class="t-m c-fort" x="625" y="700" text-anchor="middle">Liens</text>
-                <circle class="fond-p" cx="975" cy="560" r="70" />
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-badge-check"
-                  x="941"
-                  y="526"
-                  width="68"
-                  height="68"
-                />
-                <text class="t-m c-fort" x="975" y="700" text-anchor="middle">
-                  «&nbsp;Officiel&nbsp;»
-                </text>
+                <text class="t-s c-fort" x="950" y="677" text-anchor="middle">Liens</text>
               </g>
               <g data-etape="3">
-                <rect class="encre-p" x="1150" y="450" width="350" height="290" rx="32" />
+                <path class="trait-legende" d="M1060 450H1140" />
+                <path class="pointe-legende" d="M1140 434l26 16l-26 16z" />
+                <rect class="encre-p" x="1180" y="230" width="320" height="440" rx="32" />
                 <use
                   class="ico-sur"
                   href="assets/img/icones.svg#i-search"
-                  x="1277"
-                  y="490"
+                  x="1292"
+                  y="300"
                   width="96"
                   height="96"
                 />
-                <text class="t-m c-sur" x="1325" y="650" text-anchor="middle">Chercher</text>
-                <text class="t-m c-sur" x="1325" y="698" text-anchor="middle">la source</text>
+                <text class="t-m c-sur" x="1340" y="480" text-anchor="middle">Chercher</text>
+                <text class="t-m c-sur" x="1340" y="530" text-anchor="middle">la source</text>
+                <text class="t-xs c-sur" x="1340" y="600" text-anchor="middle">pour chacun</text>
               </g>
             </svg>
           </div>
