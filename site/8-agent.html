@@ -129,7 +129,13 @@
 
       <div class="planches">
         <!-- 8.1 -->
-        <section class="planche" id="p-8-1" data-partie="3" aria-labelledby="t-8-1">
+        <section
+          class="planche"
+          id="p-8-1"
+          data-partie="3"
+          data-parcours="intermediaire"
+          aria-labelledby="t-8-1"
+        >
           <header class="planche__tete">
             <span class="planche__puce">8.1</span>
             <h2 id="t-8-1" class="planche__titre">Les 5 briques d’un agent</h2>
@@ -144,98 +150,55 @@
                 les consignes si l’agent se trompe).
               </desc>
               <g data-etape="1">
-                <rect class="carte-p" x="60" y="688" width="720" height="140" rx="28" />
-                <circle class="encre-p" cx="122" cy="758" r="36" />
-                <text class="t-m c-sur" x="122" y="774" text-anchor="middle">1</text>
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-target"
-                  x="182"
-                  y="730"
-                  width="56"
-                  height="56"
-                />
-                <text class="t-l c-p" x="264" y="778">Tâche</text>
-                <path class="trait-legende tirets" d="M800 758H860" />
-                <text class="t-m c-fort" x="890" y="754">Une tâche qui revient</text>
-                <text class="t-s c-legende" x="890" y="802">souvent, avec des étapes</text>
+                <rect class="carte-p" x="100" y="682" width="700" height="112" rx="28" />
+                <circle class="encre-p" cx="168" cy="738" r="32" />
+                <text class="t-m c-sur" x="168" y="753" text-anchor="middle">1</text>
+                <text class="t-l c-p" x="244" y="759">Tâche</text>
               </g>
               <g data-etape="2">
-                <rect class="carte-p" x="100" y="536" width="720" height="140" rx="28" />
-                <circle class="encre-p" cx="162" cy="606" r="36" />
-                <text class="t-m c-sur" x="162" y="622" text-anchor="middle">2</text>
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-scroll-text"
-                  x="222"
-                  y="578"
-                  width="56"
-                  height="56"
-                />
-                <text class="t-l c-p" x="304" y="626">Consignes</text>
-                <path class="trait-legende tirets" d="M840 606H860" />
-                <text class="t-m c-fort" x="890" y="602">AGENTS.md, court</text>
-                <text class="t-s c-legende" x="890" y="650">moins de 200 lignes</text>
+                <rect class="carte-p" x="100" y="538" width="700" height="112" rx="28" />
+                <circle class="encre-p" cx="168" cy="594" r="32" />
+                <text class="t-m c-sur" x="168" y="609" text-anchor="middle">2</text>
+                <text class="t-l c-p" x="244" y="615">Consignes</text>
+                <path class="trait-legende" d="M830 594H880" />
+                <text class="t-m c-fort" x="910" y="609">Moins de 200 lignes</text>
               </g>
               <g data-etape="3">
-                <rect class="carte-p" x="60" y="384" width="720" height="140" rx="28" />
-                <circle class="encre-p" cx="122" cy="454" r="36" />
-                <text class="t-m c-sur" x="122" y="470" text-anchor="middle">3</text>
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-wrench"
-                  x="182"
-                  y="426"
-                  width="56"
-                  height="56"
-                />
-                <text class="t-l c-p" x="264" y="474">Outils</text>
-                <path class="trait-legende tirets" d="M800 454H860" />
-                <text class="t-m c-fort" x="890" y="450">Le moins d’outils</text>
-                <text class="t-s c-legende" x="890" y="498">possible</text>
-                <rect class="carte-p" x="100" y="232" width="720" height="140" rx="28" />
-                <circle class="encre-p" cx="162" cy="302" r="36" />
-                <text class="t-m c-sur" x="162" y="318" text-anchor="middle">4</text>
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-hand"
-                  x="222"
-                  y="274"
-                  width="56"
-                  height="56"
-                />
-                <text class="t-l c-p" x="304" y="322">Limites</text>
-                <path class="trait-legende tirets" d="M840 302H860" />
-                <text class="t-m c-fort" x="890" y="298">Vous validez</text>
-                <text class="t-s c-legende" x="890" y="346">avant tout envoi</text>
+                <rect class="carte-p" x="100" y="394" width="700" height="112" rx="28" />
+                <circle class="encre-p" cx="168" cy="450" r="32" />
+                <text class="t-m c-sur" x="168" y="465" text-anchor="middle">3</text>
+                <text class="t-l c-p" x="244" y="471">Outils</text>
+                <rect class="carte-p" x="100" y="250" width="700" height="112" rx="28" />
+                <circle class="encre-p" cx="168" cy="306" r="32" />
+                <text class="t-m c-sur" x="168" y="321" text-anchor="middle">4</text>
+                <text class="t-l c-p" x="244" y="327">Limites</text>
+                <path class="trait-legende" d="M830 306H880" />
+                <text class="t-m c-fort" x="910" y="321">Vous validez avant l’envoi</text>
               </g>
               <g data-etape="4">
-                <rect class="encre-p" x="60" y="80" width="720" height="140" rx="28" />
-                <circle class="surface" cx="122" cy="150" r="36" />
-                <text class="t-m c-p" x="122" y="166" text-anchor="middle">5</text>
-                <use
-                  class="ico-sur"
-                  href="assets/img/icones.svg#i-list-checks"
-                  x="182"
-                  y="122"
-                  width="56"
-                  height="56"
-                />
-                <text class="t-l c-sur" x="264" y="170">Test</text>
-                <path class="trait-legende tirets" d="M800 150H860" />
-                <text class="t-m c-fort" x="890" y="146">Sur de vrais cas</text>
-                <text class="t-s c-legende" x="890" y="194">S’il se trompe, on corrige</text>
+                <rect class="encre-p" x="100" y="106" width="700" height="112" rx="28" />
+                <circle class="surface" cx="168" cy="162" r="32" />
+                <text class="t-m c-p" x="168" y="177" text-anchor="middle">5</text>
+                <text class="t-l c-sur" x="244" y="183">Test</text>
+                <path class="trait-legende" d="M830 162H880" />
+                <text class="t-m c-fort" x="910" y="177">Sur de vrais cas</text>
               </g>
             </svg>
           </div>
           <p class="planche__source">
-            Source&nbsp;: Permis IA, fiche&nbsp;8. Schéma sans chiffre, hormis le repère de la fiche
-            (moins de 200 lignes).
+            Tâche qui revient souvent, avec des étapes&nbsp;; outils en nombre minimal.
+            Source&nbsp;: Permis IA, fiche&nbsp;8 (repère&nbsp;: moins de 200 lignes).
           </p>
         </section>
 
         <!-- 8.2 -->
-        <section class="planche" id="p-8-2" data-partie="3" aria-labelledby="t-8-2">
+        <section
+          class="planche"
+          id="p-8-2"
+          data-partie="3"
+          data-parcours="intermediaire"
+          aria-labelledby="t-8-2"
+        >
           <header class="planche__tete">
             <span class="planche__puce">8.2</span>
             <h2 id="t-8-2" class="planche__titre">Toujours lu ou lu au besoin</h2>
@@ -256,93 +219,59 @@
                 </pattern>
               </defs>
               <g data-etape="1">
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-folder-open"
-                  x="60"
-                  y="28"
-                  width="56"
-                  height="56"
-                />
-                <text class="t-l c-fort" x="134" y="76">agence/</text>
-                <path class="trait-legende" d="M36 112V585M36 225H60M36 405H80M36 585H80" />
-                <rect class="surface-2" x="60" y="150" width="740" height="150" rx="28" />
-                <circle class="encre-p" cx="124" cy="225" r="40" />
+                <circle class="encre-p" cx="144" cy="220" r="44" />
                 <use
                   class="ico-sur"
                   href="assets/img/icones.svg#i-file-text"
-                  x="102"
-                  y="203"
-                  width="44"
-                  height="44"
+                  x="120"
+                  y="196"
+                  width="48"
+                  height="48"
                 />
-                <text class="t-m c-fort" x="188" y="214">AGENTS.md</text>
-                <rect class="encre-p" x="188" y="234" width="580" height="50" rx="25" />
-                <text class="t-xs c-sur" x="212" y="269">toujours relu&nbsp;· 80 lignes</text>
-                <rect class="surface-2" x="80" y="330" width="720" height="150" rx="28" />
-                <circle class="encre-p" cx="144" cy="405" r="40" />
-                <use
-                  class="ico-sur"
-                  href="assets/img/icones.svg#i-scroll-text"
-                  x="122"
-                  y="383"
-                  width="44"
-                  height="44"
-                />
-                <text class="t-m c-fort" x="208" y="394">skills/devis/SKILL.md</text>
-                <rect class="trou" x="208" y="414" width="560" height="50" rx="25" />
-                <text class="t-xs c-fort" x="232" y="449">pour un devis&nbsp;· 300 lignes</text>
-                <rect class="surface-2" x="80" y="510" width="720" height="150" rx="28" />
-                <circle class="encre-p" cx="144" cy="585" r="40" />
-                <use
-                  class="ico-sur"
-                  href="assets/img/icones.svg#i-coins"
-                  x="122"
-                  y="563"
-                  width="44"
-                  height="44"
-                />
-                <text class="t-m c-fort" x="208" y="574">tarifs-2027.pdf</text>
-                <rect class="trou" x="208" y="594" width="560" height="50" rx="25" />
-                <text class="t-xs c-fort" x="232" y="629">à la demande&nbsp;· 120 lignes</text>
-              </g>
-              <g data-etape="2">
+                <text class="t-m c-fort" x="224" y="218">AGENTS.md</text>
+                <text class="t-s c-p" x="224" y="268">toujours relu</text>
+                <circle class="trou" cx="144" cy="420" r="44" />
                 <use
                   class="ico-p"
-                  href="assets/img/icones.svg#i-gauge"
-                  x="880"
-                  y="28"
-                  width="56"
-                  height="56"
+                  href="assets/img/icones.svg#i-scroll-text"
+                  x="120"
+                  y="396"
+                  width="48"
+                  height="48"
                 />
-                <text class="t-m c-fort" x="956" y="74">Place en mémoire (lignes)</text>
-                <text class="t-s c-fort" x="880" y="160">Question simple</text>
-                <text class="t-xs c-legende" x="880" y="232">Tout dans AGENTS.md</text>
-                <rect class="piste" x="880" y="250" width="500" height="76" rx="18" />
-                <rect class="encre-p" x="880" y="250" width="80" height="76" rx="12" />
-                <rect class="hach-8-2" x="960" y="250" width="300" height="76" rx="8" />
-                <text class="t-l c-alerte" x="1540" y="306" text-anchor="end">380</text>
-                <text class="t-xs c-legende" x="880" y="372">Méthode dans une Skill</text>
-                <rect class="piste" x="880" y="390" width="500" height="76" rx="18" />
-                <rect class="encre-p" x="880" y="390" width="80" height="76" rx="12" />
-                <text class="t-l c-p" x="1540" y="446" text-anchor="end">80</text>
+                <text class="t-m c-fort" x="224" y="418">SKILL.md</text>
+                <text class="t-s c-legende" x="224" y="468">au besoin</text>
+                <circle class="trou" cx="144" cy="620" r="44" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-coins"
+                  x="120"
+                  y="596"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-m c-fort" x="224" y="618">tarifs-2027.pdf</text>
+                <text class="t-s c-legende" x="224" y="668">au besoin</text>
               </g>
-              <g data-etape="3">
-                <text class="t-s c-fort" x="880" y="560">Un devis</text>
-                <rect class="piste" x="880" y="590" width="500" height="76" rx="18" />
-                <rect class="encre-p" x="880" y="590" width="80" height="76" rx="12" />
-                <rect class="trou-plein" x="966" y="590" width="294" height="76" rx="8" />
-                <rect class="trou-plein" x="1266" y="590" width="114" height="76" rx="8" />
-                <text class="t-l c-p" x="1540" y="646" text-anchor="end">500</text>
-                <text class="t-xs c-legende" x="880" y="720">
-                  Même place, mais seulement quand il le faut
-                </text>
+              <g data-etape="2">
+                <text class="t-m c-fort" x="900" y="210">Tout dans AGENTS.md</text>
+                <rect class="piste" x="900" y="250" width="600" height="56" rx="18" />
+                <rect class="encre-p" x="900" y="250" width="126" height="56" rx="12" />
+                <rect class="hach-8-2" x="1040" y="250" width="460" height="56" rx="8" />
+                <text class="t-s c-legende" x="900" y="120">Pour une question simple</text>
+                <text class="t-xl c-alerte" x="900" y="410">380</text>
+                <text class="t-s c-legende" x="1100" y="410">lignes lues</text>
+                <text class="t-m c-fort" x="900" y="560">Méthode dans une Skill</text>
+                <rect class="piste" x="900" y="600" width="600" height="56" rx="18" />
+                <rect class="encre-p" x="900" y="600" width="126" height="56" rx="12" />
+                <text class="t-xl c-p" x="900" y="760">80</text>
+                <text class="t-s c-legende" x="1040" y="760">lignes lues</text>
               </g>
             </svg>
           </div>
           <p class="planche__source">
-            Nombres de lignes inventés par la fiche pour comprendre. Chemin simplifié&nbsp;: le
-            dossier des Skills change selon l’agent. Source&nbsp;: Permis IA, fiche&nbsp;8.
+            Nombres de lignes inventés pour comprendre (80, 300 et 120)&nbsp;; pour un devis, 500
+            lignes dans les deux cas. Source&nbsp;: Permis IA, fiche&nbsp;8.
           </p>
         </section>
       </div>

@@ -7,23 +7,29 @@
  * - → Espace PageDown clic : étape suivante, puis planche suivante, puis chapitre suivant.
  *   ← PageUp : l'inverse (la planche précédente s'affiche avec toutes ses étapes).
  *   Début / Fin : première / dernière planche de la page. F : plein écran. Échap : quitter.
- * - ?express : seulement les planches marquées data-express, y compris d'une page à l'autre.
+ * - ?parcours=initiation ou ?parcours=intermediaire : seulement les planches de ce parcours
+ *   (attribut data-parcours), y compris d'une page à l'autre. ?express reste un alias d'initiation.
  * - Le hash (#p-1-3) positionne la planche ; il est mis à jour pendant la projection.
- * - La numérotation « n / 39 » et la navigation entre les pages viennent de plan.js.
+ * - La numérotation (« 1.2 · 2 / 42 », ou « Initiation · 3 / 14 » en parcours) et la navigation entre
+ *   les pages viennent de plan.js.
  *
  * Module ES sans dépendance.
  */
-import { PLANCHES, TOTAL, parAncre } from './plan.js';
+import { PARCOURS, PLANCHES, TOTAL, parAncre } from './plan.js';
 
 const SPRITE = 'assets/img/icones.svg';
 const CLE_ARRIVEE = 'schema-ia:arrivee';
 
 const corps = document.body;
 const parametres = new URLSearchParams(location.search);
-const express = parametres.has('express');
+// Parcours demandé par l'adresse (« express » : ancien nom d'initiation), sinon aucun.
+const demande = parametres.get('parcours') ?? (parametres.has('express') ? 'initiation' : null);
+const parcours = demande && Object.hasOwn(PARCOURS, demande) ? demande : null;
 const fichierCourant = location.pathname.split('/').pop() || 'index.html';
-const toutes = [...document.querySelectorAll('.planche')];
-const liste = express ? toutes.filter((planche) => planche.hasAttribute('data-express')) : toutes;
+// Les miniatures décoratives du sommaire (.miniature) ne sont pas des planches à projeter.
+const toutes = [...document.querySelectorAll('.planche:not(.miniature)')];
+const liste = parcours ? toutes.filter((planche) => planche.dataset.parcours === parcours) : toutes;
+const planchesDuParcours = PLANCHES.filter((p) => !parcours || p.parcours === parcours);
 
 let actif = false;
 let indice = 0;
@@ -47,7 +53,7 @@ const premiereEtape = (planche) => Math.min(1, etapesDe(planche));
 function recherche(avecProjection) {
   const morceaux = [];
   if (avecProjection) morceaux.push('projection');
-  if (express) morceaux.push('express');
+  if (parcours) morceaux.push(`parcours=${parcours}`);
   return morceaux.length ? `?${morceaux.join('&')}` : '';
 }
 
@@ -129,20 +135,26 @@ function montrer(i, k, { annoncer = true } = {}) {
   afficherEtapes(planche, etape);
   majAdresse(planche);
   const infos = parAncre(planche.id);
-  const rang = infos ? `${infos.id} · ${infos.rang} / ${TOTAL}` : planche.id;
-  pied.querySelector('.projection__rang').textContent = rang;
-  if (annoncer) {
-    annonce.textContent = infos
-      ? `Planche ${infos.rang} sur ${TOTAL} : ${infos.titre}`
-      : `Planche ${i + 1}`;
+  let rang = planche.id;
+  let phrase = `Planche ${i + 1}`;
+  if (infos && parcours) {
+    const n = planchesDuParcours.findIndex((p) => p.rang === infos.rang) + 1;
+    const total = planchesDuParcours.length;
+    rang = `${PARCOURS[parcours].titre} · ${n} / ${total}`;
+    phrase = `Parcours ${PARCOURS[parcours].titre}, planche ${n} sur ${total} : ${infos.titre}`;
+  } else if (infos) {
+    rang = `${infos.id} · ${infos.rang} / ${TOTAL}`;
+    phrase = `Planche ${infos.rang} sur ${TOTAL} : ${infos.titre}`;
   }
+  pied.querySelector('.projection__rang').textContent = rang;
+  if (annoncer) annonce.textContent = phrase;
 }
 
 /** Planche voisine, dans le plan complet, qui se trouve sur une autre page (sens : 1 ou -1). */
 function pageVoisine(sens) {
   const courante = parAncre(liste[indice].id);
   if (!courante) return null;
-  const candidates = PLANCHES.filter((p) => !express || p.express);
+  const candidates = planchesDuParcours;
   const position = candidates.findIndex((p) => p.rang === courante.rang);
   const suite = sens > 0 ? candidates.slice(position + 1) : candidates.slice(0, position).reverse();
   return suite.find((p) => p.fichier !== fichierCourant) ?? null;
@@ -230,7 +242,7 @@ function depuisAdresse() {
   const ancre = location.hash.slice(1);
   let i = liste.findIndex((p) => p.id === ancre);
   if (i < 0) {
-    // Planche absente de la liste (parcours express) : la première express qui suit, sinon la première.
+    // Planche absente de la liste (parcours) : la première du parcours qui suit, sinon la première.
     const position = toutes.findIndex((p) => p.id === ancre);
     i = position < 0 ? 0 : liste.findIndex((p) => toutes.indexOf(p) > position);
     if (i < 0) i = 0;
@@ -295,11 +307,11 @@ function demarrer() {
 
   if (parametres.has('projection')) {
     if (!liste.length) {
-      // Parcours express sans planche express sur cette page : on passe à la suivante.
+      // Parcours sans planche sur cette page : on passe à la suivante.
       corps.classList.add('projection');
-      const premiere = PLANCHES.find((p) => p.express && p.fichier !== fichierCourant);
+      const premiere = planchesDuParcours.find((p) => p.fichier !== fichierCourant);
       const ici = PLANCHES.find((p) => p.fichier === fichierCourant);
-      const suite = PLANCHES.find((p) => p.express && ici && p.rang > ici.rang);
+      const suite = planchesDuParcours.find((p) => ici && p.rang > ici.rang);
       const cible = suite ?? premiere;
       if (cible) location.replace(`${cible.fichier}${recherche(true)}#${cible.ancre}`);
       return;

@@ -9,6 +9,7 @@
     "sprite": "node outils/sprite.js",
     "icones": "node outils/icones-png.js",
     "captures": "node outils/captures.js",
+    "miniatures": "node outils/miniatures.js && prettier --write site/index.html",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "validate:html": "html-validate site/*.html",

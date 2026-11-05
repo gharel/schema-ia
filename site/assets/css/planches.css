@@ -280,11 +280,11 @@ a {
 .heros__interieur {
   max-width: var(--largeur);
   margin: 0 auto;
-  padding: var(--space-16) var(--space-6);
+  padding: var(--space-24) var(--space-6);
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
-  gap: var(--space-12);
+  gap: var(--space-20);
 }
 
 .badge {
@@ -300,7 +300,7 @@ a {
 }
 
 .heros h1 {
-  margin-top: var(--space-5);
+  margin-top: var(--space-8);
   color: var(--scene-texte);
   font-size: clamp(2.5rem, 6vw, 4.5rem);
   font-weight: 800;
@@ -308,7 +308,7 @@ a {
 }
 
 .heros__chiffres {
-  margin-top: var(--space-4);
+  margin-top: var(--space-6);
   color: var(--scene-doux);
   font-size: var(--text-xl);
   font-weight: 500;
@@ -317,8 +317,15 @@ a {
 .heros__boutons {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-3);
-  margin-top: var(--space-8);
+  gap: var(--space-4);
+  margin-top: var(--space-10);
+}
+
+.heros__aide {
+  max-width: 34em;
+  margin-top: var(--space-6);
+  color: var(--scene-doux);
+  font-size: var(--text-sm);
 }
 
 .heros .bouton--secondaire {
@@ -331,41 +338,289 @@ a {
   color: var(--scene-texte);
 }
 
-.heros__decor {
+/* Éventail de trois vraies planches en miniature, posées comme des diapositives sur la table. */
+.eventail {
+  position: relative;
   width: 100%;
-  height: auto;
-  border-radius: var(--radius-xl);
-  box-shadow: var(--ombre-lg);
+  aspect-ratio: 1 / 1;
+  margin-block: var(--space-6) var(--space-10);
+}
+
+.eventail .eventail__carte {
+  position: absolute;
+  width: 58%;
+  background: var(--surface);
+  color: var(--texte-fort);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 35%);
+  pointer-events: none;
+}
+
+.eventail__carte::before {
+  height: 5px;
+}
+
+.eventail__carte .planche__tete {
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4) var(--space-2);
+  background: var(--surface);
+}
+
+.eventail__carte .planche__puce {
+  font-size: 0.75rem;
+}
+
+.eventail__carte .planche__titre {
+  font-size: 0.9375rem;
+  line-height: 1.2;
+}
+
+.eventail__carte--1 {
+  top: 0;
+  left: 0;
+  transform: rotate(-5deg);
+}
+
+.eventail__carte--2 {
+  top: 27%;
+  left: 21%;
+  transform: rotate(1.5deg);
+}
+
+.eventail__carte--3 {
+  top: 54%;
+  left: 42%;
+  transform: rotate(6deg);
+}
+
+.eventail__aide {
+  position: absolute;
+  right: 0;
+  bottom: calc(-1 * var(--space-10));
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--scene-doux);
+  font-size: var(--text-sm);
+}
+
+.eventail__aide .icone {
+  width: 20px;
+  height: 20px;
+  padding: 2px;
+  border: 1.5px solid var(--scene-doux);
+  border-radius: var(--radius-sm);
+}
+
+.eventail__aide .icone:last-of-type {
+  margin-right: var(--space-2);
 }
 
 /* ── Sommaire : trois parties, une colonne chacune ───── */
 .sommaire {
   max-width: var(--largeur);
   margin: 0 auto;
-  padding: var(--space-12) var(--space-6) 0;
+  padding: var(--space-20) var(--space-6) 0;
+}
+
+/* Recherche : large, dégagée, évidente. */
+.recherche {
+  max-width: 46rem;
+  margin: 0 auto var(--space-20);
+}
+
+.recherche__titre {
+  margin-bottom: var(--space-4);
+  font-size: var(--text-xl);
+  font-weight: 800;
+}
+
+.recherche__champ {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 64px;
+  padding: 0 var(--space-5);
+  border: 2px solid var(--bord-fort);
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  box-shadow: var(--ombre-md);
+}
+
+.recherche__champ:focus-within {
+  border-color: var(--primaire-texte);
+}
+
+.recherche__champ > .icone {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  color: var(--texte-doux);
+}
+
+.recherche__saisie {
+  flex: 1;
+  min-width: 0;
+  min-height: 60px;
+  border: 0;
+  background: transparent;
+  color: var(--texte-fort);
+  font: inherit;
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.recherche__saisie:focus,
+.recherche__saisie:focus-visible {
+  outline: none;
+}
+
+.recherche__saisie::placeholder {
+  color: var(--texte-doux);
+  font-weight: 500;
+  opacity: 1;
+}
+
+.recherche__raccourci {
+  flex: none;
+  min-width: 2em;
+  padding: 2px var(--space-2);
+  border: 1.5px solid var(--bord-fort);
+  border-radius: var(--radius-md);
+  color: var(--texte-doux);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-align: center;
+}
+
+.recherche__resultats {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.resultat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: var(--ombre-sm);
+}
+
+.resultat--vide {
+  padding: var(--space-5) var(--space-6);
+  color: var(--texte-doux);
+}
+
+.resultat__lien {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--space-4);
+  min-width: 0;
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-xl);
+  color: inherit;
+  text-decoration: none;
+}
+
+.resultat__lien:hover {
+  background: var(--surface-2);
+}
+
+.resultat__rang {
+  flex: none;
+  min-width: 2.4em;
+  color: var(--partie-texte);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.resultat__texte {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+}
+
+.resultat__titre {
+  font-weight: 700;
+}
+
+.resultat__chapitre {
+  color: var(--texte-doux);
+  font-size: var(--text-sm);
+}
+
+.resultat__projeter {
+  flex: none;
+  margin-right: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  border: 1.5px solid var(--bord-fort);
+  border-radius: var(--radius-full);
+  color: var(--texte-fort);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.resultat__projeter:hover {
+  background: var(--surface-2);
+}
+
+/* Marqueurs de parcours : forme + lettre + couleur (pastille pleine I, carré à contour M). */
+.marque {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.marque--initiation {
+  border-radius: 50%;
+  background: var(--primaire-fonce);
+  color: var(--sur-primaire);
+}
+
+.marque--intermediaire {
+  border: 2px solid var(--primaire-texte);
+  border-radius: var(--radius-md);
+  color: var(--primaire-texte);
 }
 
 .sommaire__legende {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-2);
-  margin-bottom: var(--space-6);
+  gap: var(--space-2) var(--space-4);
+  margin-bottom: var(--space-12);
   color: var(--texte-doux);
   font-size: var(--text-sm);
+}
+
+.sommaire__legende .marque {
+  margin-right: calc(-1 * var(--space-2));
 }
 
 .parties {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-6);
+  gap: var(--space-10);
   align-items: start;
 }
 
 .partie__tete {
   display: flex;
   align-items: center;
-  gap: var(--space-3);
-  margin-bottom: var(--space-4);
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
 }
 
 .puce {
@@ -396,7 +651,7 @@ a {
 
 .partie__chapitres {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-8);
 }
 
 .carte-chap {
@@ -416,8 +671,8 @@ a {
 
 .carte-chap__corps {
   display: grid;
-  gap: var(--space-3);
-  padding: var(--space-5);
+  gap: var(--space-4);
+  padding: var(--space-8);
 }
 
 .carte-chap__haut {
@@ -469,7 +724,7 @@ a {
 
 .carte-chap__liste {
   display: grid;
-  gap: var(--space-1);
+  gap: var(--space-3);
   color: var(--texte-doux);
   font-size: var(--text-sm);
   line-height: 1.35;
@@ -488,12 +743,12 @@ a {
   font-weight: 700;
 }
 
-.carte-chap__liste .icone {
-  width: 14px;
-  height: 14px;
+.carte-chap__liste .marque {
   align-self: center;
+  width: 20px;
+  height: 20px;
   margin-left: auto;
-  color: var(--partie-texte);
+  font-size: 0.6875rem;
 }
 
 /* ── En-tête de chapitre ─────────────────────────────── */
@@ -1019,8 +1274,35 @@ body.projection {
 @media (max-width: 900px) {
   .heros__interieur {
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-8);
-    padding-block: var(--space-12);
+    gap: var(--space-12);
+    padding-block: var(--space-16);
+  }
+
+  /* Téléphone et tablette : une seule miniature, droite, sans débordement. */
+  .eventail {
+    aspect-ratio: auto;
+    max-width: 26rem;
+    margin-block: 0;
+  }
+
+  .eventail .eventail__carte {
+    position: relative;
+    width: 100%;
+    transform: none;
+  }
+
+  .eventail__carte--1 {
+    transform: rotate(-1.5deg);
+  }
+
+  .eventail__carte--2,
+  .eventail__carte--3,
+  .eventail__aide {
+    display: none;
+  }
+
+  .parties {
+    gap: var(--space-16);
   }
 
   .bandeau .bouton-projeter .bandeau__txt {

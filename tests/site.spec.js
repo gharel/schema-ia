@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { CHAPITRES, PLANCHES, TOTAL } from '../site/assets/js/plan.js';
+import { CHAPITRES, PARCOURS, PLANCHES, TOTAL } from '../site/assets/js/plan.js';
 import { PAGES, contraste, ouvrir, verifierBoutonTheme } from './aides.js';
 
 const normaliser = (texte) => texte.replace(/ /g, ' ').replace(/\s+/g, ' ').trim();
@@ -184,12 +184,14 @@ for (const { nom, url } of PAGES) {
   });
 }
 
-test('le sommaire suit le plan (plan.js) : chapitres, planches, express, totaux', async ({
+const planchesDe = (k) => PLANCHES.filter((p) => p.parcours === k);
+const premiere = (k) => planchesDe(k)[0];
+
+test('le sommaire suit le plan (plan.js) : chapitres, planches, parcours, totaux', async ({
   page,
 }) => {
   await ouvrir(page, 'index.html');
-  expect(TOTAL).toBe(39);
-  expect(PLANCHES.filter((p) => p.express)).toHaveLength(17);
+  expect(planchesDe('initiation').length + planchesDe('intermediaire').length).toBeLessThan(TOTAL);
   expect(normaliser(await page.locator('.heros__chiffres').innerText())).toBe(
     `${TOTAL} planches · 9 chapitres · 3 parties`,
   );
@@ -204,10 +206,23 @@ test('le sommaire suit le plan (plan.js) : chapitres, planches, express, totaux'
     await expect(carte.locator('.carte-chap__nombre')).toHaveText(
       `${chapitre.planches.length} planches`,
     );
-    await expect(carte.locator('.carte-chap__liste li')).toHaveCount(chapitre.planches.length);
-    expect(await carte.locator('.carte-chap__liste li:has(svg)').count()).toBe(
-      chapitre.planches.filter((p) => p.express).length,
-    );
+    const lignes = carte.locator('.carte-chap__liste li');
+    await expect(lignes).toHaveCount(chapitre.planches.length);
+    for (const [j, planche] of chapitre.planches.entries()) {
+      const ligne = lignes.nth(j);
+      expect(normaliser(await ligne.innerText())).toContain(normaliser(planche.titre));
+      await expect(ligne.locator('.rang')).toHaveText(planche.id);
+      await expect(ligne.locator('.marque')).toHaveCount(planche.parcours ? 1 : 0);
+      if (planche.parcours) {
+        await expect(ligne.locator('.marque')).toHaveClass(
+          new RegExp(`marque--${planche.parcours}`),
+        );
+        await expect(ligne.locator('.marque')).toHaveAttribute(
+          'aria-label',
+          `Parcours ${PARCOURS[planche.parcours].titre}`,
+        );
+      }
+    }
     await expect(carte.locator('xpath=ancestor::section')).toHaveAttribute(
       'data-partie',
       String(chapitre.partie),
@@ -217,10 +232,15 @@ test('le sommaire suit le plan (plan.js) : chapitres, planches, express, totaux'
     'href',
     '1-tokens.html?projection',
   );
-  await expect(page.getByRole('link', { name: 'Parcours express' })).toHaveAttribute(
-    'href',
-    '1-tokens.html?projection&express',
-  );
+  for (const [k, { titre }] of Object.entries(PARCOURS)) {
+    const bouton = page.locator(`.heros__boutons a[href*="parcours=${k}"]`);
+    await expect(bouton).toHaveAttribute('href', `${premiere(k).fichier}?projection&parcours=${k}`);
+    expect(normaliser(await bouton.innerText())).toBe(`${titre} · ${planchesDe(k).length}`);
+    await expect(bouton).toHaveAttribute('title', /.+/);
+  }
+  await expect(page.locator('a[href*="express"]')).toHaveCount(0);
+  // Légende des deux marqueurs.
+  await expect(page.locator('.sommaire__legende .marque')).toHaveCount(2);
 });
 
 test('le chapitre 1 contient les planches du plan, dans l’ordre', async ({ page }) => {
@@ -231,8 +251,8 @@ test('le chapitre 1 contient les planches du plan, dans l’ordre', async ({ pag
   for (const [i, planche] of attendues.entries()) {
     const section = sections.nth(i);
     await expect(section).toHaveAttribute('id', `p-${planche.id.replace('.', '-')}`);
-    if (planche.express) await expect(section).toHaveAttribute('data-express', '');
-    else await expect(section).not.toHaveAttribute('data-express');
+    if (planche.parcours) await expect(section).toHaveAttribute('data-parcours', planche.parcours);
+    else await expect(section).not.toHaveAttribute('data-parcours');
     expect(normaliser(await section.locator('.planche__titre').innerText())).toBe(planche.titre);
     await expect(section.locator('.planche__puce')).toHaveText(planche.id);
     await expect(section.locator('svg[viewBox="0 0 1600 900"] title')).toHaveCount(1);
@@ -298,7 +318,7 @@ test.describe('projection', () => {
     await expect(page.locator('.bandeau')).toBeHidden();
     await expect(page.locator('.pied')).toBeHidden();
     expect(await idsVisibles(page)).toEqual(['p-1-2']);
-    await expect(page.locator('.projection__rang')).toHaveText('1.2 · 2 / 39');
+    await expect(page.locator('.projection__rang')).toHaveText(`1.2 · 2 / ${TOTAL}`);
     expect(await etapesVues(page)).toBe(1);
 
     await page.keyboard.press('ArrowRight');
@@ -341,7 +361,7 @@ test.describe('projection', () => {
     expect(await idsVisibles(page)).toEqual(['p-1-6']);
     await page.keyboard.press('Home');
     expect(await idsVisibles(page)).toEqual(['p-1-1']);
-    await expect(page.locator('[role="status"]')).toContainText('Planche 1 sur 39');
+    await expect(page.locator('[role="status"]')).toContainText(`Planche 1 sur ${TOTAL}`);
     // Pas de piège clavier : Tab atteint les commandes du pied.
     await page.keyboard.press('Tab');
     await expect(page.locator('.projection__commandes button').first()).toBeFocused();
@@ -360,23 +380,136 @@ test.describe('projection', () => {
     expect(await page.evaluate(() => location.hash)).toBe('#p-1-4');
   });
 
-  test('?express ne parcourt que les planches express, et passe à la page suivante', async ({
+  for (const [k, { titre }] of Object.entries(PARCOURS)) {
+    test(`?parcours=${k} ne parcourt que les ${planchesDe(k).length} planches du parcours`, async ({
+      page,
+    }) => {
+      const dePage = planchesDe(k).filter((p) => p.fichier === '1-tokens.html');
+      const suivante = planchesDe(k).find((p) => p.fichier !== '1-tokens.html');
+      await page.route(`**/${suivante.fichier}*`, (route) =>
+        route.fulfill({ contentType: 'text/html', body: '<!doctype html><title>suite</title>' }),
+      );
+      await ouvrir(page, `${premiere(k).fichier}?projection&parcours=${k}`);
+      const vues = new Set(await idsVisibles(page));
+      await expect(page.locator('.projection__rang')).toHaveText(
+        `${titre} · 1 / ${planchesDe(k).length}`,
+      );
+      for (let i = 0; i < 40; i++) {
+        if (!page.url().includes('1-tokens')) break;
+        await page.keyboard.press('ArrowRight');
+        for (const id of await idsVisibles(page).catch(() => [])) vues.add(id);
+      }
+      expect([...vues].sort()).toEqual(dePage.map((p) => p.ancre).sort());
+      await page.waitForURL(
+        new RegExp(
+          `${suivante.fichier.replace('.', '\\.')}\\?projection&parcours=${k}#${suivante.ancre}`,
+        ),
+      );
+    });
+  }
+
+  test('le pied annonce « Initiation · n / total » en parcours, et ?express est un alias', async ({
     page,
   }) => {
-    await page.route('**/2-memoire.html*', (route) =>
-      route.fulfill({ contentType: 'text/html', body: '<!doctype html><title>suite</title>' }),
+    const initiation = planchesDe('initiation');
+    const p = initiation[2];
+    await ouvrir(page, `${p.fichier}?projection&parcours=initiation#${p.ancre}`);
+    await expect(page.locator('.projection__rang')).toHaveText(
+      `Initiation · 3 / ${initiation.length}`,
     );
-    await ouvrir(page, '1-tokens.html?projection&express');
-    const vues = new Set(await idsVisibles(page));
-    expect([...vues]).toEqual(['p-1-2']);
-    for (let i = 0; i < 5; i++) {
-      await page.keyboard.press('ArrowRight');
-      for (const id of await idsVisibles(page)) vues.add(id);
+    await expect(page.locator('[role="status"]')).toContainText('Parcours Initiation');
+    await ouvrir(page, `${p.fichier}?projection&express#${p.ancre}`);
+    await expect(page.locator('.projection__rang')).toHaveText(
+      `Initiation · 3 / ${initiation.length}`,
+    );
+    expect(await idsVisibles(page)).toEqual([p.ancre]);
+  });
+});
+
+test.describe('recherche du sommaire', () => {
+  const champ = (page) => page.locator('#champ-recherche');
+  const resultats = (page) => page.locator('#resultats-recherche .resultat__rang');
+  const rangs = async (page) => (await resultats(page).allInnerTexts()).map((t) => t.trim());
+
+  test('visible, étiquetée, avec le raccourci « / »', async ({ page }) => {
+    await ouvrir(page, 'index.html');
+    await expect(champ(page)).toBeVisible();
+    await expect(champ(page)).toHaveAccessibleName(/Rechercher une planche/);
+    await expect(champ(page)).toHaveAttribute('placeholder', 'biais, token, connecteur…');
+    await expect(page.locator('.recherche__raccourci')).toHaveText('/');
+    await page.keyboard.press('/');
+    await expect(champ(page)).toBeFocused();
+    expect(await champ(page).inputValue()).toBe('');
+    // Dans le champ, « / » s'écrit normalement.
+    await page.keyboard.type('a/b');
+    expect(await champ(page).inputValue()).toBe('a/b');
+  });
+
+  test('« biais » trouve 5.1, 5.2 et 5.5 en tête, avec les deux liens', async ({ page }) => {
+    await ouvrir(page, 'index.html');
+    await champ(page).fill('biais');
+    const trouves = await rangs(page);
+    expect(trouves.length).toBeLessThanOrEqual(8);
+    expect(trouves.slice(0, 3).sort()).toEqual(['5.1', '5.2', '5.5']);
+    await expect(page.locator('#etat-recherche')).toHaveText(/planches trouvées/);
+    const premier = page.locator('#resultats-recherche .resultat').first();
+    const planche = PLANCHES.find((p) => p.id === trouves[0]);
+    await expect(premier.locator('.resultat__lien')).toHaveAttribute(
+      'href',
+      `${planche.fichier}#${planche.ancre}`,
+    );
+    await expect(premier.locator('.resultat__projeter')).toHaveAttribute(
+      'href',
+      `${planche.fichier}?projection#${planche.ancre}`,
+    );
+    await expect(premier.locator('.resultat__chapitre')).toContainText('Biais et complaisance');
+  });
+
+  test('« connecteur » trouve 7.5 en premier', async ({ page }) => {
+    await ouvrir(page, 'index.html');
+    await champ(page).fill('connecteur');
+    expect((await rangs(page))[0]).toBe('7.5');
+    expect(await rangs(page)).toContain('7.6');
+  });
+
+  test('insensible à la casse, aux accents et à une lettre manquante', async ({ page }) => {
+    await ouvrir(page, 'index.html');
+    for (const saisie of ['Token', 'TOKEN', 'tokn']) {
+      await champ(page).fill(saisie);
+      expect(await rangs(page), saisie).toContain('1.2');
     }
-    expect([...vues].sort()).toEqual(['p-1-2', 'p-1-3']);
+    await champ(page).fill('Mémoire');
+    const avecAccent = await rangs(page);
+    await champ(page).fill('memoire');
+    expect(await rangs(page)).toEqual(avecAccent);
+    await champ(page).fill('5.2');
+    expect((await rangs(page))[0]).toBe('5.2');
+  });
+
+  test('Entrée ouvre la bonne page, ↓ ↑ parcourent, Échap vide, message sans résultat', async ({
+    page,
+  }) => {
+    await ouvrir(page, 'index.html');
+    await champ(page).fill('biais');
+    await page.keyboard.press('ArrowDown');
+    await expect(page.locator('#resultats-recherche .resultat__lien').first()).toBeFocused();
+    await page.keyboard.press('ArrowDown');
+    await expect(page.locator('#resultats-recherche .resultat__lien').nth(1)).toBeFocused();
+    await page.keyboard.press('ArrowUp');
+    await page.keyboard.press('ArrowUp');
+    await expect(champ(page)).toBeFocused();
+    await page.keyboard.press('Escape');
+    expect(await champ(page).inputValue()).toBe('');
+    await expect(page.locator('#resultats-recherche')).toBeHidden();
+
+    await champ(page).fill('zzzzqx');
+    await expect(page.locator('#resultats-recherche')).toContainText('Aucune planche');
+    await expect(page.locator('#etat-recherche')).toHaveText('Aucun résultat');
+
+    await champ(page).fill('connecteur');
     await Promise.all([
-      page.waitForURL(/2-memoire\.html\?projection&express#p-2-1/),
-      page.keyboard.press('ArrowRight'),
+      page.waitForURL(/7-boite-outils\.html#p-7-5$/),
+      page.keyboard.press('Enter'),
     ]);
   });
 });
