@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Forfait ou compteur · L’IA en schémas · Skazy Formation</title>
+    <meta
+      name="description"
+      content="Chapitre 9 de L’IA en schémas : forfait ou API, le point de bascule, le coût d’une longue conversation."
+    />
+    <!-- Support réservé aux stagiaires et à l'équipe : la page n'apparaît pas dans les moteurs de recherche. -->
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="light dark" />
+    <!-- La page a son propre thème sombre : sans ce verrou, le mode nuit de Brave (Dark Reader) la repeint, même en thème clair. -->
+    <meta name="darkreader-lock" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1f1f1f" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link
+      rel="preload"
+      href="assets/fonts/georama-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="assets/css/charte.css" />
+    <link rel="stylesheet" href="assets/css/planches.css" />
+    <script>
+      // Thème choisi, appliqué avant l'affichage pour éviter un éclair de la mauvaise couleur.
+      try {
+        const theme = JSON.parse(localStorage.getItem('skazy-outils:theme'));
+        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+      } catch {
+        // stockage indisponible : thème du système
+      }
+    </script>
+    <script type="module" src="assets/js/theme.js"></script>
+    <script type="module" src="assets/js/haut-de-page.js"></script>
+    <script type="module" src="assets/js/projection.js"></script>
+  </head>
+  <body>
+    <script>
+      // Projection demandée par l'adresse&nbsp;: la mise en page plein écran s'applique dès le premier affichage.
+      if (/[?&]projection\b/.test(location.search)) document.body.classList.add('projection');
+    </script>
+    <a class="lien-evitement" href="#contenu">Aller aux planches</a>
+
+    <header class="bandeau">
+      <div class="bandeau__interieur">
+        <a class="bandeau__lien" href="index.html">
+          <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-house" /></svg>
+          <span class="bandeau__txt">Accueil</span>
+        </a>
+        <a class="bandeau__nom" href="index.html">
+          <img class="bandeau__pastille" src="favicon.svg" width="28" height="28" alt="" />
+          <span class="bandeau__nom-texte">L’IA en schémas</span>
+        </a>
+        <div class="bandeau__actions">
+          <button
+            type="button"
+            class="bouton bouton--primaire bouton-projeter"
+            id="bouton-projeter"
+          >
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-presentation" />
+            </svg>
+            <span class="bandeau__txt">Projeter</span>
+          </button>
+          <button type="button" class="bouton-icone" id="bouton-theme" hidden>
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-contrast" />
+            </svg>
+          </button>
+          <a
+            class="bandeau__lien bandeau__lien-outils"
+            href="https://gharel.github.io/home/"
+            target="_top"
+            title="Tous les outils Skazy Formation"
+          >
+            <img src="assets/img/les-outils.svg" width="26" height="26" alt="" />
+            <span class="bandeau__txt">Les outils</span>
+          </a>
+          <span class="bandeau__filet" aria-hidden="true"></span>
+          <a
+            class="bandeau__logo"
+            href="https://formation.skazy.nc"
+            target="_blank"
+            rel="noopener"
+            aria-label="Site de Skazy Formation (nouvel onglet)"
+            title="Site de Skazy Formation (nouvel onglet)"
+          >
+            <img
+              class="logo logo--clair"
+              src="assets/img/logo-skazy-formation.svg"
+              alt=""
+              width="109"
+              height="36"
+            />
+            <img
+              class="logo logo--sombre"
+              src="assets/img/logo-skazy-formation-blanc.svg"
+              alt=""
+              width="109"
+              height="36"
+            />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <header class="chapitre-tete" data-partie="3">
+        <p class="puce-partie">Partie&nbsp;3&nbsp;· Agir avec l’IA</p>
+        <p class="chapitre-tete__numero">Chapitre&nbsp;9</p>
+        <h1 id="titre-page" tabindex="-1">Forfait ou compteur</h1>
+        <nav class="chapitre-nav" aria-label="Chapitres voisins">
+          <a class="bouton bouton--secondaire bouton--petit" href="8-agent.html"
+            ><svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-left" /></svg
+            >Chapitre&nbsp;8&nbsp;· Agent sur mesure</a
+          >
+        </nav>
+      </header>
+
+      <div class="planches">
+        <!-- 9.1 -->
+        <section class="planche" id="p-9-1" data-partie="3" data-express aria-labelledby="t-9-1">
+          <header class="planche__tete">
+            <span class="planche__puce">9.1</span>
+            <h2 id="t-9-1" class="planche__titre">Forfait ou compteur</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-9-1 de-9-1">
+              <title id="ti-9-1">Forfait ou compteur</title>
+              <desc id="de-9-1">
+                Le forfait est un prix fixe, par exemple 20&nbsp;$ par mois, avec un quota d’environ
+                40 messages moyens par période de 5 heures, puis un blocage. L’API est un compteur
+                au token, sans pause, avec un plafond de dépense (exemple&nbsp;: 2&nbsp;$). Prix par
+                million de tokens lus et écrits&nbsp;: rapide 1 et 5&nbsp;$, standard 2 et
+                10&nbsp;$, expert 4 et 20&nbsp;$. Le cache fait relire environ 80&nbsp;% du texte à
+                environ 10&nbsp;% du prix.
+              </desc>
+              <g data-etape="1">
+                <rect class="carte-p" x="60" y="20" width="720" height="440" rx="32" />
+                <circle class="encre-p" cx="130" cy="92" r="44" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-calendar"
+                  x="106"
+                  y="68"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-l c-p" x="200" y="112">Forfait</text>
+                <text class="t-xl c-fort" x="745" y="125" text-anchor="end">20&nbsp;$</text>
+                <text class="t-xs c-legende" x="745" y="168" text-anchor="end">par mois</text>
+                <text class="t-m c-fort" x="100" y="250">≈ 40 messages</text>
+                <text class="t-s c-fort" x="100" y="298">par période de 5 heures</text>
+                <rect class="aplat-p" x="100" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="126" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="152" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="178" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="204" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="230" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="256" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="282" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="308" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="334" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="360" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="386" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="412" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="438" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="464" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="490" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="516" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="542" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="568" y="340" width="20" height="56" rx="6" />
+                <rect class="aplat-p" x="594" y="340" width="20" height="56" rx="6" />
+                <circle class="badge-alerte" cx="692" cy="358" r="40" />
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-hourglass"
+                  x="670"
+                  y="336"
+                  width="44"
+                  height="44"
+                />
+                <text class="t-xs c-alerte" x="745" y="440" text-anchor="end">puis blocage</text>
+                <rect class="carte-2" x="820" y="20" width="720" height="440" rx="32" />
+                <circle class="encre-2" cx="890" cy="92" r="44" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-gauge"
+                  x="866"
+                  y="68"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-l c-2" x="960" y="112">API</text>
+                <text class="t-m c-fort" x="1505" y="112" text-anchor="end">au token</text>
+                <use
+                  class="ico-2"
+                  href="assets/img/icones.svg#i-circle-check"
+                  x="860"
+                  y="222"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-m c-fort" x="924" y="258">Sans pause</text>
+                <text class="t-s c-fort" x="860" y="306">Vous payez ce que vous lisez</text>
+                <rect class="piste" x="860" y="340" width="600" height="56" rx="18" />
+                <rect class="aplat-2" x="860" y="340" width="330" height="56" rx="18" />
+                <path class="trait-alerte" d="M1460 330V406" />
+                <text class="t-xs c-fort" x="1505" y="436" text-anchor="end">
+                  plafond (exemple)&nbsp;: 2&nbsp;$
+                </text>
+              </g>
+              <g data-etape="2">
+                <text class="t-xs c-legende" x="60" y="520">Prix par million de tokens</text>
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-eye"
+                  x="280"
+                  y="540"
+                  width="40"
+                  height="40"
+                />
+                <text class="t-s c-p" x="330" y="572">lu</text>
+                <use
+                  class="ico-2"
+                  href="assets/img/icones.svg#i-pencil"
+                  x="440"
+                  y="540"
+                  width="40"
+                  height="40"
+                />
+                <text class="t-s c-2" x="490" y="572">écrit</text>
+                <text class="t-s c-fort" x="60" y="656">Rapide</text>
+                <rect class="aplat-p" x="280" y="604" width="22" height="34" rx="8" />
+                <text class="t-xs c-fort" x="316" y="633">1&nbsp;$</text>
+                <rect class="aplat-2" x="280" y="646" width="110" height="34" rx="8" />
+                <text class="t-xs c-fort" x="404" y="675">5&nbsp;$</text>
+                <text class="t-s c-fort" x="60" y="750">Standard</text>
+                <rect class="aplat-p" x="280" y="698" width="44" height="34" rx="8" />
+                <text class="t-xs c-fort" x="338" y="727">2&nbsp;$</text>
+                <rect class="aplat-2" x="280" y="740" width="220" height="34" rx="8" />
+                <text class="t-xs c-fort" x="514" y="769">10&nbsp;$</text>
+                <text class="t-s c-fort" x="60" y="844">Expert</text>
+                <rect class="aplat-p" x="280" y="792" width="88" height="34" rx="8" />
+                <text class="t-xs c-fort" x="382" y="821">4&nbsp;$</text>
+                <rect class="aplat-2" x="280" y="834" width="440" height="34" rx="8" />
+                <text class="t-xs c-fort" x="734" y="863">20&nbsp;$</text>
+              </g>
+              <g data-etape="3">
+                <rect class="carte-p" x="960" y="500" width="580" height="380" rx="32" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-archive"
+                  x="1000"
+                  y="528"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-p" x="1076" y="574">Cache</text>
+                <rect class="aplat-p" x="1000" y="620" width="42" height="64" rx="10" />
+                <rect class="aplat-p" x="1052" y="620" width="42" height="64" rx="10" />
+                <rect class="aplat-p" x="1104" y="620" width="42" height="64" rx="10" />
+                <rect class="aplat-p" x="1156" y="620" width="42" height="64" rx="10" />
+                <rect class="aplat-p" x="1208" y="620" width="42" height="64" rx="10" />
+                <rect class="aplat-p" x="1260" y="620" width="42" height="64" rx="10" />
+                <rect class="aplat-p" x="1312" y="620" width="42" height="64" rx="10" />
+                <rect class="aplat-p" x="1364" y="620" width="42" height="64" rx="10" />
+                <rect class="trou" x="1416" y="620" width="42" height="64" rx="10" />
+                <rect class="trou" x="1468" y="620" width="42" height="64" rx="10" />
+                <text class="t-xs c-fort" x="1000" y="730">80&nbsp;% du texte relu</text>
+                <text class="t-xl c-p" x="1000" y="830">≈ 10&nbsp;%</text>
+                <text class="t-s c-fort" x="1380" y="826" text-anchor="start">du prix</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Prix API vérifiés le 7&nbsp;octobre&nbsp;2026. Forfait à 20&nbsp;$, quota de
+            40&nbsp;messages et plafond de 2&nbsp;$&nbsp;: exemples de la fiche. Cache&nbsp;: calcul
+            simplifié de la fiche. Source&nbsp;: Permis IA, fiche&nbsp;9.
+          </p>
+        </section>
+
+        <!-- 9.2 -->
+        <section class="planche" id="p-9-2" data-partie="3" data-express aria-labelledby="t-9-2">
+          <header class="planche__tete">
+            <span class="planche__puce">9.2</span>
+            <h2 id="t-9-2" class="planche__titre">Le point de bascule</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-9-2 de-9-2">
+              <title id="ti-9-2">Le point de bascule</title>
+              <desc id="de-9-2">
+                Courbe du coût mensuel selon le nombre de messages par jour. Le forfait est une
+                droite plate à 20&nbsp;$. L’API monte avec l’usage&nbsp;: environ 0,66&nbsp;$ par
+                message quotidien et par mois. Les deux se croisent vers 30 messages par jour&nbsp;:
+                en dessous, l’API coûte moins&nbsp;; au-dessus, le forfait.
+              </desc>
+              <g data-etape="1">
+                <path class="grille" d="M220 570H1500" />
+                <path class="grille" d="M220 410H1500" />
+                <path class="grille" d="M220 250H1500" />
+                <path class="grille" d="M220 90H1500" />
+                <path class="trait-legende" d="M220 90V730H1500" />
+                <text class="t-xs c-legende" x="196" y="740" text-anchor="end">0</text>
+                <text class="t-xs c-legende" x="196" y="580" text-anchor="end">10&nbsp;$</text>
+                <text class="t-xs c-legende" x="196" y="420" text-anchor="end">20&nbsp;$</text>
+                <text class="t-xs c-legende" x="196" y="260" text-anchor="end">30&nbsp;$</text>
+                <text class="t-xs c-legende" x="196" y="100" text-anchor="end">40&nbsp;$</text>
+                <text class="t-xs c-legende" x="220" y="786" text-anchor="middle">0</text>
+                <text class="t-xs c-legende" x="433.33333333333337" y="786" text-anchor="middle">
+                  10
+                </text>
+                <text class="t-xs c-legende" x="646.6666666666667" y="786" text-anchor="middle">
+                  20
+                </text>
+                <text class="t-xs c-legende" x="860" y="786" text-anchor="middle">30</text>
+                <text class="t-xs c-legende" x="1073.3333333333335" y="786" text-anchor="middle">
+                  40
+                </text>
+                <text class="t-xs c-legende" x="1286.6666666666667" y="786" text-anchor="middle">
+                  50
+                </text>
+                <text class="t-xs c-legende" x="1500" y="786" text-anchor="middle">60</text>
+                <text class="t-xs c-legende" x="1500" y="846" text-anchor="end">
+                  messages par jour
+                </text>
+                <text class="t-xs c-legende" x="196" y="40" text-anchor="end">$ par mois</text>
+                <path class="trait-p ligne-epaisse" d="M220 410H1500" />
+                <text class="t-m c-p" x="1500" y="388" text-anchor="end">
+                  Forfait&nbsp;: 20&nbsp;$
+                </text>
+              </g>
+              <g data-etape="2">
+                <path class="trait-2 ligne-epaisse" d="M220 730L1500 96.40000000000009" />
+                <circle class="encre-2" cx="433.33333333333337" cy="624.4" r="11" />
+                <circle class="encre-2" cx="646.6666666666667" cy="518.8" r="11" />
+                <circle class="encre-2" cx="860" cy="413.20000000000005" r="11" />
+                <circle class="encre-2" cx="1073.3333333333335" cy="307.6" r="11" />
+                <circle class="encre-2" cx="1286.6666666666667" cy="202.0000000000001" r="11" />
+                <circle class="encre-2" cx="1500" cy="96.40000000000009" r="11" />
+                <text
+                  class="t-m c-2"
+                  x="1201.3333333333335"
+                  y="204.24000000000007"
+                  text-anchor="end"
+                >
+                  API
+                </text>
+              </g>
+              <g data-etape="3">
+                <path class="trait-legende tirets" d="M866.4646464646465 410V730" />
+                <circle class="encre-p" cx="866.4646464646465" cy="410" r="24" />
+                <rect class="encre-p" x="260" y="70" width="520" height="190" rx="36" />
+                <text class="t-s c-sur" x="300" y="124">Point de bascule</text>
+                <text class="t-xl c-sur" x="300" y="214">≈ 30</text>
+                <text class="t-s c-sur" x="560" y="200">messages</text>
+                <text class="t-s c-sur" x="560" y="240">par jour</text>
+                <path class="trait-p" d="M700 262L852.4646464646465 390" />
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Hypothèses&nbsp;: message moyen = 10&nbsp;000 tokens lus + 1&nbsp;000 écrits, modèle
+            standard (2&nbsp;$ et 10&nbsp;$ par million), soit 0,03&nbsp;$ le message&nbsp;; 22
+            jours d’usage par mois&nbsp;; forfait à 20&nbsp;$ (exemple)&nbsp;; sans cache.
+            Source&nbsp;: Permis IA, fiche&nbsp;9.
+          </p>
+        </section>
+
+        <!-- 9.3 -->
+        <section class="planche" id="p-9-3" data-partie="3" aria-labelledby="t-9-3">
+          <header class="planche__tete">
+            <span class="planche__puce">9.3</span>
+            <h2 id="t-9-3" class="planche__titre">Une longue conversation coûte cher</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-9-3 de-9-3">
+              <title id="ti-9-3">Une longue conversation coûte cher</title>
+              <desc id="de-9-3">
+                Histogramme empilé&nbsp;: à chaque envoi, l’IA relit tout ce qui a déjà été dit
+                (déjà lu aux envois d’avant) plus le nouveau message (lu à cet envoi). Le total
+                grimpe de plus en plus vite&nbsp;: 8 envois font environ 40&nbsp;000 tokens lus,
+                deux fois plus de messages font jusqu’à quatre fois plus de tokens lus.
+                Conclusion&nbsp;: nouveau sujet, nouvelle conversation.
+              </desc>
+              <g data-etape="1">
+                <path class="trait-legende" d="M80 700H1020" />
+                <rect class="encre-p" x="100" y="670" width="90" height="30" rx="6" />
+                <text class="t-xs c-legende" x="145" y="744" text-anchor="middle">1er</text>
+                <rect class="trou-plein" x="214" y="670" width="90" height="30" />
+                <rect
+                  class="encre-p"
+                  x="214"
+                  y="629.2857142857143"
+                  width="90"
+                  height="40.714285714285715"
+                  rx="6"
+                />
+                <text class="t-xs c-legende" x="259" y="744" text-anchor="middle">2e</text>
+                <rect
+                  class="trou-plein"
+                  x="328"
+                  y="629.2857142857143"
+                  width="90"
+                  height="70.71428571428571"
+                />
+                <rect
+                  class="encre-p"
+                  x="328"
+                  y="577.8571428571429"
+                  width="90"
+                  height="51.42857142857142"
+                  rx="6"
+                />
+                <text class="t-xs c-legende" x="373" y="744" text-anchor="middle">3e</text>
+                <rect
+                  class="trou-plein"
+                  x="442"
+                  y="577.8571428571429"
+                  width="90"
+                  height="122.14285714285714"
+                />
+                <rect
+                  class="encre-p"
+                  x="442"
+                  y="515.7142857142858"
+                  width="90"
+                  height="62.14285714285714"
+                  rx="6"
+                />
+                <text class="t-xs c-legende" x="487" y="744" text-anchor="middle">4e</text>
+                <rect
+                  class="trou-plein"
+                  x="556"
+                  y="515.7142857142858"
+                  width="90"
+                  height="184.28571428571428"
+                />
+                <rect
+                  class="encre-p"
+                  x="556"
+                  y="442.85714285714295"
+                  width="90"
+                  height="72.85714285714285"
+                  rx="6"
+                />
+                <text class="t-xs c-legende" x="601" y="744" text-anchor="middle">5e</text>
+                <rect
+                  class="trou-plein"
+                  x="670"
+                  y="442.8571428571429"
+                  width="90"
+                  height="257.1428571428571"
+                />
+                <rect
+                  class="encre-p"
+                  x="670"
+                  y="359.28571428571433"
+                  width="90"
+                  height="83.57142857142857"
+                  rx="6"
+                />
+                <text class="t-xs c-legende" x="715" y="744" text-anchor="middle">6e</text>
+                <rect
+                  class="trou-plein"
+                  x="784"
+                  y="359.2857142857143"
+                  width="90"
+                  height="340.7142857142857"
+                />
+                <rect
+                  class="encre-p"
+                  x="784"
+                  y="265"
+                  width="90"
+                  height="94.28571428571428"
+                  rx="6"
+                />
+                <text class="t-xs c-legende" x="829" y="744" text-anchor="middle">7e</text>
+                <rect class="trou-plein" x="898" y="265" width="90" height="435" />
+                <rect class="encre-p" x="898" y="160" width="90" height="105" rx="6" />
+                <text class="t-xs c-legende" x="943" y="744" text-anchor="middle">8e</text>
+                <rect class="encre-p" x="100" y="40" width="40" height="40" rx="8" />
+                <text class="t-s c-fort" x="156" y="74">Lu à cet envoi</text>
+                <rect class="trou-plein" x="100" y="96" width="40" height="40" rx="8" />
+                <text class="t-s c-fort" x="156" y="130">Déjà lu aux envois d’avant</text>
+              </g>
+              <g data-etape="2">
+                <text class="t-m c-p" x="943" y="144" text-anchor="middle">40&nbsp;320</text>
+              </g>
+              <g data-etape="3">
+                <rect class="carte-p" x="1090" y="150" width="450" height="540" rx="32" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-messages-square"
+                  x="1130"
+                  y="182"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-fort" x="1206" y="226">2&nbsp;× plus</text>
+                <text class="t-m c-fort" x="1130" y="280">de messages</text>
+                <path class="trait-p" d="M1315 306V350" />
+                <path class="encre-p" d="M1295 346h40l-20 34z" />
+                <text class="t-m c-p" x="1315" y="440" text-anchor="middle">
+                  jusqu’à 4&nbsp;× plus
+                </text>
+                <text class="t-m c-p" x="1315" y="492" text-anchor="middle">de tokens lus</text>
+                <rect class="aplat-p" x="1140" y="560" width="60" height="60" rx="8" />
+                <path class="trait-legende" d="M1212 590h40" />
+                <path class="pointe-legende" d="M1248 574l24 16-24 16z" />
+                <rect class="aplat-p" x="1270" y="540" width="60" height="60" rx="8" />
+                <rect class="aplat-p" x="1340" y="540" width="60" height="60" rx="8" />
+                <rect class="aplat-p" x="1270" y="610" width="60" height="60" rx="8" />
+                <rect class="aplat-p" x="1340" y="610" width="60" height="60" rx="8" />
+              </g>
+              <g data-etape="4">
+                <rect class="encre-p" x="60" y="790" width="1480" height="96" rx="48" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-refresh-cw"
+                  x="100"
+                  y="814"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-l c-sur" x="180" y="856">Nouveau sujet, nouvelle conversation</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Modèle illustratif de la fiche&nbsp;: 2&nbsp;000 tokens de consignes, 800 par
+            échange&nbsp;; 8 envois = 40&nbsp;320 tokens lus, 16 envois = 131&nbsp;840 (×3,3).
+            Source&nbsp;: Permis IA, fiche&nbsp;9.
+          </p>
+        </section>
+      </div>
+
+      <div class="chapitre-pied" data-partie="3">
+        <nav class="chapitre-nav" aria-label="Chapitres voisins (bas de page)">
+          <a class="bouton bouton--secondaire" href="8-agent.html"
+            ><svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-left" /></svg
+            >Chapitre&nbsp;8&nbsp;· Agent sur mesure</a
+          ><a class="bouton bouton--secondaire" href="index.html"
+            ><svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-house" /></svg
+            >Sommaire</a
+          >
+        </nav>
+      </div>
+    </main>
+
+    <footer class="pied">
+      <div class="pied__interieur">
+        <p>
+          &copy;&nbsp;2026 <strong>Skazy Formation</strong>,
+          <span class="insecable">Nouvelle-Calédonie</span>&nbsp;·
+          <a href="https://formation.skazy.nc" target="_blank" rel="noopener">formation.skazy.nc</a>
+        </p>
+        <p>
+          Usage réservé aux stagiaires de Skazy Formation&nbsp;: reproduction et réutilisation dans
+          une autre formation interdites sans accord écrit.
+        </p>
+      </div>
+    </footer>
+
+    <button type="button" class="haut-de-page" id="haut-de-page" hidden>
+      <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-arrow-up" /></svg>
+      <span class="invisible">Remonter en haut de la page</span>
+    </button>
+  </body>
+</html>

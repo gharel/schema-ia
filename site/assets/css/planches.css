@@ -1,0 +1,1537 @@
+/*
+ * Mise en page de « L’IA en schémas » : bandeau, sommaire, chapitre, planche, vocabulaire des
+ * graphiques SVG et mode projection. Aucune couleur écrite ici : tout vient de charte.css.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: calc(var(--hauteur-bandeau) + var(--space-4));
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--texte);
+  font-family: var(--font-web);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--texte-fort);
+  line-height: 1.2;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: var(--primaire-texte);
+  text-underline-offset: 2px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+[tabindex='-1']:focus {
+  outline: none;
+}
+
+.insecable {
+  white-space: nowrap;
+}
+
+.invisible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.lien-evitement {
+  position: absolute;
+  left: var(--space-4);
+  top: -100px;
+  z-index: 40;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  background: var(--primaire-fonce);
+  color: var(--sur-primaire);
+  font-weight: 600;
+}
+
+.lien-evitement:focus {
+  top: var(--space-2);
+}
+
+.icone {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+}
+
+/* ── Bandeau commun des outils Skazy Formation ───────── */
+.bandeau {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: var(--surface);
+  border-bottom: 1px solid var(--bord);
+}
+
+.bandeau__interieur {
+  max-width: var(--largeur);
+  height: var(--hauteur-bandeau);
+  margin: 0 auto;
+  padding-inline: var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.bandeau__nom {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px 6px 4px;
+  border-radius: var(--radius-full);
+  color: var(--texte-fort);
+  font-size: 1.0625rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background var(--transition-fast);
+}
+
+.bandeau__nom:hover {
+  background: var(--surface-2);
+}
+
+.bandeau__pastille {
+  flex: none;
+  width: 28px;
+  height: 28px;
+}
+
+.bandeau__nom-texte {
+  margin-left: 10px;
+}
+
+.bandeau__actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.bandeau__filet {
+  flex: none;
+  width: 1px;
+  height: 24px;
+  margin-inline: var(--space-1);
+  background: var(--bord);
+}
+
+.bandeau__logo {
+  display: flex;
+  flex: none;
+  border-radius: var(--radius-md);
+}
+
+.bandeau__logo .logo {
+  width: auto;
+  height: 36px;
+}
+
+.logo--sombre {
+  display: none;
+}
+
+.bouton-icone,
+.bandeau__lien {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: 42px;
+  height: 42px;
+  padding: 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--texte);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.bouton-icone:hover,
+.bandeau__lien:hover {
+  background: var(--surface-2);
+}
+
+.bouton-icone {
+  width: 42px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.bandeau__lien-outils img {
+  width: 26px;
+  height: 26px;
+}
+
+/* ── Boutons en pilule ───────────────────────────────── */
+.bouton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0 var(--space-6);
+  border: 2px solid transparent;
+  border-radius: var(--radius-full);
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.bouton--primaire {
+  background: var(--primaire-fonce);
+  color: var(--sur-primaire);
+}
+
+.bouton--primaire:hover {
+  background: var(--primaire-survol);
+  color: var(--sur-primaire);
+}
+
+.bouton--secondaire {
+  border-color: var(--bord-fort);
+  background: transparent;
+  color: var(--texte-fort);
+}
+
+.bouton--secondaire:hover {
+  background: var(--surface-2);
+  color: var(--texte-fort);
+}
+
+.bouton--petit {
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  font-size: 0.9375rem;
+}
+
+.bandeau .bouton--primaire {
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  font-size: 0.9375rem;
+}
+
+/* ── Héros du sommaire ───────────────────────────────── */
+.heros {
+  background: var(--scene);
+  color: var(--scene-texte);
+}
+
+.heros :focus-visible {
+  outline-color: var(--scene-accent);
+}
+
+.heros__interieur {
+  max-width: var(--largeur);
+  margin: 0 auto;
+  padding: var(--space-16) var(--space-6);
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.badge {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  border: 1.5px solid var(--scene-accent);
+  border-radius: var(--radius-full);
+  color: var(--scene-accent);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+}
+
+.heros h1 {
+  margin-top: var(--space-5);
+  color: var(--scene-texte);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: var(--tracking-tight);
+}
+
+.heros__chiffres {
+  margin-top: var(--space-4);
+  color: var(--scene-doux);
+  font-size: var(--text-xl);
+  font-weight: 500;
+}
+
+.heros__boutons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+}
+
+.heros .bouton--secondaire {
+  border-color: var(--scene-doux);
+  color: var(--scene-texte);
+}
+
+.heros .bouton--secondaire:hover {
+  background: var(--scene-2);
+  color: var(--scene-texte);
+}
+
+.heros__decor {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--ombre-lg);
+}
+
+/* ── Sommaire : trois parties, une colonne chacune ───── */
+.sommaire {
+  max-width: var(--largeur);
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-6) 0;
+}
+
+.sommaire__legende {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  color: var(--texte-doux);
+  font-size: var(--text-sm);
+}
+
+.parties {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.partie__tete {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.puce {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--partie-texte);
+  color: var(--sur-serie);
+  font-size: var(--text-xl);
+  font-weight: 800;
+}
+
+.partie__surtitre {
+  color: var(--texte-doux);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.partie__titre {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+}
+
+.partie__chapitres {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.carte-chap {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: var(--ombre-md);
+}
+
+.carte-chap::before {
+  content: '';
+  display: block;
+  height: 6px;
+  background: var(--partie);
+}
+
+.carte-chap__corps {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-5);
+}
+
+.carte-chap__haut {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.carte-chap__numero {
+  display: inline-block;
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-full);
+  background: var(--partie-fond);
+  color: var(--partie-texte);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+
+.carte-chap__nombre {
+  color: var(--texte-doux);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.carte-chap__titre {
+  font-size: var(--text-xl);
+  font-weight: 800;
+}
+
+.carte-chap__lien {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Toute la carte est cliquable. */
+.carte-chap__lien::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.carte-chap:hover {
+  box-shadow: var(--ombre-lg);
+}
+
+.carte-chap__liste {
+  display: grid;
+  gap: var(--space-1);
+  color: var(--texte-doux);
+  font-size: var(--text-sm);
+  line-height: 1.35;
+}
+
+.carte-chap__liste li {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.carte-chap__liste .rang {
+  flex: none;
+  min-width: 2.2em;
+  color: var(--partie-texte);
+  font-weight: 700;
+}
+
+.carte-chap__liste .icone {
+  width: 14px;
+  height: 14px;
+  align-self: center;
+  margin-left: auto;
+  color: var(--partie-texte);
+}
+
+/* ── En-tête de chapitre ─────────────────────────────── */
+.chapitre-tete {
+  max-width: var(--largeur);
+  margin: 0 auto;
+  padding: var(--space-10) var(--space-6) var(--space-6);
+  display: grid;
+  gap: var(--space-3);
+}
+
+.puce-partie {
+  justify-self: start;
+  padding: var(--space-1) var(--space-4);
+  border-radius: var(--radius-full);
+  background: var(--partie-fond);
+  color: var(--partie-texte);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+}
+
+.chapitre-tete__numero {
+  color: var(--texte-doux);
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.chapitre-tete h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 800;
+  letter-spacing: var(--tracking-tight);
+}
+
+.chapitre-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.chapitre-pied {
+  max-width: var(--largeur);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6) 0;
+}
+
+.chapitre-pied .chapitre-nav {
+  justify-content: space-between;
+}
+
+/* ── Planches ────────────────────────────────────────── */
+.planches {
+  max-width: var(--largeur);
+  margin: 0 auto;
+  padding-inline: var(--space-6);
+  display: grid;
+  gap: var(--space-8);
+}
+
+.planche {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: var(--ombre-md);
+}
+
+.planche::before {
+  content: '';
+  display: block;
+  height: 6px;
+  background: var(--partie);
+}
+
+.planche__tete {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-8) var(--space-3);
+}
+
+.planche__puce {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  min-width: 3.5em;
+  height: 2.2em;
+  padding-inline: 0.5em;
+  border-radius: var(--radius-lg);
+  background: var(--partie-texte);
+  color: var(--sur-serie);
+  font-size: 1.25rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.planche__titre {
+  font-size: clamp(1.375rem, 2.6vw, 2rem);
+  font-weight: 800;
+  letter-spacing: var(--tracking-tight);
+}
+
+.planche__scene {
+  background: var(--scene-fond);
+}
+
+.planche__scene svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+.planche__source {
+  padding: var(--space-3) var(--space-8) var(--space-5);
+  color: var(--texte-doux);
+  font-size: var(--text-sm);
+}
+
+/* ── Vocabulaire des graphiques SVG ──────────────────────
+   Texte : t-* (taille), c-* (couleur). Formes : aplat-* (fond plein + liseré),
+   encre-* (fond foncé, texte c-sur), fond-* (fond clair), trait-* (contour).
+   Suffixes : p = couleur de la partie, 1 à 7 = séries (voir charte.css). */
+:where(.planche svg text) {
+  fill: var(--texte-fort);
+  font-family: var(--font-web);
+}
+
+.t-xxl {
+  font-size: 140px;
+  font-weight: 800;
+}
+
+.t-xl {
+  font-size: 96px;
+  font-weight: 800;
+}
+
+.t-l {
+  font-size: 60px;
+  font-weight: 700;
+}
+
+.t-m {
+  font-size: 44px;
+  font-weight: 700;
+}
+
+.t-s {
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.t-xs {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.t-chiffre {
+  font-variant-numeric: tabular-nums;
+}
+
+.planche svg .c-fort {
+  fill: var(--texte-fort);
+}
+
+.planche svg .c-legende {
+  fill: var(--legende);
+}
+
+.planche svg .c-sur {
+  fill: var(--sur-serie);
+}
+
+.planche svg .c-alerte {
+  fill: var(--alerte);
+}
+
+.surface {
+  fill: var(--surface);
+}
+
+.surface-2 {
+  fill: var(--surface-2);
+  stroke: var(--bord-fort);
+  stroke-width: 2;
+}
+
+.neutre {
+  fill: var(--barre-neutre);
+  stroke: var(--legende);
+  stroke-width: 2;
+}
+
+.piste {
+  fill: var(--surface-2);
+  stroke: var(--bord-fort);
+  stroke-width: 2;
+}
+
+.contour {
+  fill: none;
+  stroke: var(--legende);
+  stroke-width: 4;
+}
+
+.trait {
+  fill: none;
+  stroke: var(--texte-fort);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.trait-legende {
+  fill: none;
+  stroke: var(--legende);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.trait-alerte {
+  fill: none;
+  stroke: var(--alerte);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pointille {
+  stroke-dasharray: 4 16;
+}
+
+.tirets {
+  stroke-dasharray: 18 14;
+}
+
+.pointe-legende {
+  fill: var(--legende);
+}
+
+.pointe-fort {
+  fill: var(--texte-fort);
+}
+
+.ico {
+  color: var(--texte-fort);
+}
+
+.ico-sur {
+  color: var(--sur-serie);
+}
+
+.ico-legende {
+  color: var(--legende);
+}
+
+.ico-alerte {
+  color: var(--alerte);
+}
+
+.hachure-trait {
+  stroke: var(--alerte);
+  stroke-width: 6;
+}
+
+/* Pastilles de token : trois habillages qui alternent (plein, clair, contour). */
+.tok-a {
+  fill: var(--partie-texte);
+}
+
+.tok-b {
+  fill: var(--partie-fond);
+  stroke: var(--partie-texte);
+  stroke-width: 3;
+}
+
+.tok-c {
+  fill: var(--surface);
+  stroke: var(--partie-texte);
+  stroke-width: 4;
+  stroke-dasharray: 12 8;
+}
+
+/* ── Bouton « Remonter en haut » ─────────────────────── */
+.haut-de-page {
+  position: fixed;
+  right: var(--space-6);
+  bottom: calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+  z-index: 15;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--primaire-fonce);
+  color: var(--sur-primaire);
+  box-shadow: var(--ombre-lg);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast),
+    visibility 0s linear 150ms,
+    background var(--transition-fast);
+}
+
+.haut-de-page.est-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast),
+    visibility 0s,
+    background var(--transition-fast);
+}
+
+.haut-de-page:hover {
+  background: var(--primaire-survol);
+}
+
+/* ── Pied de page sombre ─────────────────────────────── */
+.pied {
+  margin-top: var(--space-16);
+  background: var(--scene);
+  color: var(--scene-doux);
+}
+
+.pied :focus-visible {
+  outline-color: var(--scene-accent);
+}
+
+.pied__interieur {
+  max-width: var(--largeur);
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6) calc(var(--space-8) + env(safe-area-inset-bottom, 0px));
+  display: grid;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.pied strong {
+  color: var(--scene-texte);
+}
+
+.pied a {
+  color: var(--scene-texte);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ── Thème sombre : logo blanc ───────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .logo--clair {
+    display: none;
+  }
+
+  :root:not([data-theme='light']) .logo--sombre {
+    display: block;
+  }
+}
+
+:root[data-theme='dark'] .logo--clair {
+  display: none;
+}
+
+:root[data-theme='dark'] .logo--sombre {
+  display: block;
+}
+
+/* ═══ Mode projection ════════════════════════════════════
+   Une seule planche plein écran, scène 16:9 centrée (bandes si l'écran n'est pas 16:9), fond uni.
+   Les éléments [data-etape] n'apparaissent qu'à leur tour (classe .etape-vue posée par projection.js). */
+body.projection {
+  --pied-h: 56px;
+  --tete-h: clamp(56px, 9dvh, 110px);
+  --source-h: clamp(28px, 4.5dvh, 52px);
+  --scene-l: min(
+    calc(100vw - 48px),
+    calc((100dvh - var(--tete-h) - var(--source-h) - var(--pied-h)) * 16 / 9)
+  );
+
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.projection .bandeau,
+.projection .pied,
+.projection .haut-de-page,
+.projection .chapitre-tete,
+.projection .chapitre-pied,
+.projection .lien-evitement {
+  display: none;
+}
+
+.projection .planches {
+  display: block;
+  max-width: none;
+  padding: 0;
+}
+
+.projection .planche {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100dvh;
+  padding-bottom: var(--pied-h);
+  border-radius: 0;
+  background: var(--surface);
+  box-shadow: none;
+}
+
+.projection .planche[hidden] {
+  display: none;
+}
+
+.projection .planche::before {
+  display: none;
+}
+
+.projection .planche__tete {
+  width: var(--scene-l);
+  height: var(--tete-h);
+  padding: 0;
+  font-size: clamp(1rem, 3.2dvh, 2rem);
+}
+
+.projection .planche__puce {
+  font-size: 1em;
+}
+
+.projection .planche__titre {
+  font-size: clamp(1.5rem, 5dvh, 3.25rem);
+}
+
+.projection .planche__scene {
+  width: var(--scene-l);
+  cursor: pointer;
+}
+
+.projection .planche__source {
+  display: flex;
+  align-items: center;
+  width: var(--scene-l);
+  height: var(--source-h);
+  padding: 0;
+  font-size: clamp(0.8125rem, 2dvh, 1.25rem);
+}
+
+.projection [data-etape] {
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+.projection [data-etape]:not(.etape-vue) {
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+}
+
+.projection__pied {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: var(--pied-h);
+  padding-inline: var(--space-6);
+  background: var(--surface);
+  color: var(--texte-doux);
+  font-size: var(--text-sm);
+}
+
+.projection__rang {
+  min-width: 9em;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.projection__aide {
+  margin-inline: auto;
+}
+
+.projection__commandes {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.projection__commandes .bouton-icone {
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  color: var(--texte-doux);
+}
+
+.projection__commandes .bouton-icone:hover {
+  color: var(--texte-fort);
+}
+
+/* ── Écrans moyens et petits ─────────────────────────── */
+@media (max-width: 1100px) {
+  .parties {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .partie__chapitres {
+    grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .heros__interieur {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+    padding-block: var(--space-12);
+  }
+
+  .bandeau .bouton-projeter .bandeau__txt {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .bandeau .bouton-projeter {
+    width: 42px;
+    padding: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .bandeau__lien .bandeau__txt {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .bandeau__lien {
+    min-width: 40px;
+    padding: 0;
+  }
+
+  .planche__tete {
+    padding-inline: var(--space-4);
+  }
+
+  .planche__source {
+    padding-inline: var(--space-4);
+  }
+
+  .projection__aide {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .bandeau__interieur,
+  .heros__interieur,
+  .sommaire,
+  .chapitre-tete,
+  .chapitre-pied,
+  .planches,
+  .pied__interieur {
+    padding-inline: var(--space-4);
+  }
+
+  .bandeau__interieur {
+    gap: var(--space-1);
+  }
+
+  .bandeau__nom-texte {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .bandeau__nom {
+    padding-right: 4px;
+  }
+
+  .bandeau__pastille {
+    width: 24px;
+    height: 24px;
+  }
+
+  .bandeau__logo .logo {
+    height: 30px;
+  }
+
+  .haut-de-page {
+    right: var(--space-4);
+    bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+    width: 44px;
+    height: 44px;
+  }
+
+  .planche__tete {
+    gap: var(--space-3);
+  }
+
+  .chapitre-pied .chapitre-nav {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 400px) {
+  .bandeau__logo .logo {
+    height: 26px;
+  }
+
+  .bouton-icone,
+  .bandeau .bouton-projeter {
+    width: 38px;
+    min-width: 38px;
+  }
+
+  .bandeau__lien {
+    min-width: 38px;
+  }
+
+  .bandeau__filet {
+    margin-inline: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .projection [data-etape]:not(.etape-vue) {
+    transform: none;
+  }
+}
+
+/* ── Séries et parties : voir aussi charte.css ───────── */
+.aplat-p {
+  fill: var(--partie);
+  stroke: var(--partie-texte);
+  stroke-width: 3;
+}
+.encre-p {
+  fill: var(--partie-texte);
+}
+.fond-p {
+  fill: var(--partie-fond);
+}
+.trait-p {
+  fill: none;
+  stroke: var(--partie-texte);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.c-p {
+  fill: var(--partie-texte);
+}
+.ico-p {
+  color: var(--partie-texte);
+}
+.aplat-1 {
+  fill: var(--serie-1);
+  stroke: var(--serie-1-texte);
+  stroke-width: 3;
+}
+.encre-1 {
+  fill: var(--serie-1-texte);
+}
+.fond-1 {
+  fill: var(--serie-1-fond);
+}
+.trait-1 {
+  fill: none;
+  stroke: var(--serie-1-texte);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.c-1 {
+  fill: var(--serie-1-texte);
+}
+.ico-1 {
+  color: var(--serie-1-texte);
+}
+.aplat-2 {
+  fill: var(--serie-2);
+  stroke: var(--serie-2-texte);
+  stroke-width: 3;
+}
+.encre-2 {
+  fill: var(--serie-2-texte);
+}
+.fond-2 {
+  fill: var(--serie-2-fond);
+}
+.trait-2 {
+  fill: none;
+  stroke: var(--serie-2-texte);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.c-2 {
+  fill: var(--serie-2-texte);
+}
+.ico-2 {
+  color: var(--serie-2-texte);
+}
+.aplat-3 {
+  fill: var(--serie-3);
+  stroke: var(--serie-3-texte);
+  stroke-width: 3;
+}
+.encre-3 {
+  fill: var(--serie-3-texte);
+}
+.fond-3 {
+  fill: var(--serie-3-fond);
+}
+.trait-3 {
+  fill: none;
+  stroke: var(--serie-3-texte);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.c-3 {
+  fill: var(--serie-3-texte);
+}
+.ico-3 {
+  color: var(--serie-3-texte);
+}
+.aplat-4 {
+  fill: var(--serie-4);
+  stroke: var(--serie-4-texte);
+  stroke-width: 3;
+}
+.encre-4 {
+  fill: var(--serie-4-texte);
+}
+.fond-4 {
+  fill: var(--serie-4-fond);
+}
+.trait-4 {
+  fill: none;
+  stroke: var(--serie-4-texte);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.c-4 {
+  fill: var(--serie-4-texte);
+}
+.ico-4 {
+  color: var(--serie-4-texte);
+}
+.aplat-5 {
+  fill: var(--serie-5);
+  stroke: var(--serie-5-texte);
+  stroke-width: 3;
+}
+.encre-5 {
+  fill: var(--serie-5-texte);
+}
+.fond-5 {
+  fill: var(--serie-5-fond);
+}
+.trait-5 {
+  fill: none;
+  stroke: var(--serie-5-texte);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.c-5 {
+  fill: var(--serie-5-texte);
+}
+.ico-5 {
+  color: var(--serie-5-texte);
+}
+.aplat-6 {
+  fill: var(--serie-6);
+  stroke: var(--serie-6-texte);
+  stroke-width: 3;
+}
+.encre-6 {
+  fill: var(--serie-6-texte);
+}
+.fond-6 {
+  fill: var(--serie-6-fond);
+}
+.trait-6 {
+  fill: none;
+  stroke: var(--serie-6-texte);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.c-6 {
+  fill: var(--serie-6-texte);
+}
+.ico-6 {
+  color: var(--serie-6-texte);
+}
+.aplat-7 {
+  fill: var(--serie-7);
+  stroke: var(--serie-7-texte);
+  stroke-width: 3;
+}
+.encre-7 {
+  fill: var(--serie-7-texte);
+}
+.fond-7 {
+  fill: var(--serie-7-fond);
+}
+.trait-7 {
+  fill: none;
+  stroke: var(--serie-7-texte);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.c-7 {
+  fill: var(--serie-7-texte);
+}
+.ico-7 {
+  color: var(--serie-7-texte);
+}
+
+/* ── Formes de planche ───────────────────────────────── */
+.carte-p {
+  fill: var(--partie-fond);
+  stroke: var(--partie-texte);
+  stroke-width: 3;
+}
+
+.feuille {
+  fill: var(--surface);
+  stroke: var(--partie-texte);
+  stroke-width: 4;
+}
+
+.trou {
+  fill: none;
+  stroke: var(--partie-texte);
+  stroke-width: 4;
+  stroke-dasharray: 16 12;
+}
+
+.aplat-alerte {
+  fill: var(--alerte);
+  stroke: var(--alerte);
+  stroke-width: 3;
+}
+
+.badge-alerte {
+  fill: var(--surface);
+  stroke: var(--alerte);
+  stroke-width: 5;
+}
+
+.trait-sur {
+  fill: none;
+  stroke: var(--sur-serie);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.t-ms {
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.decor-fond {
+  fill: var(--scene-2);
+}
+
+.decor-ligne {
+  fill: var(--scene-bord);
+}
+
+/* ===== Lot A : chapitres 2 et 3 (classes propres à ces planches, uniquement ici) ===== */
+/* ===== fin lot A ===== */
+
+/* ===== Lot B : chapitres 4, 5 et 6 (classes propres à ces planches, uniquement ici) ===== */
+.chip-verif {
+  fill: var(--serie-4-fond);
+  stroke: var(--serie-4-texte);
+  stroke-width: 4;
+  stroke-dasharray: 12 8;
+}
+
+.cadre-vrai {
+  fill: none;
+  stroke: var(--serie-7-texte);
+  stroke-width: 5;
+}
+
+.cadre-verif {
+  fill: none;
+  stroke: var(--serie-4-texte);
+  stroke-width: 5;
+  stroke-dasharray: 14 10;
+}
+
+.cadre-inv {
+  fill: none;
+  stroke: var(--alerte);
+  stroke-width: 6;
+}
+
+.hach-alerte {
+  stroke: var(--alerte);
+  stroke-width: 12;
+}
+
+.remplis-h42 {
+  fill: url('#h-42');
+}
+
+.remplis-h43 {
+  fill: url('#h-43');
+}
+
+.fantome {
+  fill: var(--surface);
+  stroke: var(--legende);
+  stroke-width: 4;
+  stroke-dasharray: 12 10;
+}
+
+.venn-1 {
+  fill: var(--serie-1);
+  fill-opacity: 0.3;
+  stroke: var(--serie-1-texte);
+  stroke-width: 5;
+}
+
+.venn-3 {
+  fill: var(--serie-3);
+  fill-opacity: 0.3;
+  stroke: var(--serie-3-texte);
+  stroke-width: 5;
+}
+
+.venn-6 {
+  fill: var(--serie-6);
+  fill-opacity: 0.3;
+  stroke: var(--serie-6-texte);
+  stroke-width: 5;
+}
+/* ===== fin lot B ===== */
+
+/* ===== Lot C : chapitres 7, 8 et 9 (classes propres à ces planches, uniquement ici) ===== */
+.pointe-alerte {
+  fill: var(--alerte);
+}
+
+/* 7.2 : la piste en boucle (route grise, axe en tirets). */
+.piste-boucle {
+  fill: none;
+  stroke: var(--barre-neutre);
+  stroke-width: 44;
+}
+
+.piste-axe {
+  fill: none;
+  stroke: var(--surface);
+  stroke-width: 4;
+  stroke-dasharray: 22 18;
+}
+
+/* 7.4 : pastilles de niveau sur fond foncé. */
+.pip-sur {
+  fill: var(--sur-serie);
+}
+
+.pip-sur-vide {
+  fill: none;
+  stroke: var(--sur-serie);
+  stroke-width: 4;
+}
+
+/* 9.1 à 9.3 : série 2 (API), grille, courbes épaisses, « déjà lu ». */
+.carte-2 {
+  fill: var(--serie-2-fond);
+  stroke: var(--serie-2-texte);
+  stroke-width: 3;
+}
+
+.grille {
+  fill: none;
+  stroke: var(--bord);
+  stroke-width: 2;
+}
+
+.ligne-epaisse {
+  stroke-width: 9;
+}
+
+.trou-plein {
+  fill: var(--surface);
+  stroke: var(--partie-texte);
+  stroke-width: 4;
+  stroke-dasharray: 12 8;
+}
+
+.hach-8-2 {
+  fill: url(#hach-8-2);
+  stroke: var(--alerte);
+  stroke-width: 4;
+  stroke-dasharray: 12 8;
+}
+/* ===== fin lot C ===== */

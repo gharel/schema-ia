@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Mémoire · L’IA en schémas · Skazy Formation</title>
+    <meta
+      name="description"
+      content="Chapitre 2 de L’IA en schémas : la fenêtre de contexte, ce qui la remplit, le résumé automatique et le context rot."
+    />
+    <!-- Support réservé aux stagiaires et à l'équipe : la page n'apparaît pas dans les moteurs de recherche. -->
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="light dark" />
+    <!-- La page a son propre thème sombre : sans ce verrou, le mode nuit de Brave (Dark Reader) la repeint, même en thème clair. -->
+    <meta name="darkreader-lock" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1f1f1f" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link
+      rel="preload"
+      href="assets/fonts/georama-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="assets/css/charte.css" />
+    <link rel="stylesheet" href="assets/css/planches.css" />
+    <script>
+      // Thème choisi, appliqué avant l'affichage pour éviter un éclair de la mauvaise couleur.
+      try {
+        const theme = JSON.parse(localStorage.getItem('skazy-outils:theme'));
+        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+      } catch {
+        // stockage indisponible : thème du système
+      }
+    </script>
+    <script type="module" src="assets/js/theme.js"></script>
+    <script type="module" src="assets/js/haut-de-page.js"></script>
+    <script type="module" src="assets/js/projection.js"></script>
+  </head>
+  <body>
+    <script>
+      // Projection demandée par l'adresse&nbsp;: la mise en page plein écran s'applique dès le premier affichage.
+      if (/[?&]projection\b/.test(location.search)) document.body.classList.add('projection');
+    </script>
+    <a class="lien-evitement" href="#contenu">Aller aux planches</a>
+
+    <header class="bandeau">
+      <div class="bandeau__interieur">
+        <a class="bandeau__lien" href="index.html">
+          <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-house" /></svg>
+          <span class="bandeau__txt">Accueil</span>
+        </a>
+        <a class="bandeau__nom" href="index.html">
+          <img class="bandeau__pastille" src="favicon.svg" width="28" height="28" alt="" />
+          <span class="bandeau__nom-texte">L’IA en schémas</span>
+        </a>
+        <div class="bandeau__actions">
+          <button
+            type="button"
+            class="bouton bouton--primaire bouton-projeter"
+            id="bouton-projeter"
+          >
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-presentation" />
+            </svg>
+            <span class="bandeau__txt">Projeter</span>
+          </button>
+          <button type="button" class="bouton-icone" id="bouton-theme" hidden>
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-contrast" />
+            </svg>
+          </button>
+          <a
+            class="bandeau__lien bandeau__lien-outils"
+            href="https://gharel.github.io/home/"
+            target="_top"
+            title="Tous les outils Skazy Formation"
+          >
+            <img src="assets/img/les-outils.svg" width="26" height="26" alt="" />
+            <span class="bandeau__txt">Les outils</span>
+          </a>
+          <span class="bandeau__filet" aria-hidden="true"></span>
+          <a
+            class="bandeau__logo"
+            href="https://formation.skazy.nc"
+            target="_blank"
+            rel="noopener"
+            aria-label="Site de Skazy Formation (nouvel onglet)"
+            title="Site de Skazy Formation (nouvel onglet)"
+          >
+            <img
+              class="logo logo--clair"
+              src="assets/img/logo-skazy-formation.svg"
+              alt=""
+              width="109"
+              height="36"
+            />
+            <img
+              class="logo logo--sombre"
+              src="assets/img/logo-skazy-formation-blanc.svg"
+              alt=""
+              width="109"
+              height="36"
+            />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <header class="chapitre-tete" data-partie="1">
+        <p class="puce-partie">Partie&nbsp;1&nbsp;· Comprendre</p>
+        <p class="chapitre-tete__numero">Chapitre&nbsp;2</p>
+        <h1 id="titre-page" tabindex="-1">Mémoire</h1>
+        <nav class="chapitre-nav" aria-label="Chapitres voisins">
+          <a class="bouton bouton--secondaire bouton--petit" href="1-tokens.html">
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-left" />
+            </svg>
+            Chapitre&nbsp;1&nbsp;· Tokens et prédiction
+          </a>
+          <a class="bouton bouton--secondaire bouton--petit" href="3-modele-effort.html">
+            Chapitre&nbsp;3&nbsp;· Le bon cerveau
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-right" />
+            </svg>
+          </a>
+        </nav>
+      </header>
+
+      <div class="planches">
+        <!-- 2.1 -->
+        <section class="planche" id="p-2-1" data-partie="1" data-express aria-labelledby="t-2-1">
+          <header class="planche__tete">
+            <span class="planche__puce">2.1</span>
+            <h2 id="t-2-1" class="planche__titre">La fenêtre de contexte</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-2-1 de-2-1">
+              <title id="ti-2-1">La fenêtre de contexte</title>
+              <desc id="de-2-1">
+                La mémoire de travail de l’IA se mesure en tokens. Une fenêtre de 200&nbsp;000
+                tokens contient environ un gros roman. Une fenêtre de 1&nbsp;million de tokens en
+                contient cinq à sept.
+              </desc>
+              <g data-etape="1">
+                <rect class="encre-p" x="60" y="70" width="296" height="270" rx="40" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-book-open"
+                  x="138"
+                  y="145"
+                  width="140"
+                  height="140"
+                />
+                <text class="t-xl c-p" x="400" y="205">
+                  200&nbsp;000
+                  <tspan class="t-m c-fort">tokens</tspan>
+                </text>
+                <text class="t-l c-fort" x="400" y="300">≈ 1 gros roman</text>
+              </g>
+              <g data-etape="2">
+                <text class="t-xl c-p" x="60" y="480">
+                  1&nbsp;million
+                  <tspan class="t-m c-fort">de tokens</tspan>
+                </text>
+                <text class="t-l c-fort" x="1540" y="480" text-anchor="end">≈ 5 à 7 romans</text>
+                <rect class="encre-p" x="64" y="540" width="288" height="280" rx="36" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-book-open"
+                  x="148"
+                  y="610"
+                  width="120"
+                  height="120"
+                />
+                <rect class="carte-p" x="360" y="540" width="288" height="280" rx="36" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-book-open"
+                  x="444"
+                  y="610"
+                  width="120"
+                  height="120"
+                />
+                <rect class="carte-p" x="656" y="540" width="288" height="280" rx="36" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-book-open"
+                  x="740"
+                  y="610"
+                  width="120"
+                  height="120"
+                />
+                <rect class="carte-p" x="952" y="540" width="288" height="280" rx="36" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-book-open"
+                  x="1036"
+                  y="610"
+                  width="120"
+                  height="120"
+                />
+                <rect class="carte-p" x="1248" y="540" width="288" height="280" rx="36" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-book-open"
+                  x="1332"
+                  y="610"
+                  width="120"
+                  height="120"
+                />
+                <text class="t-xs c-legende" x="60" y="868">1 case = 200&nbsp;000 tokens</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Source&nbsp;: Permis IA, fiche 2. Un roman fait environ 150&nbsp;000 tokens (planche
+            1.2)&nbsp;: ordres de grandeur.
+          </p>
+        </section>
+
+        <!-- 2.2 -->
+        <section class="planche" id="p-2-2" data-partie="1" data-express aria-labelledby="t-2-2">
+          <header class="planche__tete">
+            <span class="planche__puce">2.2</span>
+            <h2 id="t-2-2" class="planche__titre">Elle relit tout, à chaque message</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-2-2 de-2-2">
+              <title id="ti-2-2">Elle relit tout, à chaque message</title>
+              <desc id="de-2-2">
+                Cinq envois successifs, représentés par des barres empilées qui s’allongent&nbsp;: à
+                chaque envoi, l’IA reçoit les consignes, tous les messages d’avant, puis le nouveau
+                message. Elle ne se souvient de rien&nbsp;: elle relit tout depuis le début à chaque
+                fois.
+              </desc>
+              <g data-etape="1">
+                <rect class="encre-p" x="60" y="40" width="50" height="40" rx="10" />
+                <text class="t-xs c-fort" x="125" y="72">Consignes</text>
+                <rect class="carte-p" x="340" y="40" width="50" height="40" rx="10" />
+                <text class="t-xs c-fort" x="405" y="72">Messages d’avant, relus</text>
+                <rect class="encre-2" x="800" y="40" width="50" height="40" rx="10" />
+                <text class="t-xs c-fort" x="865" y="72">Nouveau message</text>
+                <text class="t-m c-fort" x="60" y="214">Envoi 1</text>
+                <rect class="encre-p" x="330" y="150" width="90" height="96" rx="18" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-scroll-text"
+                  x="347"
+                  y="170"
+                  width="56"
+                  height="56"
+                />
+                <rect class="encre-2" x="426" y="150" width="124" height="96" rx="18" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-send"
+                  x="460"
+                  y="170"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-fort" x="60" y="344">Envoi 2</text>
+                <rect class="encre-p" x="330" y="280" width="90" height="96" rx="18" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-scroll-text"
+                  x="347"
+                  y="300"
+                  width="56"
+                  height="56"
+                />
+                <rect class="carte-p" x="426" y="280" width="124" height="96" rx="18" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-message-square"
+                  x="464"
+                  y="304"
+                  width="48"
+                  height="48"
+                />
+                <rect class="encre-2" x="556" y="280" width="124" height="96" rx="18" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-send"
+                  x="590"
+                  y="300"
+                  width="56"
+                  height="56"
+                />
+              </g>
+              <g data-etape="2">
+                <path class="trait-legende tirets" d="M610 198L1130 718" />
+                <text class="t-m c-fort" x="60" y="474">Envoi 3</text>
+                <rect class="encre-p" x="330" y="410" width="90" height="96" rx="18" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-scroll-text"
+                  x="347"
+                  y="430"
+                  width="56"
+                  height="56"
+                />
+                <rect class="carte-p" x="426" y="410" width="124" height="96" rx="18" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-message-square"
+                  x="464"
+                  y="434"
+                  width="48"
+                  height="48"
+                />
+                <rect class="carte-p" x="556" y="410" width="124" height="96" rx="18" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-message-square"
+                  x="594"
+                  y="434"
+                  width="48"
+                  height="48"
+                />
+                <rect class="encre-2" x="686" y="410" width="124" height="96" rx="18" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-send"
+                  x="720"
+                  y="430"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-fort" x="60" y="604">Envoi 4</text>
+                <rect class="encre-p" x="330" y="540" width="90" height="96" rx="18" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-scroll-text"
+                  x="347"
+                  y="560"
+                  width="56"
+                  height="56"
+                />
+                <rect class="carte-p" x="426" y="540" width="124" height="96" rx="18" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-message-square"
+                  x="464"
+                  y="564"
+                  width="48"
+                  height="48"
+                />
+                <rect class="carte-p" x="556" y="540" width="124" height="96" rx="18" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-message-square"
+                  x="594"
+                  y="564"
+                  width="48"
+                  height="48"
+                />
+                <rect class="carte-p" x="686" y="540" width="124" height="96" rx="18" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-message-square"
+                  x="724"
+                  y="564"
+                  width="48"
+                  height="48"
+                />
+                <rect class="encre-2" x="816" y="540" width="124" height="96" rx="18" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-send"
+                  x="850"
+                  y="560"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-fort" x="60" y="734">Envoi 5</text>
+                <rect class="encre-p" x="330" y="670" width="90" height="96" rx="18" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-scroll-text"
+                  x="347"
+                  y="690"
+                  width="56"
+                  height="56"
+                />
+                <rect class="carte-p" x="426" y="670" width="124" height="96" rx="18" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-message-square"
+                  x="464"
+                  y="694"
+                  width="48"
+                  height="48"
+                />
+                <rect class="carte-p" x="556" y="670" width="124" height="96" rx="18" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-message-square"
+                  x="594"
+                  y="694"
+                  width="48"
+                  height="48"
+                />
+                <rect class="carte-p" x="686" y="670" width="124" height="96" rx="18" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-message-square"
+                  x="724"
+                  y="694"
+                  width="48"
+                  height="48"
+                />
+                <rect class="carte-p" x="816" y="670" width="124" height="96" rx="18" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-message-square"
+                  x="854"
+                  y="694"
+                  width="48"
+                  height="48"
+                />
+                <rect class="encre-2" x="946" y="670" width="124" height="96" rx="18" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-send"
+                  x="980"
+                  y="690"
+                  width="56"
+                  height="56"
+                />
+              </g>
+              <g data-etape="3">
+                <rect class="encre-p" x="1100" y="250" width="440" height="440" rx="44" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-refresh-cw"
+                  x="1255"
+                  y="290"
+                  width="130"
+                  height="130"
+                />
+                <text class="t-m c-sur" x="1320" y="500" text-anchor="middle">Elle relit tout</text>
+                <text class="t-m c-sur" x="1320" y="560" text-anchor="middle">
+                  depuis le début,
+                </text>
+                <text class="t-m c-sur" x="1320" y="620" text-anchor="middle">à chaque envoi</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Schéma illustratif&nbsp;: la longueur des barres n’est pas à l’échelle. Source&nbsp;:
+            Permis IA, fiche 2.
+          </p>
+        </section>
+
+        <!-- 2.3 -->
+        <section class="planche" id="p-2-3" data-partie="1" aria-labelledby="t-2-3">
+          <header class="planche__tete">
+            <span class="planche__puce">2.3</span>
+            <h2 id="t-2-3" class="planche__titre">Ce qui remplit la mémoire</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-2-3 de-2-3">
+              <title id="ti-2-3">Ce qui remplit la mémoire</title>
+              <desc id="de-2-3">
+                Une fenêtre de 200&nbsp;000 tokens, dessinée à l’échelle. Avant même votre première
+                phrase, elle contient les consignes cachées (environ 2&nbsp;000 tokens), les notes
+                de la mémoire de l’appli et les documents ou le catalogue (environ 10&nbsp;000).
+                Ensuite viennent les messages&nbsp;: un bloc de 50 messages pèse environ 40&nbsp;000
+                tokens, soit 800 par message. Le reste de la fenêtre est libre.
+              </desc>
+              <g data-etape="1">
+                <rect class="piste" x="60" y="300" width="1480" height="150" />
+                <rect class="encre-p" x="60" y="300" width="14.8" height="150" />
+                <rect class="encre-3" x="74.8" y="300" width="14.8" height="150" />
+                <rect class="encre-2" x="89.6" y="300" width="74" height="150" />
+                <path class="trait-p" d="M67 296V128" />
+                <text class="t-s c-fort" x="100" y="155">
+                  Consignes cachées
+                  <tspan class="t-m c-p">≈ 2&nbsp;000</tspan>
+                </text>
+                <path class="trait-2" d="M127 296V230" />
+                <text class="t-s c-fort" x="165" y="255">
+                  Documents, catalogue
+                  <tspan class="t-m c-2">≈ 10&nbsp;000</tspan>
+                </text>
+                <path class="trait-3" d="M82 454V525" />
+                <text class="t-s c-3" x="100" y="575">Mémoire de l’appli</text>
+                <text class="t-xs c-legende" x="100" y="618">notes ajoutées au début</text>
+              </g>
+              <g data-etape="2">
+                <rect class="carte-p" x="163.6" y="300" width="296" height="150" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-messages-square"
+                  x="271.6"
+                  y="340"
+                  width="80"
+                  height="80"
+                />
+                <rect class="carte-p" x="459.6" y="300" width="296" height="150" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-messages-square"
+                  x="567.6"
+                  y="340"
+                  width="80"
+                  height="80"
+                />
+                <rect class="carte-p" x="755.6" y="300" width="296" height="150" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-messages-square"
+                  x="863.6"
+                  y="340"
+                  width="80"
+                  height="80"
+                />
+                <path class="trait-p" d="M170 466v22h870v-22M540 488v70" />
+                <text class="t-m c-p" x="570" y="590">Messages</text>
+                <text class="t-s c-fort" x="570" y="640">
+                  1 bloc = 50 messages ≈ 40&nbsp;000 tokens
+                </text>
+                <text class="t-xs c-legende" x="570" y="686">soit ≈ 800 tokens par message</text>
+              </g>
+              <g data-etape="3">
+                <rect class="trou" x="1056" y="306" width="480" height="138" rx="20" />
+                <text class="t-s c-legende" x="1296" y="386" text-anchor="middle">place libre</text>
+                <path class="trait-legende" d="M60 790v30M1540 790v30M60 805H1540" />
+                <text class="t-m c-p" x="800" y="770" text-anchor="middle">
+                  Fenêtre de contexte&nbsp;: 200&nbsp;000 tokens
+                </text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Source&nbsp;: Permis IA, fiche 2 (valeurs de la simulation). Dessin à l’échelle&nbsp;;
+            la taille des notes de l’appli est illustrative.
+          </p>
+        </section>
+
+        <!-- 2.4 -->
+        <section class="planche" id="p-2-4" data-partie="1" aria-labelledby="t-2-4">
+          <header class="planche__tete">
+            <span class="planche__puce">2.4</span>
+            <h2 id="t-2-4" class="planche__titre">Mémoire pleine&nbsp;: elle résume</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-2-4 de-2-4">
+              <title id="ti-2-4">Mémoire pleine&nbsp;: elle résume</title>
+              <desc id="de-2-4">
+                Quand la mémoire atteint 95&nbsp;% de sa taille, l’appli compresse&nbsp;: les
+                consignes et les derniers messages (environ 40&nbsp;% de la mémoire) sont gardés,
+                les vieux messages et le catalogue deviennent un court résumé d’environ 4&nbsp;000
+                tokens. Des détails se perdent&nbsp;: le prix des chambres est perdu au premier
+                résumé, l’allergie aux fruits de mer au deuxième. Seul le nombre de personnes reste
+                dans le résumé.
+              </desc>
+              <g data-etape="1">
+                <text class="t-s c-fort" x="60" y="92">Mémoire presque pleine</text>
+                <rect class="piste" x="60" y="112" width="1480" height="100" />
+                <rect class="encre-p" x="60" y="112" width="14.8" height="100" />
+                <rect class="encre-2" x="74.8" y="112" width="74" height="100" />
+                <rect class="carte-p" x="148.8" y="112" width="1317.2" height="100" />
+                <path
+                  class="trait-p"
+                  d="M444.8 112v100M740.8 112v100M1036.8 112v100M1332.8 112v100"
+                />
+                <path class="trait-alerte" d="M1466 96V228" />
+                <text class="t-l c-alerte" x="1540" y="80" text-anchor="end">95&nbsp;%</text>
+              </g>
+              <g data-etape="2">
+                <path class="trait" d="M800 236V292" />
+                <path class="pointe-fort" d="M780 288h40l-20 34z" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-scroll-text"
+                  x="850"
+                  y="240"
+                  width="64"
+                  height="64"
+                />
+                <text class="t-m c-p" x="935" y="288">Vieux messages résumés</text>
+                <text class="t-s c-fort" x="60" y="392">Après le résumé</text>
+                <rect class="piste" x="60" y="412" width="1480" height="100" />
+                <rect class="encre-p" x="60" y="412" width="14.8" height="100" />
+                <rect class="encre-3" x="74.8" y="412" width="29.6" height="100" />
+                <rect class="carte-p" x="104.4" y="412" width="592" height="100" />
+                <path class="trait-p" d="M400.4 412v100" />
+                <text class="t-m c-p" x="1120" y="478" text-anchor="middle">Place libérée</text>
+                <path class="trait-3" d="M89 516V548" />
+                <text class="t-s c-3" x="100" y="586">Résumé ≈ 4&nbsp;000</text>
+                <path class="trait-p" d="M112 526v18h580v-18M500 544v30" />
+                <text class="t-s c-fort" x="530" y="586">Derniers messages gardés</text>
+                <text class="t-m c-p" x="530" y="634">≈ 40&nbsp;% de la mémoire</text>
+              </g>
+              <g data-etape="3">
+                <rect class="feuille" x="60" y="660" width="480" height="200" rx="32" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-users"
+                  x="88"
+                  y="688"
+                  width="72"
+                  height="72"
+                />
+                <text class="t-s c-fort" x="185" y="726">12 personnes</text>
+
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-check"
+                  x="86"
+                  y="798"
+                  width="40"
+                  height="40"
+                />
+                <text class="t-xs c-p" x="140" y="830">Dans le résumé</text>
+                <rect class="badge-alerte" x="560" y="660" width="480" height="200" rx="32" />
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-receipt"
+                  x="588"
+                  y="688"
+                  width="72"
+                  height="72"
+                />
+                <text class="t-s c-fort" x="685" y="726">Prix des chambres</text>
+
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-x"
+                  x="586"
+                  y="798"
+                  width="40"
+                  height="40"
+                />
+                <text class="t-xs c-alerte" x="640" y="830">Perdu au 1er résumé</text>
+                <rect class="badge-alerte" x="1060" y="660" width="480" height="200" rx="32" />
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-triangle-alert"
+                  x="1088"
+                  y="688"
+                  width="72"
+                  height="72"
+                />
+                <text class="t-s c-fort" x="1185" y="726">Allergie aux</text>
+                <text class="t-s c-fort" x="1185" y="770">fruits de mer</text>
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-x"
+                  x="1086"
+                  y="798"
+                  width="40"
+                  height="40"
+                />
+                <text class="t-xs c-alerte" x="1140" y="830">Perdue au 2e résumé</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Source&nbsp;: Permis IA, fiche 2 (simulation&nbsp;: devis d’un voyage, 50 messages par
+            bloc, compression à 95&nbsp;%). Dessin à l’échelle.
+          </p>
+        </section>
+
+        <!-- 2.5 -->
+        <section class="planche" id="p-2-5" data-partie="1" aria-labelledby="t-2-5">
+          <header class="planche__tete">
+            <span class="planche__puce">2.5</span>
+            <h2 id="t-2-5" class="planche__titre">Plus c’est long, moins c’est précis</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-2-5 de-2-5">
+              <title id="ti-2-5">Plus c’est long, moins c’est précis</title>
+              <desc id="de-2-5">
+                Deux graphiques. À gauche, le score sur 100 de deux IA d’OpenAI selon la longueur du
+                texte, de 8&nbsp;000 tokens à 1&nbsp;million&nbsp;: GPT-5.5 passe de 98 à 74,
+                GPT-5.4 de 97 à 37. À droite, l’étude Chroma de juillet 2025&nbsp;: avec seulement
+                l’utile, une grande IA qui réfléchit marque 96, une autre 94, une IA qui ne
+                réfléchit pas 87&nbsp;; avec toute la conversation, elles tombent à 90, 81 et 62.
+              </desc>
+              <g data-etape="1">
+                <text class="t-s c-fort" x="60" y="70">
+                  Score sur 100, selon la longueur du texte
+                </text>
+                <path class="trait-legende tirets" d="M170 240.00000000000006H900M170 470H900" />
+                <path class="trait-legende" d="M170 700H900" />
+                <text class="t-xs c-legende" x="140" y="250" text-anchor="end">100</text>
+                <text class="t-xs c-legende" x="140" y="480" text-anchor="end">50</text>
+                <text class="t-xs c-legende" x="140" y="710" text-anchor="end">0</text>
+                <text class="t-xs c-legende" x="170" y="748" text-anchor="middle">8&nbsp;k</text>
+                <text class="t-xs c-legende" x="270" y="748" text-anchor="middle">16&nbsp;k</text>
+                <text class="t-xs c-legende" x="370" y="748" text-anchor="middle">32&nbsp;k</text>
+                <text class="t-xs c-legende" x="470" y="748" text-anchor="middle">64&nbsp;k</text>
+                <text class="t-xs c-legende" x="570" y="748" text-anchor="middle">128&nbsp;k</text>
+                <text class="t-xs c-legende" x="670" y="748" text-anchor="middle">256&nbsp;k</text>
+                <text class="t-xs c-legende" x="770" y="748" text-anchor="middle">512&nbsp;k</text>
+                <text class="t-xs c-legende" x="870" y="748" text-anchor="middle">1&nbsp;M</text>
+                <text class="t-xs c-legende" x="535" y="800" text-anchor="middle">
+                  Longueur du texte, en tokens
+                </text>
+                <path
+                  class="trait-p"
+                  d="M170 249.2L270 272.2L370 253.8L470 286L570 318.2L670 295.2L770 322.8L870 359.6"
+                />
+                <circle class="encre-p" cx="170" cy="249.2" r="12" />
+                <circle class="encre-p" cx="270" cy="272.2" r="12" />
+                <circle class="encre-p" cx="370" cy="253.8" r="12" />
+                <circle class="encre-p" cx="470" cy="286" r="12" />
+                <circle class="encre-p" cx="570" cy="318.2" r="12" />
+                <circle class="encre-p" cx="670" cy="295.2" r="12" />
+                <circle class="encre-p" cx="770" cy="322.8" r="12" />
+                <circle class="encre-p" cx="870" cy="359.6" r="12" />
+                <text class="t-m c-p" x="170" y="219.2" text-anchor="middle">98</text>
+                <text class="t-s c-p" x="230" y="211.2">GPT-5.5</text>
+                <text class="t-l c-p" x="870" y="325.6" text-anchor="middle">74</text>
+              </g>
+              <g data-etape="2">
+                <path
+                  class="trait-2 tirets"
+                  d="M170 253.8L270 281.4L370 253.8L470 281.4L570 304.4L670 336.6L770 433.2L870 529.8"
+                />
+                <rect class="encre-2" x="159" y="242.8" width="22" height="22" rx="3" />
+                <rect class="encre-2" x="259" y="270.4" width="22" height="22" rx="3" />
+                <rect class="encre-2" x="359" y="242.8" width="22" height="22" rx="3" />
+                <rect class="encre-2" x="459" y="270.4" width="22" height="22" rx="3" />
+                <rect class="encre-2" x="559" y="293.4" width="22" height="22" rx="3" />
+                <rect class="encre-2" x="659" y="325.6" width="22" height="22" rx="3" />
+                <rect class="encre-2" x="759" y="422.2" width="22" height="22" rx="3" />
+                <rect class="encre-2" x="859" y="518.8" width="22" height="22" rx="3" />
+                <text class="t-s c-2" x="830" y="553.8" text-anchor="end">GPT-5.4</text>
+                <text class="t-l c-2" x="870" y="611.8" text-anchor="middle">37</text>
+              </g>
+              <g data-etape="3">
+                <path class="trait-legende" d="M990 60V800" />
+                <rect class="encre-p" x="1030" y="40" width="40" height="36" rx="8" />
+                <text class="t-xs c-fort" x="1082" y="70">Seulement l’utile</text>
+                <rect class="encre-2" x="1030" y="90" width="40" height="36" rx="8" />
+                <text class="t-xs c-fort" x="1082" y="120">Toute la conversation</text>
+                <path class="trait-legende" d="M1020 700H1540" />
+                <rect class="encre-p" x="1013" y="258.4" width="64" height="441.6" />
+                <rect class="encre-2" x="1093" y="286" width="64" height="414" />
+                <text class="t-m c-p" x="1045" y="244.4" text-anchor="middle">96</text>
+                <text class="t-m c-2" x="1125" y="272" text-anchor="middle">90</text>
+                <text class="t-xs c-fort" x="1085" y="748" text-anchor="middle">Grande IA</text>
+                <text class="t-xs c-fort" x="1085" y="786" text-anchor="middle">réfléchit</text>
+                <rect class="encre-p" x="1190" y="267.6" width="64" height="432.4" />
+                <rect class="encre-2" x="1270" y="327.4" width="64" height="372.6" />
+                <text class="t-m c-p" x="1222" y="253.6" text-anchor="middle">94</text>
+                <text class="t-m c-2" x="1302" y="313.4" text-anchor="middle">81</text>
+                <text class="t-xs c-fort" x="1262" y="748" text-anchor="middle">Autre IA</text>
+                <text class="t-xs c-fort" x="1262" y="786" text-anchor="middle">réfléchit</text>
+                <rect class="encre-p" x="1368" y="299.8" width="64" height="400.2" />
+                <rect class="encre-2" x="1448" y="414.8" width="64" height="285.2" />
+                <text class="t-m c-p" x="1400" y="285.8" text-anchor="middle">87</text>
+                <text class="t-m c-2" x="1480" y="400.8" text-anchor="middle">62</text>
+                <text class="t-xs c-fort" x="1440" y="748" text-anchor="middle">IA qui ne</text>
+                <text class="t-xs c-fort" x="1440" y="786" text-anchor="middle">réfléchit pas</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Sources&nbsp;: OpenAI, avril 2026, test MRCR (chiffres arrondis)&nbsp;; Chroma,
+            «&nbsp;Context Rot&nbsp;», juillet 2025, pas relu par d’autres chercheurs (306
+            questions). Permis IA, fiche 2.
+          </p>
+        </section>
+      </div>
+
+      <div class="chapitre-pied" data-partie="1">
+        <nav class="chapitre-nav" aria-label="Chapitres voisins (bas de page)">
+          <a class="bouton bouton--secondaire" href="1-tokens.html">
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-left" />
+            </svg>
+            Chapitre&nbsp;1&nbsp;· Tokens et prédiction
+          </a>
+          <a class="bouton bouton--secondaire" href="index.html">
+            <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-house" /></svg>
+            Sommaire
+          </a>
+          <a class="bouton bouton--primaire" href="3-modele-effort.html">
+            Chapitre&nbsp;3&nbsp;· Le bon cerveau
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-right" />
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+
+    <footer class="pied">
+      <div class="pied__interieur">
+        <p>
+          &copy;&nbsp;2026 <strong>Skazy Formation</strong>,
+          <span class="insecable">Nouvelle-Calédonie</span>&nbsp;·
+          <a href="https://formation.skazy.nc" target="_blank" rel="noopener">formation.skazy.nc</a>
+        </p>
+        <p>
+          Usage réservé aux stagiaires de Skazy Formation&nbsp;: reproduction et réutilisation dans
+          une autre formation interdites sans accord écrit.
+        </p>
+      </div>
+    </footer>
+
+    <button type="button" class="haut-de-page" id="haut-de-page" hidden>
+      <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-arrow-up" /></svg>
+      <span class="invisible">Remonter en haut de la page</span>
+    </button>
+  </body>
+</html>

@@ -1,0 +1,508 @@
+/*
+ * Charte graphique Skazy Formation pour « L’IA en schémas » : seul fichier où une couleur est écrite.
+ *
+ * 1. Jetons du design system (design-skazy : tokens/colors.css, typography.css, spacing.css),
+ *    copiés tels quels, avec les polices Georama servies en local.
+ * 2. Jetons sémantiques de la page (thème clair, puis sombre : système, ou choix du bouton).
+ * 3. Jetons de graphique : sept séries (--serie-N) et la couleur de chaque partie.
+ *
+ * Règles de contraste (AA) : une couleur de série (--serie-N) est un aplat ou un décor, jamais un
+ * texte ; le texte et les traits porteurs de sens prennent --serie-N-texte (« ink ») ; le fond
+ * clair d'une zone est --serie-N-fond ; le texte posé sur un aplat --serie-N-texte est --sur-serie.
+ */
+
+/* ═══ 1. Jetons du design system ═══════════════════════════════════════════ */
+
+:root {
+  /* ── Brand ─────────────────────────────────────────── */
+  --color-primary: #50967c; /* marque : aplats, logo, décor, grands titres sur fond sombre ; jamais en texte courant (3,50:1 sur blanc) */
+  --color-primary-dark: #3d7a62; /* texte, liens, fond de bouton : AA avec du blanc (5,05:1) */
+  --color-primary-darker: #2f6250; /* survol du bouton primaire (7,04:1 avec du blanc) */
+  --color-primary-light: #6db898;
+  --color-primary-subtle: #e8f5f0;
+
+  --color-dark: #4a4a4a;
+  --color-dark-2: #2e2e2e;
+  --color-dark-3: #1a1a1a;
+
+  /* ── Neutral ────────────────────────────────────────── */
+  --color-white: #ffffff;
+  --color-gray-50: #f8f9fa;
+  --color-gray-100: #f1f3f5;
+  --color-gray-200: #e9ecef;
+  --color-gray-300: #dee2e6;
+  --color-gray-400: #ced4da;
+  --color-gray-500: #adb5bd; /* décor uniquement, pas du texte ; bord de champ : --color-border-input */
+  --color-gray-600: #676f77; /* texte secondaire : AA (>= 4,5:1) sur #fff, #f8f9fa et #f1f3f5 */
+  --color-gray-700: #495057;
+  --color-gray-800: #343a40;
+  --color-gray-900: #212529;
+
+  /* ── Catégories (9) ───────────────────────────────────
+     Couleur de base = valeur des documents imprimés (inchangée).
+     4 tokens par catégorie :
+       couleur  aplats, grands titres (jamais en texte : utiliser -ink)
+       -ink     texte sur blanc ou sur -tint (AA), et FOND des petits textes blancs
+       -tint    fonds clairs
+       -on      texte posé sur la couleur de base (anthracite pour Data, Gestion,
+                Graphisme, Marketing, IA, NoCode : AA ; blanc pour Bureautique, Dev,
+                Web : 3,31 / 3,21:1, GRAND texte seulement, >= 24 px ou >= 18,66 px gras)
+     Petit texte sur une catégorie (badge plein, pastille, numéro, bloc bonus…) :
+     fond -ink + texte #FFFFFF, pour les 9 catégories (>= 5,07:1). */
+  /* Bureautique */
+  --color-cat-bureautique: #a977da;
+  --color-cat-bureautique-ink: #7b4bb3;
+  --color-cat-bureautique-tint: #f3ecfb;
+  --color-cat-bureautique-on: #ffffff;
+  --color-cat-bureautique-light: var(--color-cat-bureautique-tint);
+  /* Data */
+  --color-cat-data: #f7ca45;
+  --color-cat-data-ink: #8a6a00;
+  --color-cat-data-tint: #fef6da;
+  --color-cat-data-on: #1f1f24;
+  --color-cat-data-light: var(--color-cat-data-tint);
+  /* Développement */
+  --color-cat-dev: #009bca;
+  --color-cat-dev-ink: #00739a;
+  --color-cat-dev-tint: #e1f3fa;
+  --color-cat-dev-on: #ffffff;
+  --color-cat-dev-light: var(--color-cat-dev-tint);
+  /* Gestion de projet */
+  --color-cat-gestion: #ff86a5;
+  --color-cat-gestion-ink: #be3e64;
+  --color-cat-gestion-tint: #ffeef3;
+  --color-cat-gestion-on: #1f1f24;
+  --color-cat-gestion-light: var(--color-cat-gestion-tint);
+  /* Graphisme & UX */
+  --color-cat-graphisme: #00aea0;
+  --color-cat-graphisme-ink: #00796f;
+  --color-cat-graphisme-tint: #dff5f2;
+  --color-cat-graphisme-on: #1f1f24;
+  --color-cat-graphisme-light: var(--color-cat-graphisme-tint);
+  /* Intelligence Artificielle */
+  --color-cat-ia: #ff6e3d;
+  --color-cat-ia-ink: #ba471d;
+  --color-cat-ia-tint: #ffede5;
+  --color-cat-ia-on: #1f1f24;
+  --color-cat-ia-light: var(--color-cat-ia-tint);
+  /* Marketing */
+  --color-cat-marketing: #00aea0;
+  --color-cat-marketing-ink: #00796f;
+  --color-cat-marketing-tint: #dff5f2;
+  --color-cat-marketing-on: #1f1f24;
+  --color-cat-marketing-light: var(--color-cat-marketing-tint);
+  /* NoCode */
+  --color-cat-nocode: #ff6e3d;
+  --color-cat-nocode-ink: #ba471d;
+  --color-cat-nocode-tint: #ffede5;
+  --color-cat-nocode-on: #1f1f24;
+  --color-cat-nocode-light: var(--color-cat-nocode-tint);
+  /* Web */
+  --color-cat-web: #009bca;
+  --color-cat-web-ink: #00739a;
+  --color-cat-web-tint: #e1f3fa;
+  --color-cat-web-on: #ffffff;
+  --color-cat-web-light: var(--color-cat-web-tint);
+  /* Alias historiques */
+  --color-cat-ux: var(--color-cat-graphisme);
+  --color-cat-ux-ink: var(--color-cat-graphisme-ink);
+  --color-cat-ux-tint: var(--color-cat-graphisme-tint);
+  --color-cat-ux-on: var(--color-cat-graphisme-on);
+  --color-cat-ux-light: var(--color-cat-graphisme-light);
+  --color-cat-audiovisuel: var(--color-cat-graphisme);
+  --color-cat-audiovisuel-ink: var(--color-cat-graphisme-ink);
+  --color-cat-audiovisuel-tint: var(--color-cat-graphisme-tint);
+  --color-cat-audiovisuel-on: var(--color-cat-graphisme-on);
+  --color-cat-audiovisuel-light: var(--color-cat-graphisme-light);
+  --color-cat-webmarketing: var(--color-cat-marketing);
+  --color-cat-webmarketing-ink: var(--color-cat-marketing-ink);
+  --color-cat-webmarketing-tint: var(--color-cat-marketing-tint);
+  --color-cat-webmarketing-on: var(--color-cat-marketing-on);
+  --color-cat-webmarketing-light: var(--color-cat-marketing-light);
+
+  /* ── Supports (composants document/ : fiches, ateliers, slides) ─────
+     Neutres des documents, tous AA sur le fond où ils sont posés. */
+  --color-doc-text: #1f1f24; /* texte anthracite (14,9:1 sur #f4f4f5) */
+  --color-doc-text-soft: #45454f; /* texte courant des cartes (9,5:1 sur blanc) */
+  --color-doc-text-info: #3b3b42; /* valeurs des encadrés (10,1:1 sur #f4f4f5) */
+  --color-doc-text-muted: #55555e; /* pied de slide (6,7:1 sur #f4f4f5) */
+  --color-doc-bg: #f4f4f5; /* encadrés, pied de slide clair */
+  --color-doc-bg-soft: #f6f6f7; /* cases d'information des ateliers */
+  --color-doc-border: #eeeef0; /* contour des cartes (décor) */
+  --color-doc-caption: #6e6e78; /* légendes, sources, années d'une frise, « + » entre deux touches (4,7:1 sur #f6f6f7) */
+  --color-doc-tag-bg: #e4e4e8; /* étiquette neutre (« Avant »), contour de la carte neutre (décor) */
+  --color-doc-bar: #d9d9de; /* barres neutres d'un graphique, contour des touches (décor) */
+  --color-doc-photo: #dadadf; /* fond d'une photo absente (décor) */
+  --color-code-bg: #1e1e24; /* bloc de code */
+  --color-code-label: #a8a8b3; /* 7,0:1 sur le bloc de code */
+  --color-code-comment: #8a8a96; /* 4,9:1 sur le bloc de code */
+  --color-code-caption: #d4d4da; /* 11,2:1 sur le bloc de code */
+  --color-code-string: #ffd58a; /* chaîne de caractères dans le bloc de code */
+
+  /* ── Semantic ───────────────────────────────────────── */
+  --color-text-primary: var(--color-dark);
+  --color-text-secondary: var(--color-gray-600);
+  --color-text-muted: var(
+    --color-gray-600
+  ); /* = secondaire : un seul gris de texte, AA sur #fff / #f8f9fa / #f1f3f5 */
+  --color-text-inverse: var(--color-white);
+  --color-text-brand: var(
+    --color-primary-dark
+  ); /* texte vert : AA (la couleur de marque ne l'est pas) */
+
+  --color-bg-page: var(--color-white);
+  --color-bg-subtle: var(--color-gray-50);
+  --color-bg-muted: var(--color-gray-100);
+  --color-bg-brand: var(--color-primary);
+  --color-bg-dark: var(--color-dark-3);
+
+  --color-border: var(--color-gray-200);
+  --color-border-focus: var(--color-primary-dark); /* 5,05:1 sur blanc (WCAG 1.4.11, >= 3:1) */
+  --color-border-input: #8494a4; /* bord des champs de formulaire : 3,11:1 sur blanc (WCAG 1.4.11) */
+
+  /* Sémantique : success, warning et info sont des FONDS ou des icônes, jamais du texte
+     (3,35 / 2,10 / 3,21:1 sur blanc). Un message d'erreur en texte utilise --color-error (AA). */
+  --color-success: #3a9e68;
+  --color-warning: #e6a817;
+  --color-error: #d02d2d; /* texte d'erreur : 5,13:1 sur #fff, 4,61:1 sur #f1f3f5 */
+  --color-info: var(--color-cat-dev);
+}
+
+/* Polices locales (assets/fonts, sous-ensemble latin) : Georama pour le web. */
+@font-face {
+  font-family: 'Georama';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/georama-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Georama';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/georama-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Georama';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../fonts/georama-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Georama';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/georama-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Georama';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('../fonts/georama-800.woff2') format('woff2');
+}
+
+:root {
+  /* ── Font Families ──────────────────────────────────── */
+  --font-web: 'Georama', sans-serif; /* website, UI */
+  --font-mono: 'Courier New', Courier, monospace;
+
+  /* ── Font Sizes (web) ───────────────────────────────── */
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-md: 1.125rem; /* 18px */
+  --text-lg: 1.25rem; /* 20px */
+  --text-xl: 1.5rem; /* 24px */
+  --text-2xl: 1.875rem; /* 30px */
+  --text-3xl: 2.25rem; /* 36px */
+  --text-4xl: 3rem; /* 48px */
+  --text-5xl: 3.75rem; /* 60px */
+
+  /* ── Font Weights ───────────────────────────────────── */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  --weight-black: 900;
+
+  /* ── Line Heights ───────────────────────────────────── */
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+  --leading-loose: 1.8;
+
+  /* ── Letter Spacing ─────────────────────────────────── */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.04em;
+  --tracking-wider: 0.08em;
+  --tracking-widest: 0.16em;
+
+  /* ── Semantic / Role aliases ────────────────────────── */
+  --font-display: var(--font-web);
+  --font-body: var(--font-web);
+
+  --text-display-size: var(--text-5xl);
+  --text-h1-size: var(--text-4xl);
+  --text-h2-size: var(--text-3xl);
+  --text-h3-size: var(--text-2xl);
+  --text-h4-size: var(--text-xl);
+  --text-body-size: var(--text-base);
+  --text-small-size: var(--text-sm);
+  --text-caption-size: var(--text-xs);
+}
+
+:root {
+  /* ── Base spacing (4px grid) ────────────────────────── */
+  --space-0: 0;
+  --space-1: 0.25rem; /* 4px  */
+  --space-2: 0.5rem; /* 8px  */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-5: 1.25rem; /* 20px */
+  --space-6: 1.5rem; /* 24px */
+  --space-8: 2rem; /* 32px */
+  --space-10: 2.5rem; /* 40px */
+  --space-12: 3rem; /* 48px */
+  --space-16: 4rem; /* 64px */
+  --space-20: 5rem; /* 80px */
+  --space-24: 6rem; /* 96px */
+  --space-32: 8rem; /* 128px */
+
+  /* ── Border Radius ──────────────────────────────────── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --radius-full: 9999px;
+
+  /* ── Shadows ────────────────────────────────────────── */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.14), 0 8px 16px rgba(0, 0, 0, 0.08);
+
+  /* ── Layout ─────────────────────────────────────────── */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1440px;
+
+  --header-height: 72px;
+
+  /* ── Transitions ─────────────────────────────────────── */
+  --transition-fast: 150ms ease; /* @kind other */
+  --transition-normal: 250ms ease; /* @kind other */
+  --transition-slow: 400ms ease; /* @kind other */
+}
+
+/* ═══ 2. Jetons sémantiques de la page ═════════════════════════════════════ */
+
+:root {
+  color-scheme: light;
+
+  /* Marque */
+  --primaire: var(--color-primary);
+  --primaire-fonce: var(--color-primary-dark);
+  --primaire-survol: var(--color-primary-darker);
+  --primaire-texte: var(--color-primary-dark);
+  --primaire-pale: var(--color-primary-subtle);
+  --sur-primaire: var(--color-white);
+
+  /* Neutres */
+  --fond: var(--color-bg-subtle);
+  --surface: var(--color-white);
+  --surface-2: var(--color-bg-muted);
+  --bord: var(--color-gray-300);
+  --bord-fort: var(--color-gray-400);
+  --texte: var(--color-text-primary);
+  --texte-fort: var(--color-dark-2);
+  --texte-doux: var(--color-text-secondary);
+  --ombre-teinte: 0 0 0;
+  --focus: var(--color-border-focus);
+
+  /* Héros et pied de page : la « scène » sombre du design system */
+  --scene: var(--color-bg-dark);
+  --scene-2: #262626;
+  --scene-bord: #3d3d3d;
+  --scene-texte: var(--color-gray-100);
+  --scene-doux: #c3c9cf;
+  --scene-accent: var(--color-primary-light);
+
+  /* Couleur de l'outil (favicon) */
+  --outil-a: #2ee6c8;
+  --outil-b: #0a9396;
+
+  /* Formes */
+  --ombre-sm: 0 1px 4px rgb(var(--ombre-teinte) / 8%), 0 1px 2px rgb(var(--ombre-teinte) / 4%);
+  --ombre-md: 0 4px 12px rgb(var(--ombre-teinte) / 10%), 0 2px 4px rgb(var(--ombre-teinte) / 6%);
+  --ombre-lg: 0 8px 24px rgb(var(--ombre-teinte) / 12%), 0 4px 8px rgb(var(--ombre-teinte) / 6%);
+  --largeur: var(--container-xl);
+  --hauteur-bandeau: 72px;
+
+  /* ═══ 3. Jetons de graphique ═══
+     Séries : 1 dev (bleu), 2 ia (orange), 3 bureautique (violet), 4 data (jaune),
+     5 gestion (rose), 6 graphisme (sarcelle), 7 primaire (vert).
+     --serie-N        aplat, décor (jamais du texte)
+     --serie-N-texte  texte, trait porteur de sens, fond d'une pastille à texte --sur-serie
+     --serie-N-fond   fond clair d'une zone, texte --serie-N-texte dessus */
+  --serie-1: var(--color-cat-dev);
+  --serie-1-texte: var(--color-cat-dev-ink);
+  --serie-1-fond: var(--color-cat-dev-tint);
+  --serie-2: var(--color-cat-ia);
+  --serie-2-texte: var(--color-cat-ia-ink);
+  --serie-2-fond: var(--color-cat-ia-tint);
+  --serie-3: var(--color-cat-bureautique);
+  --serie-3-texte: var(--color-cat-bureautique-ink);
+  --serie-3-fond: var(--color-cat-bureautique-tint);
+  --serie-4: var(--color-cat-data);
+  --serie-4-texte: var(--color-cat-data-ink);
+  --serie-4-fond: var(--color-cat-data-tint);
+  --serie-5: var(--color-cat-gestion);
+  --serie-5-texte: var(--color-cat-gestion-ink);
+  --serie-5-fond: var(--color-cat-gestion-tint);
+  --serie-6: var(--color-cat-graphisme);
+  --serie-6-texte: var(--color-cat-graphisme-ink);
+  --serie-6-fond: var(--color-cat-graphisme-tint);
+  --serie-7: var(--color-primary);
+  --serie-7-texte: var(--color-primary-dark);
+  --serie-7-fond: var(--color-primary-subtle);
+  --sur-serie: var(--color-white);
+
+  /* Neutres de graphique */
+  --barre-neutre: var(--color-doc-bar);
+  --legende: var(--color-doc-caption);
+  --scene-fond: var(--surface);
+  --alerte: var(--color-error);
+}
+
+/* Thème sombre : celui des slides du design system (#1a1a1a), comme le site des outils. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --primaire: #6db898;
+    --primaire-fonce: #6db898;
+    --primaire-survol: #8fcfb3;
+    --primaire-texte: #7cc1a5;
+    --primaire-pale: #213a31;
+    --sur-primaire: #102019;
+    --fond: #141414;
+    --surface: #1f1f1f;
+    --surface-2: #2a2a2a;
+    --bord: #383838;
+    --bord-fort: #4a4a4a;
+    --texte: #e4e7ea;
+    --texte-fort: #f8f9fa;
+    --texte-doux: #aab2ba;
+    --ombre-teinte: 0 0 0;
+    --scene: #0c0c0c;
+    --scene-2: #1a1a1a;
+    --scene-bord: #333333;
+    --serie-1: #1fa8d6;
+    --serie-1-texte: #66cdee;
+    --serie-1-fond: #14303b;
+    --serie-2: #ff7a4d;
+    --serie-2-texte: #ff9a74;
+    --serie-2-fond: #43261b;
+    --serie-3: #b384e0;
+    --serie-3-texte: #cfa8f0;
+    --serie-3-fond: #33254a;
+    --serie-4: #f7ca45;
+    --serie-4-texte: #f7d56b;
+    --serie-4-fond: #43381a;
+    --serie-5: #ff86a5;
+    --serie-5-texte: #ffa3bc;
+    --serie-5-fond: #47232f;
+    --serie-6: #00aea0;
+    --serie-6-texte: #3fd1c4;
+    --serie-6-fond: #12373a;
+    --serie-7: #6db898;
+    --serie-7-texte: #7cc1a5;
+    --serie-7-fond: #213a31;
+    --sur-serie: #101214;
+    --barre-neutre: #4a4a4a;
+    --legende: #aab2ba;
+    --alerte: #ff8a80;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --primaire: #6db898;
+  --primaire-fonce: #6db898;
+  --primaire-survol: #8fcfb3;
+  --primaire-texte: #7cc1a5;
+  --primaire-pale: #213a31;
+  --sur-primaire: #102019;
+  --fond: #141414;
+  --surface: #1f1f1f;
+  --surface-2: #2a2a2a;
+  --bord: #383838;
+  --bord-fort: #4a4a4a;
+  --texte: #e4e7ea;
+  --texte-fort: #f8f9fa;
+  --texte-doux: #aab2ba;
+  --ombre-teinte: 0 0 0;
+  --scene: #0c0c0c;
+  --scene-2: #1a1a1a;
+  --scene-bord: #333333;
+  --serie-1: #1fa8d6;
+  --serie-1-texte: #66cdee;
+  --serie-1-fond: #14303b;
+  --serie-2: #ff7a4d;
+  --serie-2-texte: #ff9a74;
+  --serie-2-fond: #43261b;
+  --serie-3: #b384e0;
+  --serie-3-texte: #cfa8f0;
+  --serie-3-fond: #33254a;
+  --serie-4: #f7ca45;
+  --serie-4-texte: #f7d56b;
+  --serie-4-fond: #43381a;
+  --serie-5: #ff86a5;
+  --serie-5-texte: #ffa3bc;
+  --serie-5-fond: #47232f;
+  --serie-6: #00aea0;
+  --serie-6-texte: #3fd1c4;
+  --serie-6-fond: #12373a;
+  --serie-7: #6db898;
+  --serie-7-texte: #7cc1a5;
+  --serie-7-fond: #213a31;
+  --sur-serie: #101214;
+  --barre-neutre: #4a4a4a;
+  --legende: #aab2ba;
+  --alerte: #ff8a80;
+}
+
+/* Thème clair choisi : « only light » interdit aux navigateurs et aux extensions qui assombrissent
+   les sites (mode nuit de Brave, Dark Reader…) d'assombrir la page. */
+:root[data-theme='light'] {
+  color-scheme: only light;
+}
+
+/* Couleur de chaque partie : 1 Comprendre = dev, 2 Repérer les pièges = ia, 3 Agir = bureautique. */
+[data-partie='1'] {
+  --partie: var(--serie-1);
+  --partie-texte: var(--serie-1-texte);
+  --partie-fond: var(--serie-1-fond);
+}
+[data-partie='2'] {
+  --partie: var(--serie-2);
+  --partie-texte: var(--serie-2-texte);
+  --partie-fond: var(--serie-2-fond);
+}
+[data-partie='3'] {
+  --partie: var(--serie-3);
+  --partie-texte: var(--serie-3-texte);
+  --partie-fond: var(--serie-3-fond);
+}

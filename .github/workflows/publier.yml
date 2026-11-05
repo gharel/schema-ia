@@ -1,0 +1,59 @@
+# À chaque push sur main : on vérifie le site (format, HTML, tests Playwright et accessibilité),
+# puis on publie le dossier site/ sur GitHub Pages. Le site n'est publié que si tout passe.
+name: Vérifier puis publier sur GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  verifier:
+    name: Tests (format, HTML, Playwright)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - name: Installer les outils
+        run: npm ci
+      - name: Installer Chromium pour Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Format et validation HTML
+        run: npm run check
+      - name: Tests du site (mise en page, thèmes, accessibilité, projection)
+        run: npm test
+      - name: Garder le rapport Playwright en cas d'échec
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: rapport-playwright
+          path: playwright-report/
+          retention-days: 7
+
+  publier:
+    name: Publication sur GitHub Pages
+    needs: verifier
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploiement.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+      - id: deploiement
+        uses: actions/deploy-pages@v5

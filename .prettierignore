@@ -1,0 +1,8 @@
+node_modules/
+playwright-report/
+test-results/
+captures/
+package-lock.json
+site/assets/img/
+site/favicon.svg
+.claude/

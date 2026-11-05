@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Agent sur mesure · L’IA en schémas · Skazy Formation</title>
+    <meta
+      name="description"
+      content="Chapitre 8 de L’IA en schémas : les cinq briques d’un agent, ce qui est toujours lu et ce qui est lu au besoin."
+    />
+    <!-- Support réservé aux stagiaires et à l'équipe : la page n'apparaît pas dans les moteurs de recherche. -->
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="light dark" />
+    <!-- La page a son propre thème sombre : sans ce verrou, le mode nuit de Brave (Dark Reader) la repeint, même en thème clair. -->
+    <meta name="darkreader-lock" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1f1f1f" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link
+      rel="preload"
+      href="assets/fonts/georama-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="assets/css/charte.css" />
+    <link rel="stylesheet" href="assets/css/planches.css" />
+    <script>
+      // Thème choisi, appliqué avant l'affichage pour éviter un éclair de la mauvaise couleur.
+      try {
+        const theme = JSON.parse(localStorage.getItem('skazy-outils:theme'));
+        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+      } catch {
+        // stockage indisponible : thème du système
+      }
+    </script>
+    <script type="module" src="assets/js/theme.js"></script>
+    <script type="module" src="assets/js/haut-de-page.js"></script>
+    <script type="module" src="assets/js/projection.js"></script>
+  </head>
+  <body>
+    <script>
+      // Projection demandée par l'adresse&nbsp;: la mise en page plein écran s'applique dès le premier affichage.
+      if (/[?&]projection\b/.test(location.search)) document.body.classList.add('projection');
+    </script>
+    <a class="lien-evitement" href="#contenu">Aller aux planches</a>
+
+    <header class="bandeau">
+      <div class="bandeau__interieur">
+        <a class="bandeau__lien" href="index.html">
+          <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-house" /></svg>
+          <span class="bandeau__txt">Accueil</span>
+        </a>
+        <a class="bandeau__nom" href="index.html">
+          <img class="bandeau__pastille" src="favicon.svg" width="28" height="28" alt="" />
+          <span class="bandeau__nom-texte">L’IA en schémas</span>
+        </a>
+        <div class="bandeau__actions">
+          <button
+            type="button"
+            class="bouton bouton--primaire bouton-projeter"
+            id="bouton-projeter"
+          >
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-presentation" />
+            </svg>
+            <span class="bandeau__txt">Projeter</span>
+          </button>
+          <button type="button" class="bouton-icone" id="bouton-theme" hidden>
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-contrast" />
+            </svg>
+          </button>
+          <a
+            class="bandeau__lien bandeau__lien-outils"
+            href="https://gharel.github.io/home/"
+            target="_top"
+            title="Tous les outils Skazy Formation"
+          >
+            <img src="assets/img/les-outils.svg" width="26" height="26" alt="" />
+            <span class="bandeau__txt">Les outils</span>
+          </a>
+          <span class="bandeau__filet" aria-hidden="true"></span>
+          <a
+            class="bandeau__logo"
+            href="https://formation.skazy.nc"
+            target="_blank"
+            rel="noopener"
+            aria-label="Site de Skazy Formation (nouvel onglet)"
+            title="Site de Skazy Formation (nouvel onglet)"
+          >
+            <img
+              class="logo logo--clair"
+              src="assets/img/logo-skazy-formation.svg"
+              alt=""
+              width="109"
+              height="36"
+            />
+            <img
+              class="logo logo--sombre"
+              src="assets/img/logo-skazy-formation-blanc.svg"
+              alt=""
+              width="109"
+              height="36"
+            />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <header class="chapitre-tete" data-partie="3">
+        <p class="puce-partie">Partie&nbsp;3&nbsp;· Agir avec l’IA</p>
+        <p class="chapitre-tete__numero">Chapitre&nbsp;8</p>
+        <h1 id="titre-page" tabindex="-1">Agent sur mesure</h1>
+        <nav class="chapitre-nav" aria-label="Chapitres voisins">
+          <a class="bouton bouton--secondaire bouton--petit" href="7-boite-outils.html"
+            ><svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-left" /></svg
+            >Chapitre&nbsp;7&nbsp;· Boîte à outils</a
+          ><a class="bouton bouton--secondaire bouton--petit" href="9-forfait-api.html"
+            >Chapitre&nbsp;9&nbsp;· Forfait ou compteur<svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-right" /></svg
+          ></a>
+        </nav>
+      </header>
+
+      <div class="planches">
+        <!-- 8.1 -->
+        <section class="planche" id="p-8-1" data-partie="3" aria-labelledby="t-8-1">
+          <header class="planche__tete">
+            <span class="planche__puce">8.1</span>
+            <h2 id="t-8-1" class="planche__titre">Les 5 briques d’un agent</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-8-1 de-8-1">
+              <title id="ti-8-1">Les 5 briques d’un agent</title>
+              <desc id="de-8-1">
+                Cinq briques s’empilent&nbsp;: la tâche (qui revient souvent, avec des étapes), les
+                consignes (AGENTS.md, court, moins de 200 lignes), les outils (le moins possible),
+                les limites (vous validez avant tout envoi) et le test (sur de vrais cas, on corrige
+                les consignes si l’agent se trompe).
+              </desc>
+              <g data-etape="1">
+                <rect class="carte-p" x="60" y="688" width="720" height="140" rx="28" />
+                <circle class="encre-p" cx="122" cy="758" r="36" />
+                <text class="t-m c-sur" x="122" y="774" text-anchor="middle">1</text>
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-target"
+                  x="182"
+                  y="730"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-l c-p" x="264" y="778">Tâche</text>
+                <path class="trait-legende tirets" d="M800 758H860" />
+                <text class="t-m c-fort" x="890" y="754">Une tâche qui revient</text>
+                <text class="t-s c-legende" x="890" y="802">souvent, avec des étapes</text>
+              </g>
+              <g data-etape="2">
+                <rect class="carte-p" x="100" y="536" width="720" height="140" rx="28" />
+                <circle class="encre-p" cx="162" cy="606" r="36" />
+                <text class="t-m c-sur" x="162" y="622" text-anchor="middle">2</text>
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-scroll-text"
+                  x="222"
+                  y="578"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-l c-p" x="304" y="626">Consignes</text>
+                <path class="trait-legende tirets" d="M840 606H860" />
+                <text class="t-m c-fort" x="890" y="602">AGENTS.md, court</text>
+                <text class="t-s c-legende" x="890" y="650">moins de 200 lignes</text>
+              </g>
+              <g data-etape="3">
+                <rect class="carte-p" x="60" y="384" width="720" height="140" rx="28" />
+                <circle class="encre-p" cx="122" cy="454" r="36" />
+                <text class="t-m c-sur" x="122" y="470" text-anchor="middle">3</text>
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-wrench"
+                  x="182"
+                  y="426"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-l c-p" x="264" y="474">Outils</text>
+                <path class="trait-legende tirets" d="M800 454H860" />
+                <text class="t-m c-fort" x="890" y="450">Le moins d’outils</text>
+                <text class="t-s c-legende" x="890" y="498">possible</text>
+                <rect class="carte-p" x="100" y="232" width="720" height="140" rx="28" />
+                <circle class="encre-p" cx="162" cy="302" r="36" />
+                <text class="t-m c-sur" x="162" y="318" text-anchor="middle">4</text>
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-hand"
+                  x="222"
+                  y="274"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-l c-p" x="304" y="322">Limites</text>
+                <path class="trait-legende tirets" d="M840 302H860" />
+                <text class="t-m c-fort" x="890" y="298">Vous validez</text>
+                <text class="t-s c-legende" x="890" y="346">avant tout envoi</text>
+              </g>
+              <g data-etape="4">
+                <rect class="encre-p" x="60" y="80" width="720" height="140" rx="28" />
+                <circle class="surface" cx="122" cy="150" r="36" />
+                <text class="t-m c-p" x="122" y="166" text-anchor="middle">5</text>
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-list-checks"
+                  x="182"
+                  y="122"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-l c-sur" x="264" y="170">Test</text>
+                <path class="trait-legende tirets" d="M800 150H860" />
+                <text class="t-m c-fort" x="890" y="146">Sur de vrais cas</text>
+                <text class="t-s c-legende" x="890" y="194">S’il se trompe, on corrige</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Source&nbsp;: Permis IA, fiche&nbsp;8. Schéma sans chiffre, hormis le repère de la fiche
+            (moins de 200 lignes).
+          </p>
+        </section>
+
+        <!-- 8.2 -->
+        <section class="planche" id="p-8-2" data-partie="3" aria-labelledby="t-8-2">
+          <header class="planche__tete">
+            <span class="planche__puce">8.2</span>
+            <h2 id="t-8-2" class="planche__titre">Toujours lu ou lu au besoin</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-8-2 de-8-2">
+              <title id="ti-8-2">Toujours lu ou lu au besoin</title>
+              <desc id="de-8-2">
+                Le dossier agence contient AGENTS.md (toujours relu, 80 lignes),
+                skills/devis/SKILL.md (méthode de 300 lignes, ouverte pour un devis) et
+                tarifs-2027.pdf (120 lignes de prix, ouvert à la demande). Pour une question simple,
+                tout rangé dans AGENTS.md prend 380 lignes de mémoire dont 300 inutiles&nbsp;; avec
+                une Skill, 80 lignes. Pour un devis, 500 lignes dans les deux cas.
+              </desc>
+              <defs>
+                <pattern id="hach-8-2" width="24" height="24" patternUnits="userSpaceOnUse">
+                  <path class="hachure-trait" d="M-6 6L6 -6M-6 30L30 -6M18 30L30 18" />
+                </pattern>
+              </defs>
+              <g data-etape="1">
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-folder-open"
+                  x="60"
+                  y="28"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-l c-fort" x="134" y="76">agence/</text>
+                <path class="trait-legende" d="M36 112V585M36 225H60M36 405H80M36 585H80" />
+                <rect class="surface-2" x="60" y="150" width="740" height="150" rx="28" />
+                <circle class="encre-p" cx="124" cy="225" r="40" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-file-text"
+                  x="102"
+                  y="203"
+                  width="44"
+                  height="44"
+                />
+                <text class="t-m c-fort" x="188" y="214">AGENTS.md</text>
+                <rect class="encre-p" x="188" y="234" width="580" height="50" rx="25" />
+                <text class="t-xs c-sur" x="212" y="269">toujours relu&nbsp;· 80 lignes</text>
+                <rect class="surface-2" x="80" y="330" width="720" height="150" rx="28" />
+                <circle class="encre-p" cx="144" cy="405" r="40" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-scroll-text"
+                  x="122"
+                  y="383"
+                  width="44"
+                  height="44"
+                />
+                <text class="t-m c-fort" x="208" y="394">skills/devis/SKILL.md</text>
+                <rect class="trou" x="208" y="414" width="560" height="50" rx="25" />
+                <text class="t-xs c-fort" x="232" y="449">pour un devis&nbsp;· 300 lignes</text>
+                <rect class="surface-2" x="80" y="510" width="720" height="150" rx="28" />
+                <circle class="encre-p" cx="144" cy="585" r="40" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-coins"
+                  x="122"
+                  y="563"
+                  width="44"
+                  height="44"
+                />
+                <text class="t-m c-fort" x="208" y="574">tarifs-2027.pdf</text>
+                <rect class="trou" x="208" y="594" width="560" height="50" rx="25" />
+                <text class="t-xs c-fort" x="232" y="629">à la demande&nbsp;· 120 lignes</text>
+              </g>
+              <g data-etape="2">
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-gauge"
+                  x="880"
+                  y="28"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-fort" x="956" y="74">Place en mémoire</text>
+                <text class="t-s c-fort" x="880" y="160">Question simple</text>
+                <text class="t-xs c-legende" x="880" y="232">Tout dans AGENTS.md</text>
+                <rect class="piste" x="880" y="250" width="500" height="76" rx="18" />
+                <rect class="encre-p" x="880" y="250" width="80" height="76" rx="12" />
+                <rect class="hach-8-2" x="960" y="250" width="300" height="76" rx="8" />
+                <text class="t-l c-alerte" x="1540" y="306" text-anchor="end">380</text>
+                <text class="t-xs c-legende" x="880" y="372">Méthode dans une Skill</text>
+                <rect class="piste" x="880" y="390" width="500" height="76" rx="18" />
+                <rect class="encre-p" x="880" y="390" width="80" height="76" rx="12" />
+                <text class="t-l c-p" x="1540" y="446" text-anchor="end">80</text>
+              </g>
+              <g data-etape="3">
+                <text class="t-s c-fort" x="880" y="560">Un devis</text>
+                <rect class="piste" x="880" y="590" width="500" height="76" rx="18" />
+                <rect class="encre-p" x="880" y="590" width="80" height="76" rx="12" />
+                <rect class="trou-plein" x="966" y="590" width="294" height="76" rx="8" />
+                <rect class="trou-plein" x="1266" y="590" width="114" height="76" rx="8" />
+                <text class="t-l c-p" x="1540" y="646" text-anchor="end">500</text>
+                <text class="t-xs c-legende" x="880" y="720">
+                  Même place, mais seulement quand il le faut
+                </text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Nombres de lignes inventés par la fiche pour comprendre. Chemin simplifié&nbsp;: le
+            dossier des Skills change selon l’agent. Source&nbsp;: Permis IA, fiche&nbsp;8.
+          </p>
+        </section>
+      </div>
+
+      <div class="chapitre-pied" data-partie="3">
+        <nav class="chapitre-nav" aria-label="Chapitres voisins (bas de page)">
+          <a class="bouton bouton--secondaire" href="7-boite-outils.html"
+            ><svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-left" /></svg
+            >Chapitre&nbsp;7&nbsp;· Boîte à outils</a
+          ><a class="bouton bouton--secondaire" href="index.html"
+            ><svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-house" /></svg
+            >Sommaire</a
+          ><a class="bouton bouton--primaire" href="9-forfait-api.html"
+            >Chapitre&nbsp;9&nbsp;· Forfait ou compteur<svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-right" /></svg
+          ></a>
+        </nav>
+      </div>
+    </main>
+
+    <footer class="pied">
+      <div class="pied__interieur">
+        <p>
+          &copy;&nbsp;2026 <strong>Skazy Formation</strong>,
+          <span class="insecable">Nouvelle-Calédonie</span>&nbsp;·
+          <a href="https://formation.skazy.nc" target="_blank" rel="noopener">formation.skazy.nc</a>
+        </p>
+        <p>
+          Usage réservé aux stagiaires de Skazy Formation&nbsp;: reproduction et réutilisation dans
+          une autre formation interdites sans accord écrit.
+        </p>
+      </div>
+    </footer>
+
+    <button type="button" class="haut-de-page" id="haut-de-page" hidden>
+      <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-arrow-up" /></svg>
+      <span class="invisible">Remonter en haut de la page</span>
+    </button>
+  </body>
+</html>

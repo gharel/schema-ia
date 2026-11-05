@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Tokens et prédiction · L’IA en schémas · Skazy Formation</title>
+    <meta
+      name="description"
+      content="Chapitre 1 de L’IA en schémas : comment un modèle naît, le token, la prédiction du mot suivant."
+    />
+    <!-- Support réservé aux stagiaires et à l'équipe : la page n'apparaît pas dans les moteurs de recherche. -->
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="light dark" />
+    <!-- La page a son propre thème sombre : sans ce verrou, le mode nuit de Brave (Dark Reader) la repeint, même en thème clair. -->
+    <meta name="darkreader-lock" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1f1f1f" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link
+      rel="preload"
+      href="assets/fonts/georama-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="assets/css/charte.css" />
+    <link rel="stylesheet" href="assets/css/planches.css" />
+    <script>
+      // Thème choisi, appliqué avant l'affichage pour éviter un éclair de la mauvaise couleur.
+      try {
+        const theme = JSON.parse(localStorage.getItem('skazy-outils:theme'));
+        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+      } catch {
+        // stockage indisponible : thème du système
+      }
+    </script>
+    <script type="module" src="assets/js/theme.js"></script>
+    <script type="module" src="assets/js/haut-de-page.js"></script>
+    <script type="module" src="assets/js/projection.js"></script>
+  </head>
+  <body>
+    <script>
+      // Projection demandée par l'adresse&nbsp;: la mise en page plein écran s'applique dès le premier affichage.
+      if (/[?&]projection\b/.test(location.search)) document.body.classList.add('projection');
+    </script>
+    <a class="lien-evitement" href="#contenu">Aller aux planches</a>
+
+    <header class="bandeau">
+      <div class="bandeau__interieur">
+        <a class="bandeau__lien" href="index.html">
+          <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-house" /></svg>
+          <span class="bandeau__txt">Accueil</span>
+        </a>
+        <a class="bandeau__nom" href="index.html">
+          <img class="bandeau__pastille" src="favicon.svg" width="28" height="28" alt="" />
+          <span class="bandeau__nom-texte">L’IA en schémas</span>
+        </a>
+        <div class="bandeau__actions">
+          <button
+            type="button"
+            class="bouton bouton--primaire bouton-projeter"
+            id="bouton-projeter"
+          >
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-presentation" />
+            </svg>
+            <span class="bandeau__txt">Projeter</span>
+          </button>
+          <button type="button" class="bouton-icone" id="bouton-theme" hidden>
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-contrast" />
+            </svg>
+          </button>
+          <a
+            class="bandeau__lien bandeau__lien-outils"
+            href="https://gharel.github.io/home/"
+            target="_top"
+            title="Tous les outils Skazy Formation"
+          >
+            <img src="assets/img/les-outils.svg" width="26" height="26" alt="" />
+            <span class="bandeau__txt">Les outils</span>
+          </a>
+          <span class="bandeau__filet" aria-hidden="true"></span>
+          <a
+            class="bandeau__logo"
+            href="https://formation.skazy.nc"
+            target="_blank"
+            rel="noopener"
+            aria-label="Site de Skazy Formation (nouvel onglet)"
+            title="Site de Skazy Formation (nouvel onglet)"
+          >
+            <img
+              class="logo logo--clair"
+              src="assets/img/logo-skazy-formation.svg"
+              alt=""
+              width="109"
+              height="36"
+            />
+            <img
+              class="logo logo--sombre"
+              src="assets/img/logo-skazy-formation-blanc.svg"
+              alt=""
+              width="109"
+              height="36"
+            />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <header class="chapitre-tete" data-partie="1">
+        <p class="puce-partie">Partie&nbsp;1&nbsp;· Comprendre</p>
+        <p class="chapitre-tete__numero">Chapitre&nbsp;1</p>
+        <h1 id="titre-page" tabindex="-1">Tokens et prédiction</h1>
+        <nav class="chapitre-nav" aria-label="Chapitres voisins">
+          <a class="bouton bouton--secondaire bouton--petit" href="2-memoire.html">
+            Chapitre&nbsp;2&nbsp;· Mémoire
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-right" />
+            </svg>
+          </a>
+        </nav>
+      </header>
+
+      <div class="planches">
+        <!-- 1.1 -->
+        <section class="planche" id="p-1-1" data-partie="1" aria-labelledby="t-1-1">
+          <header class="planche__tete">
+            <span class="planche__puce">1.1</span>
+            <h2 id="t-1-1" class="planche__titre">Comment naît un modèle</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-1-1 de-1-1">
+              <title id="ti-1-1">Comment naît un modèle</title>
+              <desc id="de-1-1">
+                Trois étapes&nbsp;: le modèle lit d’immenses quantités de textes (pré-entraînement),
+                il s’ajuste pour suivre des consignes (ajustement), puis des humains préfèrent
+                certaines réponses (retours humains). Il en sort un modèle qui prédit la suite d’un
+                texte.
+              </desc>
+              <g data-etape="1">
+                <rect class="carte-p" x="60" y="50" width="440" height="560" rx="32" />
+                <circle class="encre-p" cx="124" cy="114" r="40" />
+                <text class="t-l c-sur" x="124" y="136" text-anchor="middle">1</text>
+                <g transform="rotate(-12 197.5 300)">
+                  <rect class="feuille" x="132.5" y="215" width="130" height="170" rx="14" />
+                  <path class="trait-legende" d="M154 255h86M154 285h86M154 315h60" />
+                </g>
+                <g transform="rotate(-4 252.5 300)">
+                  <rect class="feuille" x="187.5" y="215" width="130" height="170" rx="14" />
+                  <path class="trait-legende" d="M209 255h86M209 285h86M209 315h60" />
+                </g>
+                <g transform="rotate(4 307.5 300)">
+                  <rect class="feuille" x="242.5" y="215" width="130" height="170" rx="14" />
+                  <path class="trait-legende" d="M264 255h86M264 285h86M264 315h60" />
+                </g>
+                <g transform="rotate(12 362.5 300)">
+                  <rect class="feuille" x="297.5" y="215" width="130" height="170" rx="14" />
+                  <path class="trait-legende" d="M319 255h86M319 285h86M319 315h60" />
+                </g>
+                <text class="t-ms c-p" x="280" y="462" text-anchor="middle">Pré-entraînement</text>
+                <text class="t-s c-fort" x="280" y="518" text-anchor="middle">
+                  Elle lit d’immenses
+                </text>
+                <text class="t-s c-fort" x="280" y="562" text-anchor="middle">
+                  quantités de textes
+                </text>
+              </g>
+              <g data-etape="2">
+                <path class="trait-legende" d="M522 300l30 30-30 30" />
+                <rect class="carte-p" x="580" y="50" width="440" height="560" rx="32" />
+                <circle class="encre-p" cx="644" cy="114" r="40" />
+                <text class="t-l c-sur" x="644" y="136" text-anchor="middle">2</text>
+                <rect class="feuille" x="640" y="190" width="300" height="76" rx="22" />
+                <text class="t-xs c-fort" x="790" y="238" text-anchor="middle">
+                  Résume ce texte
+                </text>
+                <rect class="encre-p" x="700" y="296" width="300" height="104" rx="22" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-check"
+                  x="722"
+                  y="322"
+                  width="52"
+                  height="52"
+                />
+                <path class="trait-sur" d="M796 336h160M796 366h110" />
+                <text class="t-ms c-p" x="800" y="462" text-anchor="middle">Ajustement</text>
+                <text class="t-s c-fort" x="800" y="518" text-anchor="middle">
+                  Elle apprend à suivre
+                </text>
+                <text class="t-s c-fort" x="800" y="562" text-anchor="middle">des consignes</text>
+              </g>
+              <g data-etape="3">
+                <path class="trait-legende" d="M1042 300l30 30-30 30" />
+                <rect class="carte-p" x="1100" y="50" width="440" height="560" rx="32" />
+                <circle class="encre-p" cx="1164" cy="114" r="40" />
+                <text class="t-l c-sur" x="1164" y="136" text-anchor="middle">3</text>
+                <rect class="encre-p" x="1155" y="200" width="140" height="190" rx="20" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-thumbs-up"
+                  x="1193"
+                  y="222"
+                  width="64"
+                  height="64"
+                />
+                <path class="trait-sur" d="M1180 330h90M1180 358h60" />
+                <rect class="feuille" x="1345" y="200" width="140" height="190" rx="20" />
+                <use
+                  class="ico-legende"
+                  href="assets/img/icones.svg#i-x"
+                  x="1383"
+                  y="222"
+                  width="64"
+                  height="64"
+                />
+                <path class="trait-legende" d="M1370 330h90M1370 358h60" />
+                <text class="t-ms c-p" x="1320" y="462" text-anchor="middle">Retours humains</text>
+                <text class="t-s c-fort" x="1320" y="518" text-anchor="middle">
+                  Des humains préfèrent
+                </text>
+                <text class="t-s c-fort" x="1320" y="562" text-anchor="middle">
+                  certaines réponses
+                </text>
+              </g>
+              <g data-etape="4">
+                <path class="trait-legende" d="M280 622v36M800 622v36M1320 622v36" />
+                <path
+                  class="pointe-legende"
+                  d="M264 654h32l-16 28zM784 654h32l-16 28zM1304 654h32l-16 28z"
+                />
+                <rect class="encre-p" x="60" y="690" width="1480" height="170" rx="36" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-cpu"
+                  x="110"
+                  y="737"
+                  width="76"
+                  height="76"
+                />
+                <text class="t-xl c-sur" x="230" y="800">Un modèle</text>
+                <text class="t-m c-sur" x="1500" y="795" text-anchor="end">
+                  il prédit la suite d’un texte
+                </text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">Schéma illustratif, sans chiffre.</p>
+        </section>
+
+        <!-- 1.2 -->
+        <section class="planche" id="p-1-2" data-partie="1" data-express aria-labelledby="t-1-2">
+          <header class="planche__tete">
+            <span class="planche__puce">1.2</span>
+            <h2 id="t-1-2" class="planche__titre">Le token, l’unité de tout</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-1-2 de-1-2">
+              <title id="ti-1-2">Le token, l’unité de tout</title>
+              <desc id="de-1-2">
+                La phrase « Bonjour&nbsp;! Peux-tu m’aider à préparer mon voyage à Nouméa en
+                décembre&nbsp;? » est découpée en 20 tokens. 100 mots font environ 170 tokens. Sur
+                une échelle logarithmique&nbsp;: un SMS environ 30 tokens, un e-mail 300, une page
+                500, un roman 150&nbsp;000, le code d’une grosse application plus d’un million.
+              </desc>
+              <g data-etape="1">
+                <rect class="tok-a" x="60" y="40" width="201" height="76" rx="18" />
+                <text class="t-m c-sur" x="160.5" y="94" text-anchor="middle">Bonjour</text>
+                <rect class="tok-b" x="271" y="40" width="64" height="76" rx="18" />
+                <text class="t-m c-p" x="303" y="94" text-anchor="middle">!</text>
+                <rect class="tok-c" x="345" y="40" width="145" height="76" rx="18" />
+                <text class="t-m c-p" x="417.5" y="94" text-anchor="middle">Peux</text>
+                <rect class="tok-a" x="500" y="40" width="64" height="76" rx="18" />
+                <text class="t-m c-sur" x="532" y="94" text-anchor="middle">-</text>
+                <rect class="tok-b" x="574" y="40" width="84" height="76" rx="18" />
+                <text class="t-m c-p" x="616" y="94" text-anchor="middle">tu</text>
+                <rect class="tok-c" x="668" y="40" width="78" height="76" rx="18" />
+                <text class="t-m c-p" x="707" y="94" text-anchor="middle">m</text>
+                <rect class="tok-a" x="756" y="40" width="64" height="76" rx="18" />
+                <text class="t-m c-sur" x="788" y="94" text-anchor="middle">’</text>
+                <rect class="tok-b" x="830" y="40" width="145" height="76" rx="18" />
+                <text class="t-m c-p" x="902.5" y="94" text-anchor="middle">aider</text>
+                <rect class="tok-c" x="985" y="40" width="65" height="76" rx="18" />
+                <text class="t-m c-p" x="1017.5" y="94" text-anchor="middle">à</text>
+                <rect class="tok-a" x="1060" y="40" width="133" height="76" rx="18" />
+                <text class="t-m c-sur" x="1126.5" y="94" text-anchor="middle">prép</text>
+                <rect class="tok-b" x="1203" y="40" width="125" height="76" rx="18" />
+                <text class="t-m c-p" x="1265.5" y="94" text-anchor="middle">arer</text>
+                <rect class="tok-c" x="60" y="140" width="129" height="76" rx="18" />
+                <text class="t-m c-p" x="124.5" y="194" text-anchor="middle">mon</text>
+                <rect class="tok-a" x="199" y="140" width="188" height="76" rx="18" />
+                <text class="t-m c-sur" x="293" y="194" text-anchor="middle">voyage</text>
+                <rect class="tok-b" x="397" y="140" width="65" height="76" rx="18" />
+                <text class="t-m c-p" x="429.5" y="194" text-anchor="middle">à</text>
+                <rect class="tok-c" x="472" y="140" width="159" height="76" rx="18" />
+                <text class="t-m c-p" x="551.5" y="194" text-anchor="middle">Noum</text>
+                <rect class="tok-a" x="641" y="140" width="89" height="76" rx="18" />
+                <text class="t-m c-sur" x="685.5" y="194" text-anchor="middle">éa</text>
+                <rect class="tok-b" x="740" y="140" width="90" height="76" rx="18" />
+                <text class="t-m c-p" x="785" y="194" text-anchor="middle">en</text>
+                <rect class="tok-c" x="840" y="140" width="137" height="76" rx="18" />
+                <text class="t-m c-p" x="908.5" y="194" text-anchor="middle">déce</text>
+                <rect class="tok-a" x="987" y="140" width="146" height="76" rx="18" />
+                <text class="t-m c-sur" x="1060" y="194" text-anchor="middle">mbre</text>
+                <rect class="tok-b" x="1143" y="140" width="64" height="76" rx="18" />
+                <text class="t-m c-p" x="1175" y="194" text-anchor="middle">?</text>
+                <text class="t-m c-p" x="1540" y="216" text-anchor="end">
+                  <tspan class="t-xl">20</tspan>
+                  tokens
+                </text>
+                <text class="t-s c-legende" x="60" y="268">Une phrase, découpée en morceaux</text>
+              </g>
+              <g data-etape="2">
+                <text class="t-m c-fort" x="60" y="364">100 mots</text>
+                <text class="t-m c-fort" x="60" y="444">170 tokens</text>
+                <rect class="neutre" x="330" y="318" width="60" height="60" rx="10" />
+                <rect class="neutre" x="398" y="318" width="60" height="60" rx="10" />
+                <rect class="neutre" x="466" y="318" width="60" height="60" rx="10" />
+                <rect class="neutre" x="534" y="318" width="60" height="60" rx="10" />
+                <rect class="neutre" x="602" y="318" width="60" height="60" rx="10" />
+                <rect class="neutre" x="670" y="318" width="60" height="60" rx="10" />
+                <rect class="neutre" x="738" y="318" width="60" height="60" rx="10" />
+                <rect class="neutre" x="806" y="318" width="60" height="60" rx="10" />
+                <rect class="neutre" x="874" y="318" width="60" height="60" rx="10" />
+                <rect class="neutre" x="942" y="318" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="330" y="398" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="398" y="398" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="466" y="398" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="534" y="398" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="602" y="398" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="670" y="398" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="738" y="398" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="806" y="398" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="874" y="398" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="942" y="398" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="1010" y="398" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="1078" y="398" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="1146" y="398" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="1214" y="398" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="1282" y="398" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="1350" y="398" width="60" height="60" rx="10" />
+                <rect class="tok-a" x="1418" y="398" width="60" height="60" rx="10" />
+                <text class="t-xs c-legende" x="1540" y="364" text-anchor="end">1 carré = 10</text>
+              </g>
+              <g data-etape="3">
+                <text class="t-xs c-legende" x="1540" y="515" text-anchor="end">
+                  Échelle logarithmique&nbsp;: chaque trait = ×10
+                </text>
+                <path class="trait-legende" d="M100 700H1500" />
+                <path class="pointe-legende" d="M1496 684l36 16-36 16z" />
+                <path
+                  class="trait-legende"
+                  d="M100 688v24M333 688v24M567 688v24M800 688v24M1033 688v24M1267 688v24M1500 688v24"
+                />
+                <path
+                  class="trait-legende"
+                  d="M211 684v-44M496 684v-44M1267 684v-44M445 716v44M1074 716v44"
+                />
+                <circle class="encre-p" cx="211" cy="700" r="16" />
+                <circle class="encre-p" cx="445" cy="700" r="16" />
+                <circle class="encre-p" cx="496" cy="700" r="16" />
+                <circle class="encre-p" cx="1074" cy="700" r="16" />
+                <circle class="encre-p" cx="1267" cy="700" r="16" />
+                <text class="t-s c-fort" x="211" y="572" text-anchor="middle">SMS</text>
+                <text class="t-m c-p" x="211" y="624" text-anchor="middle">≈ 30</text>
+                <text class="t-s c-fort" x="496" y="572" text-anchor="middle">Page</text>
+                <text class="t-m c-p" x="496" y="624" text-anchor="middle">≈ 500</text>
+                <text class="t-s c-fort" x="1267" y="572" text-anchor="middle">Grosse appli</text>
+                <text class="t-m c-p" x="1267" y="624" text-anchor="middle">≥ 1&nbsp;million</text>
+                <text class="t-s c-fort" x="445" y="812" text-anchor="middle">E-mail</text>
+                <text class="t-m c-p" x="445" y="864" text-anchor="middle">≈ 300</text>
+                <text class="t-s c-fort" x="1074" y="812" text-anchor="middle">Roman</text>
+                <text class="t-m c-p" x="1074" y="864" text-anchor="middle">≈ 150&nbsp;000</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Source&nbsp;: Permis IA, fiche 1. Ordres de grandeur pour un texte en français,
+            découpage simplifié.
+          </p>
+        </section>
+
+        <!-- 1.3 -->
+        <section class="planche" id="p-1-3" data-partie="1" data-express aria-labelledby="t-1-3">
+          <header class="planche__tete">
+            <span class="planche__puce">1.3</span>
+            <h2 id="t-1-3" class="planche__titre">Prédire le mot suivant</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-1-3 de-1-3">
+              <title id="ti-1-3">Prédire le mot suivant</title>
+              <desc id="de-1-3">
+                Après « La capitale de la Nouvelle-Calédonie est », l’IA donne à chaque mot possible
+                un pourcentage de chances&nbsp;: Nouméa 92&nbsp;%, Dumbéa 4&nbsp;%, Païta 2&nbsp;%,
+                Koné 1&nbsp;%. Elle écrit le plus probable&nbsp;: Nouméa.
+              </desc>
+              <g data-etape="1">
+                <rect class="surface-2" x="40" y="50" width="1520" height="130" rx="36" />
+                <text class="t-l c-fort" x="90" y="134">
+                  La capitale de la Nouvelle-Calédonie est
+                </text>
+                <rect class="trou" x="1240" y="78" width="290" height="76" rx="18" />
+                <text class="t-l c-legende" x="1385" y="136" text-anchor="middle">…</text>
+              </g>
+              <g data-etape="2">
+                <rect class="piste" x="340" y="260" width="1020" height="84" rx="20" />
+                <rect class="aplat-p" x="340" y="260" width="938.4" height="84" rx="20" />
+                <text class="t-m c-fort" x="60" y="318">Nouméa</text>
+                <text class="t-l c-fort" x="1540" y="322" text-anchor="end">92&nbsp;%</text>
+                <rect class="piste" x="340" y="388" width="1020" height="84" rx="20" />
+                <rect class="neutre" x="340" y="388" width="40.8" height="84" rx="10" />
+                <text class="t-m c-fort" x="60" y="446">Dumbéa</text>
+                <text class="t-l c-fort" x="1540" y="450" text-anchor="end">4&nbsp;%</text>
+                <rect class="piste" x="340" y="516" width="1020" height="84" rx="20" />
+                <rect class="neutre" x="340" y="516" width="20.4" height="84" rx="10" />
+                <text class="t-m c-fort" x="60" y="574">Païta</text>
+                <text class="t-l c-fort" x="1540" y="578" text-anchor="end">2&nbsp;%</text>
+                <rect class="piste" x="340" y="644" width="1020" height="84" rx="20" />
+                <rect class="neutre" x="340" y="644" width="10.2" height="84" rx="5" />
+                <text class="t-m c-fort" x="60" y="702">Koné</text>
+                <text class="t-l c-fort" x="1540" y="706" text-anchor="end">1&nbsp;%</text>
+                <text class="t-xs c-legende" x="340" y="800">
+                  Chances que ce soit le mot suivant
+                </text>
+              </g>
+              <g data-etape="3">
+                <rect class="trait-p" x="44" y="244" width="1512" height="116" rx="30" />
+                <path class="trait-p" d="M1385 236V182" />
+                <path class="encre-p" d="M1366 190h38l-19-34z" />
+                <rect class="carte-p" x="1234" y="72" width="302" height="88" rx="24" />
+                <text class="t-l c-p" x="1385" y="136" text-anchor="middle">Nouméa</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Pourcentages illustratifs, inventés pour comprendre. Source&nbsp;: Permis IA, fiche 1.
+          </p>
+        </section>
+
+        <!-- 1.4 -->
+        <section class="planche" id="p-1-4" data-partie="1" aria-labelledby="t-1-4">
+          <header class="planche__tete">
+            <span class="planche__puce">1.4</span>
+            <h2 id="t-1-4" class="planche__titre">Même question, autre réponse</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-1-4 de-1-4">
+              <title id="ti-1-4">Même question, autre réponse</title>
+              <desc id="de-1-4">
+                La même question, « Propose un nom pour mon café », est envoyée trois fois et donne
+                trois réponses différentes&nbsp;: Le Lagon bleu, Café Niaouli, La Case à Café. L’IA
+                tire au sort parmi les mots probables ; le curseur entre prudente et créative règle
+                ce tirage (la température).
+              </desc>
+              <g data-etape="1">
+                <text class="t-s c-legende" x="60" y="236">Envoyée 3 fois</text>
+                <rect class="encre-p" x="60" y="262" width="440" height="170" rx="36" />
+                <text class="t-m c-sur" x="280" y="334" text-anchor="middle">Propose un nom</text>
+                <text class="t-m c-sur" x="280" y="390" text-anchor="middle">pour mon café.</text>
+                <path
+                  class="trait-legende"
+                  d="M500 330C590 330 600 150 690 150M500 347H690M500 364C590 364 600 540 690 540"
+                />
+                <path
+                  class="pointe-legende"
+                  d="M684 132v36l28-18zM684 329v36l28-18zM684 522v36l28-18z"
+                />
+              </g>
+              <g data-etape="2">
+                <rect class="carte-p" x="720" y="70" width="820" height="160" rx="32" />
+                <circle class="encre-p" cx="800" cy="150" r="36" />
+                <text class="t-m c-sur" x="800" y="166" text-anchor="middle">1</text>
+                <text class="t-l c-fort" x="870" y="170">Le Lagon bleu</text>
+                <rect class="carte-p" x="720" y="267" width="820" height="160" rx="32" />
+                <circle class="encre-p" cx="800" cy="347" r="36" />
+                <text class="t-m c-sur" x="800" y="363" text-anchor="middle">2</text>
+                <text class="t-l c-fort" x="870" y="367">Café Niaouli</text>
+                <rect class="carte-p" x="720" y="460" width="820" height="160" rx="32" />
+                <circle class="encre-p" cx="800" cy="540" r="36" />
+                <text class="t-m c-sur" x="800" y="556" text-anchor="middle">3</text>
+                <text class="t-l c-fort" x="870" y="560">La Case à Café</text>
+              </g>
+              <g data-etape="3">
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-dices"
+                  x="60"
+                  y="652"
+                  width="72"
+                  height="72"
+                />
+                <text class="t-m c-fort" x="156" y="704">
+                  Elle tire au sort parmi les mots probables
+                </text>
+                <text class="t-m c-fort" x="60" y="810">Prudente</text>
+                <rect class="piste" x="330" y="782" width="940" height="28" rx="14" />
+                <rect class="aplat-p" x="330" y="782" width="705" height="28" rx="14" />
+                <circle class="encre-p" cx="1035" cy="796" r="30" />
+                <text class="t-m c-fort" x="1540" y="810" text-anchor="end">Créative</text>
+                <text class="t-xs c-legende" x="800" y="860" text-anchor="middle">
+                  Le curseur de la température
+                </text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Schéma illustratif, sans chiffre&nbsp;: les réponses sont des exemples.
+          </p>
+        </section>
+
+        <!-- 1.5 -->
+        <section class="planche" id="p-1-5" data-partie="1" aria-labelledby="t-1-5">
+          <header class="planche__tete">
+            <span class="planche__puce">1.5</span>
+            <h2 id="t-1-5" class="planche__titre">Sujet rare, réponse sûre d’elle</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-1-5 de-1-5">
+              <title id="ti-1-5">Sujet rare, réponse sûre d’elle</title>
+              <desc id="de-1-5">
+                Sur une question rare, aucun mot ne se détache&nbsp;: 1998 9&nbsp;%, 2005 8&nbsp;%,
+                1987 7&nbsp;%, 2012 6&nbsp;%. L’IA écrit pourtant « 1998 » avec assurance&nbsp;: son
+                ton est sûr mais ses chances d’avoir juste sont de 9&nbsp;%. La réponse est
+                peut-être fausse.
+              </desc>
+              <g data-etape="1">
+                <rect class="surface-2" x="60" y="40" width="1480" height="110" rx="32" />
+                <text class="t-m c-fort" x="100" y="108">
+                  « En quelle année a ouvert la boulangerie de ma rue, à Nouméa&nbsp;? »
+                </text>
+                <rect class="piste" x="220" y="220" width="620" height="64" rx="16" />
+                <rect class="neutre" x="220" y="220" width="55.8" height="64" rx="10" />
+                <text class="t-m c-fort" x="60" y="268">1998</text>
+                <text class="t-m c-fort" x="300" y="268">9&nbsp;%</text>
+                <rect class="piste" x="220" y="320" width="620" height="64" rx="16" />
+                <rect class="neutre" x="220" y="320" width="49.6" height="64" rx="10" />
+                <text class="t-m c-fort" x="60" y="368">2005</text>
+                <text class="t-m c-fort" x="294" y="368">8&nbsp;%</text>
+                <rect class="piste" x="220" y="420" width="620" height="64" rx="16" />
+                <rect class="neutre" x="220" y="420" width="43.4" height="64" rx="10" />
+                <text class="t-m c-fort" x="60" y="468">1987</text>
+                <text class="t-m c-fort" x="288" y="468">7&nbsp;%</text>
+                <rect class="piste" x="220" y="520" width="620" height="64" rx="16" />
+                <rect class="neutre" x="220" y="520" width="37.2" height="64" rx="10" />
+                <text class="t-m c-fort" x="60" y="568">2012</text>
+                <text class="t-m c-fort" x="282" y="568">6&nbsp;%</text>
+              </g>
+              <g data-etape="2">
+                <path class="trait-p" d="M860 252h20" />
+                <path class="encre-p" d="M876 234v36l26-18z" />
+                <rect class="encre-p" x="900" y="210" width="640" height="210" rx="40" />
+                <text class="t-m c-sur" x="940" y="282">La boulangerie</text>
+                <text class="t-m c-sur" x="940" y="346">a ouvert en 1998.</text>
+                <rect class="badge-alerte" x="900" y="454" width="420" height="88" rx="44" />
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-triangle-alert"
+                  x="928"
+                  y="474"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-m c-alerte" x="996" y="512">Peut-être faux</text>
+              </g>
+              <g data-etape="3">
+                <text class="t-s c-fort" x="60" y="690">Ton de la réponse</text>
+                <rect class="piste" x="480" y="654" width="760" height="56" rx="18" />
+                <rect class="aplat-p" x="480" y="654" width="760" height="56" rx="18" />
+                <text class="t-l c-fort" x="1540" y="702" text-anchor="end">Sûr</text>
+                <text class="t-s c-fort" x="60" y="790">Chances d’avoir juste</text>
+                <rect class="piste" x="480" y="754" width="760" height="56" rx="18" />
+                <rect class="aplat-alerte" x="480" y="754" width="68.4" height="56" rx="10" />
+                <text class="t-l c-alerte" x="1540" y="802" text-anchor="end">9&nbsp;%</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Pourcentages illustratifs, inventés pour comprendre. Source&nbsp;: Permis IA, fiche 1.
+          </p>
+        </section>
+
+        <!-- 1.6 -->
+        <section class="planche" id="p-1-6" data-partie="1" aria-labelledby="t-1-6">
+          <header class="planche__tete">
+            <span class="planche__puce">1.6</span>
+            <h2 id="t-1-6" class="planche__titre">Elle ne sait rien après une date</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-1-6 de-1-6">
+              <title id="ti-1-6">Elle ne sait rien après une date</title>
+              <desc id="de-1-6">
+                Frise du temps&nbsp;: l’IA a appris jusqu’à la date de coupure. Entre cette date et
+                aujourd’hui, rien&nbsp;: la zone est vide. La recherche web jette un pont au-dessus
+                de cette zone vide.
+              </desc>
+              <g data-etape="1">
+                <rect class="encre-p" x="80" y="420" width="820" height="160" rx="40" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-library"
+                  x="130"
+                  y="462"
+                  width="76"
+                  height="76"
+                />
+                <text class="t-l c-sur" x="236" y="520">Appris</text>
+                <path class="trait" d="M900 370V640" />
+                <text class="t-m c-fort" x="900" y="700" text-anchor="middle">Date de coupure</text>
+              </g>
+              <g data-etape="2">
+                <rect class="trou" x="906" y="420" width="534" height="160" rx="40" />
+                <text class="t-xl c-legende" x="1173" y="526" text-anchor="middle">?</text>
+                <path class="trait" d="M1440 370V640" />
+                <text class="t-m c-fort" x="1440" y="700" text-anchor="middle">Aujourd’hui</text>
+              </g>
+              <g data-etape="3">
+                <path class="trait-p" d="M900 400C900 220 1440 220 1440 400" />
+                <path class="encre-p" d="M1420 392h40l-20 36z" />
+                <rect class="feuille" x="950" y="212" width="440" height="84" rx="42" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-globe"
+                  x="982"
+                  y="232"
+                  width="44"
+                  height="44"
+                />
+                <text class="t-m c-fort" x="1048" y="268">Recherche web</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Schéma illustratif&nbsp;: pas de date précise, elle dépend du modèle.
+          </p>
+        </section>
+      </div>
+
+      <div class="chapitre-pied" data-partie="1">
+        <nav class="chapitre-nav" aria-label="Chapitres voisins (bas de page)">
+          <a class="bouton bouton--secondaire" href="index.html">
+            <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-house" /></svg>
+            Sommaire
+          </a>
+          <a class="bouton bouton--primaire" href="2-memoire.html">
+            Chapitre&nbsp;2&nbsp;· Mémoire
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-right" />
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+
+    <footer class="pied">
+      <div class="pied__interieur">
+        <p>
+          &copy;&nbsp;2026 <strong>Skazy Formation</strong>,
+          <span class="insecable">Nouvelle-Calédonie</span>&nbsp;·
+          <a href="https://formation.skazy.nc" target="_blank" rel="noopener">formation.skazy.nc</a>
+        </p>
+        <p>
+          Usage réservé aux stagiaires de Skazy Formation&nbsp;: reproduction et réutilisation dans
+          une autre formation interdites sans accord écrit.
+        </p>
+      </div>
+    </footer>
+
+    <button type="button" class="haut-de-page" id="haut-de-page" hidden>
+      <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-arrow-up" /></svg>
+      <span class="invisible">Remonter en haut de la page</span>
+    </button>
+  </body>
+</html>

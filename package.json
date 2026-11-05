@@ -1,0 +1,28 @@
+{
+  "name": "schema-ia",
+  "version": "1.0.0",
+  "private": true,
+  "description": "L’IA en schémas : support visuel projeté en formation (une notion, une planche SVG)",
+  "type": "module",
+  "scripts": {
+    "start": "node outils/serveur.js",
+    "sprite": "node outils/sprite.js",
+    "icones": "node outils/icones-png.js",
+    "captures": "node outils/captures.js",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "validate:html": "html-validate site/*.html",
+    "check": "npm run format:check && npm run validate:html",
+    "test": "playwright test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
+    "html-validate": "^11.16.2",
+    "lucide-static": "0.460.0",
+    "prettier": "^3.9.9"
+  }
+}

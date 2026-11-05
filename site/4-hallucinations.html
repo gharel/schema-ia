@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Hallucinations&nbsp;· L’IA en schémas&nbsp;· Skazy Formation</title>
+    <meta
+      name="description"
+      content="Chapitre 4 de L’IA en schémas : pourquoi l’IA invente, comment limiter l’invention, quoi vérifier."
+    />
+    <!-- Support réservé aux stagiaires et à l'équipe : la page n'apparaît pas dans les moteurs de recherche. -->
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="light dark" />
+    <!-- La page a son propre thème sombre : sans ce verrou, le mode nuit de Brave (Dark Reader) la repeint, même en thème clair. -->
+    <meta name="darkreader-lock" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1f1f1f" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link
+      rel="preload"
+      href="assets/fonts/georama-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="assets/css/charte.css" />
+    <link rel="stylesheet" href="assets/css/planches.css" />
+    <script>
+      // Thème choisi, appliqué avant l'affichage pour éviter un éclair de la mauvaise couleur.
+      try {
+        const theme = JSON.parse(localStorage.getItem('skazy-outils:theme'));
+        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+      } catch {
+        // stockage indisponible&nbsp;: thème du système
+      }
+    </script>
+    <script type="module" src="assets/js/theme.js"></script>
+    <script type="module" src="assets/js/haut-de-page.js"></script>
+    <script type="module" src="assets/js/projection.js"></script>
+  </head>
+  <body>
+    <script>
+      // Projection demandée par l'adresse&nbsp;: la mise en page plein écran s'applique dès le premier affichage.
+      if (/[?&]projection\b/.test(location.search)) document.body.classList.add('projection');
+    </script>
+    <a class="lien-evitement" href="#contenu">Aller aux planches</a>
+
+    <header class="bandeau">
+      <div class="bandeau__interieur">
+        <a class="bandeau__lien" href="index.html">
+          <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-house" /></svg>
+          <span class="bandeau__txt">Accueil</span>
+        </a>
+        <a class="bandeau__nom" href="index.html">
+          <img class="bandeau__pastille" src="favicon.svg" width="28" height="28" alt="" />
+          <span class="bandeau__nom-texte">L’IA en schémas</span>
+        </a>
+        <div class="bandeau__actions">
+          <button
+            type="button"
+            class="bouton bouton--primaire bouton-projeter"
+            id="bouton-projeter"
+          >
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-presentation" />
+            </svg>
+            <span class="bandeau__txt">Projeter</span>
+          </button>
+          <button type="button" class="bouton-icone" id="bouton-theme" hidden>
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-contrast" />
+            </svg>
+          </button>
+          <a
+            class="bandeau__lien bandeau__lien-outils"
+            href="https://gharel.github.io/home/"
+            target="_top"
+            title="Tous les outils Skazy Formation"
+          >
+            <img src="assets/img/les-outils.svg" width="26" height="26" alt="" />
+            <span class="bandeau__txt">Les outils</span>
+          </a>
+          <span class="bandeau__filet" aria-hidden="true"></span>
+          <a
+            class="bandeau__logo"
+            href="https://formation.skazy.nc"
+            target="_blank"
+            rel="noopener"
+            aria-label="Site de Skazy Formation (nouvel onglet)"
+            title="Site de Skazy Formation (nouvel onglet)"
+          >
+            <img
+              class="logo logo--clair"
+              src="assets/img/logo-skazy-formation.svg"
+              alt=""
+              width="109"
+              height="36"
+            />
+            <img
+              class="logo logo--sombre"
+              src="assets/img/logo-skazy-formation-blanc.svg"
+              alt=""
+              width="109"
+              height="36"
+            />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <header class="chapitre-tete" data-partie="2">
+        <p class="puce-partie">Partie&nbsp;2&nbsp;· Repérer les pièges</p>
+        <p class="chapitre-tete__numero">Chapitre&nbsp;4</p>
+        <h1 id="titre-page" tabindex="-1">Hallucinations</h1>
+        <nav class="chapitre-nav" aria-label="Chapitres voisins">
+          <a class="bouton bouton--secondaire bouton--petit" href="3-modele-effort.html"
+            ><svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-left" /></svg
+            >Chapitre&nbsp;3&nbsp;· Le bon cerveau</a
+          ><a class="bouton bouton--secondaire bouton--petit" href="5-complaisance.html"
+            >Chapitre&nbsp;5&nbsp;· Biais et complaisance<svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-right" /></svg
+          ></a>
+        </nav>
+      </header>
+      <div class="planches">
+        <!-- 4.1 -->
+        <section class="planche" id="p-4-1" data-partie="2" data-express aria-labelledby="t-4-1">
+          <header class="planche__tete">
+            <span class="planche__puce">4.1</span>
+            <h2 id="t-4-1" class="planche__titre">Une invention qui a l’air vraie</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-4-1 de-4-1">
+              <title id="ti-4-1">Une invention qui a l’air vraie</title>
+              <desc id="de-4-1">
+                Une réponse d’IA à «&nbsp;Prépare une fiche pratique pour un client qui part à l’île
+                des Pins&nbsp;»&nbsp;: cinq phrases au même ton assuré. Deux sont vraies (les
+                plages, la crème solaire), deux sont à vérifier (la durée du vol, la taxe de séjour
+                de 1&nbsp;500&nbsp;XPF) et une est inventée (le guide Marcel Dupont). Rien dans le
+                ton ne les distingue.
+              </desc>
+              <g data-etape="1">
+                <rect class="surface-2" x="60" y="28" width="1480" height="100" rx="36" />
+                <use
+                  class="ico"
+                  href="assets/img/icones.svg#i-user-round"
+                  x="92"
+                  y="54"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-xs c-fort" x="160" y="92">
+                  «&nbsp;Prépare une fiche pratique pour un client qui part à l’île des Pins.&nbsp;»
+                </text>
+                <rect class="feuille" x="60" y="148" width="1480" height="624" rx="32" />
+                <use
+                  class="ico-legende"
+                  href="assets/img/icones.svg#i-bot"
+                  x="96"
+                  y="208"
+                  width="44"
+                  height="44"
+                />
+                <text class="t-xs c-fort" x="170" y="246">
+                  L’île des Pins est connue pour ses plages.
+                </text>
+                <use
+                  class="ico-legende"
+                  href="assets/img/icones.svg#i-bot"
+                  x="96"
+                  y="322"
+                  width="44"
+                  height="44"
+                />
+                <text class="t-xs c-fort" x="170" y="360">
+                  Le vol depuis Nouméa dure exactement 25 minutes.
+                </text>
+                <use
+                  class="ico-legende"
+                  href="assets/img/icones.svg#i-bot"
+                  x="96"
+                  y="436"
+                  width="44"
+                  height="44"
+                />
+                <text class="t-xs c-fort" x="170" y="474">
+                  Depuis 2024, une taxe de séjour de 1&nbsp;500&nbsp;XPF est obligatoire.
+                </text>
+                <use
+                  class="ico-legende"
+                  href="assets/img/icones.svg#i-bot"
+                  x="96"
+                  y="550"
+                  width="44"
+                  height="44"
+                />
+                <text class="t-xs c-fort" x="170" y="588">
+                  Le guide Marcel Dupont propose des balades en pirogue.
+                </text>
+                <use
+                  class="ico-legende"
+                  href="assets/img/icones.svg#i-bot"
+                  x="96"
+                  y="664"
+                  width="44"
+                  height="44"
+                />
+                <text class="t-xs c-fort" x="170" y="702">
+                  Pense à prendre de la crème solaire et un chapeau.
+                </text>
+              </g>
+              <g data-etape="2">
+                <rect class="cadre-vrai" x="150" y="192" width="910" height="86" rx="22" />
+                <rect class="fond-7" x="1090" y="194" width="400" height="82" rx="41" />
+                <use
+                  class="ico-7"
+                  href="assets/img/icones.svg#i-circle-check"
+                  x="1118"
+                  y="212"
+                  width="46"
+                  height="46"
+                />
+                <text class="t-s c-7" x="1186" y="251">Vrai</text>
+                <rect class="cadre-verif" x="150" y="306" width="910" height="86" rx="22" />
+                <rect class="chip-verif" x="1090" y="308" width="400" height="82" rx="41" />
+                <use
+                  class="ico-4"
+                  href="assets/img/icones.svg#i-search"
+                  x="1118"
+                  y="326"
+                  width="46"
+                  height="46"
+                />
+                <text class="t-s c-4" x="1186" y="365">À vérifier</text>
+                <rect class="cadre-verif" x="150" y="420" width="910" height="86" rx="22" />
+                <rect class="chip-verif" x="1090" y="422" width="400" height="82" rx="41" />
+                <use
+                  class="ico-4"
+                  href="assets/img/icones.svg#i-search"
+                  x="1118"
+                  y="440"
+                  width="46"
+                  height="46"
+                />
+                <text class="t-s c-4" x="1186" y="479">À vérifier</text>
+                <rect class="cadre-inv" x="150" y="534" width="910" height="86" rx="22" />
+                <rect class="badge-alerte" x="1090" y="536" width="400" height="82" rx="41" />
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-triangle-alert"
+                  x="1118"
+                  y="554"
+                  width="46"
+                  height="46"
+                />
+                <text class="t-s c-alerte" x="1186" y="593">Inventé</text>
+                <rect class="cadre-vrai" x="150" y="648" width="910" height="86" rx="22" />
+                <rect class="fond-7" x="1090" y="650" width="400" height="82" rx="41" />
+                <use
+                  class="ico-7"
+                  href="assets/img/icones.svg#i-circle-check"
+                  x="1118"
+                  y="668"
+                  width="46"
+                  height="46"
+                />
+                <text class="t-s c-7" x="1186" y="707">Vrai</text>
+              </g>
+              <g data-etape="3">
+                <text class="t-s c-fort" x="60" y="842">Ton de l’IA</text>
+                <rect class="piste" x="400" y="806" width="760" height="52" rx="18" />
+                <rect class="aplat-p" x="400" y="806" width="760" height="52" rx="18" />
+                <text class="t-l c-p" x="1540" y="852" text-anchor="end">Sûr partout</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Réponse d’IA fabriquée pour comprendre&nbsp;: le guide est un nom inventé, les autres
+            passages sont à confirmer sur une source. Source&nbsp;: Permis IA, fiche 4.
+          </p>
+        </section>
+
+        <!-- 4.2 -->
+        <section class="planche" id="p-4-2" data-partie="2" aria-labelledby="t-4-2">
+          <header class="planche__tete">
+            <span class="planche__puce">4.2</span>
+            <h2 id="t-4-2" class="planche__titre">Pourquoi elle préfère deviner</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-4-2 de-4-2">
+              <title id="ti-4-2">Pourquoi elle préfère deviner</title>
+              <desc id="de-4-2">
+                Sur 100 questions du test SimpleQA&nbsp;: gpt-5-thinking-mini donne 22 bonnes
+                réponses, dit «&nbsp;je ne sais pas&nbsp;» 52 fois et se trompe 26 fois. o4-mini
+                donne 24 bonnes réponses, dit «&nbsp;je ne sais pas&nbsp;» une fois et se trompe 75
+                fois. Le classement ne compte que les bonnes réponses, donc o4-mini devance&nbsp;:
+                deviner est récompensé.
+              </desc>
+              <defs>
+                <pattern
+                  id="h-42"
+                  width="26"
+                  height="26"
+                  patternUnits="userSpaceOnUse"
+                  patternTransform="rotate(45)"
+                >
+                  <path class="hach-alerte" d="M0 0V26" />
+                </pattern>
+              </defs>
+              <g data-etape="1">
+                <text class="t-m c-fort" x="60" y="82">gpt-5-thinking-mini</text>
+                <rect class="fond-p" x="560" y="40" width="190" height="56" rx="28" />
+                <text class="t-xs c-p" x="655" y="78" text-anchor="middle">prudent</text>
+                <text class="t-xs c-legende" x="1540" y="80" text-anchor="end">
+                  Sur 100 questions
+                </text>
+                <rect class="encre-7" x="60" y="112" width="325.6" height="110" rx="18" />
+                <rect class="neutre" x="385.6" y="112" width="769.6" height="110" rx="18" />
+                <rect class="badge-alerte" x="1155.2" y="112" width="384.8" height="110" rx="18" />
+                <rect class="remplis-h42" x="1155.2" y="112" width="384.8" height="110" rx="18" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-circle-check"
+                  x="186.8"
+                  y="131"
+                  width="72"
+                  height="72"
+                />
+                <use
+                  class="ico"
+                  href="assets/img/icones.svg#i-circle-help"
+                  x="734.4000000000001"
+                  y="131"
+                  width="72"
+                  height="72"
+                />
+                <text class="t-l c-7" x="222.8" y="302" text-anchor="middle">22&nbsp;%</text>
+                <text class="t-xs c-legende" x="222.8" y="346" text-anchor="middle">justes</text>
+                <text class="t-l c-fort" x="770.4000000000001" y="302" text-anchor="middle">
+                  52&nbsp;%
+                </text>
+                <text class="t-xs c-legende" x="770.4000000000001" y="346" text-anchor="middle">
+                  «&nbsp;je ne sais pas&nbsp;»
+                </text>
+                <text class="t-l c-alerte" x="1347.6000000000001" y="302" text-anchor="middle">
+                  26&nbsp;%
+                </text>
+                <text class="t-xs c-legende" x="1347.6000000000001" y="346" text-anchor="middle">
+                  faux
+                </text>
+                <text class="t-m c-fort" x="60" y="432">o4-mini</text>
+                <rect class="fond-p" x="260" y="390" width="190" height="56" rx="28" />
+                <text class="t-xs c-p" x="355" y="428" text-anchor="middle">devine</text>
+                <rect
+                  class="encre-7"
+                  x="60"
+                  y="462"
+                  width="355.20000000000005"
+                  height="110"
+                  rx="18"
+                />
+                <rect
+                  class="neutre"
+                  x="415.20000000000005"
+                  y="462"
+                  width="14.8"
+                  height="110"
+                  rx="4"
+                />
+                <rect class="badge-alerte" x="430" y="462" width="1110" height="110" rx="18" />
+                <rect class="remplis-h42" x="430" y="462" width="1110" height="110" rx="18" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-circle-check"
+                  x="201.60000000000002"
+                  y="481"
+                  width="72"
+                  height="72"
+                />
+                <text class="t-l c-7" x="237.60000000000002" y="652" text-anchor="middle">
+                  24&nbsp;%
+                </text>
+                <text class="t-xs c-legende" x="237.60000000000002" y="696" text-anchor="middle">
+                  justes
+                </text>
+                <text class="t-l c-fort" x="405.20000000000005" y="652" text-anchor="start">
+                  1&nbsp;%
+                </text>
+                <text class="t-xs c-legende" x="405.20000000000005" y="696" text-anchor="start">
+                  «&nbsp;je ne sais pas&nbsp;»
+                </text>
+                <text class="t-l c-alerte" x="985" y="652" text-anchor="middle">75&nbsp;%</text>
+                <text class="t-xs c-legende" x="985" y="696" text-anchor="middle">faux</text>
+              </g>
+              <g data-etape="2">
+                <rect class="trait-p" x="52" y="104" width="342" height="126" rx="22" />
+                <rect class="trait-p" x="52" y="454" width="370" height="126" rx="22" />
+                <rect class="encre-p" x="60" y="738" width="1480" height="124" rx="36" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-star"
+                  x="104"
+                  y="774"
+                  width="52"
+                  height="52"
+                />
+                <text class="t-m c-sur" x="190" y="818">
+                  Seules les bonnes réponses comptent au classement
+                </text>
+              </g>
+              <g data-etape="3">
+                <rect class="badge-alerte" x="880" y="366" width="660" height="80" rx="40" />
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-triangle-alert"
+                  x="908"
+                  y="385"
+                  width="42"
+                  height="42"
+                />
+                <text class="t-s c-alerte" x="972" y="420">Deviner est récompensé</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Source&nbsp;: OpenAI, GPT-5 System Card (tableau 8, août 2025), repris dans «&nbsp;Why
+            language models hallucinate&nbsp;» (septembre 2025). Test SimpleQA sans recherche web,
+            en&nbsp;% des questions. Modèles de 2025.
+          </p>
+        </section>
+
+        <!-- 4.3 -->
+        <section class="planche" id="p-4-3" data-partie="2" aria-labelledby="t-4-3">
+          <header class="planche__tete">
+            <span class="planche__puce">4.3</span>
+            <h2 id="t-4-3" class="planche__titre">Les leviers contre l’invention</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-4-3 de-4-3">
+              <title id="ti-4-3">Les leviers contre l’invention</title>
+              <desc id="de-4-3">
+                Cinq leviers font baisser le risque d’invention, représenté par une jauge en
+                blocs&nbsp;: fournir un document, activer la recherche web, donner le droit de dire
+                «&nbsp;je ne sais pas&nbsp;», demander les sources, choisir un sujet connu plutôt
+                que récent. Le dernier bloc reste toujours plein&nbsp;: le risque n’est jamais à
+                zéro.
+              </desc>
+              <defs>
+                <pattern
+                  id="h-43"
+                  width="26"
+                  height="26"
+                  patternUnits="userSpaceOnUse"
+                  patternTransform="rotate(45)"
+                >
+                  <path class="hach-alerte" d="M0 0V26" />
+                </pattern>
+              </defs>
+              <rect class="trait-legende" x="1066" y="86" width="228" height="706" rx="30" />
+              <rect class="aplat-alerte" x="1080" y="100" width="200" height="120" rx="20" />
+              <rect class="aplat-alerte" x="1080" y="240" width="200" height="120" rx="20" />
+              <rect class="aplat-alerte" x="1080" y="380" width="200" height="120" rx="20" />
+              <rect class="aplat-alerte" x="1080" y="520" width="200" height="120" rx="20" />
+              <rect class="badge-alerte" x="1080" y="660" width="200" height="120" rx="20" />
+              <rect class="remplis-h43" x="1080" y="660" width="200" height="120" rx="20" />
+              <text class="t-m c-alerte" x="1330" y="150">Risque</text>
+              <text class="t-s c-alerte" x="1330" y="196">d’invention</text>
+              <text class="t-m c-alerte" x="1330" y="716">Jamais</text>
+              <text class="t-m c-alerte" x="1330" y="768">à zéro</text>
+              <g data-etape="1">
+                <rect class="carte-p" x="60" y="60" width="900" height="124" rx="28" />
+                <circle class="encre-p" cx="112" cy="122" r="36" />
+                <text class="t-m c-sur" x="112" y="138" text-anchor="middle">1</text>
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-file-text"
+                  x="176"
+                  y="88"
+                  width="68"
+                  height="68"
+                />
+                <text class="t-ms c-fort" x="276" y="138">Un document fourni</text>
+                <rect class="carte-p" x="60" y="218" width="900" height="124" rx="28" />
+                <circle class="encre-p" cx="112" cy="280" r="36" />
+                <text class="t-m c-sur" x="112" y="296" text-anchor="middle">1</text>
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-globe"
+                  x="176"
+                  y="246"
+                  width="68"
+                  height="68"
+                />
+                <text class="t-ms c-fort" x="276" y="296">La recherche web</text>
+                <rect class="fantome" x="1076" y="96" width="208" height="128" rx="24" />
+                <circle class="encre-p" cx="1180" cy="160" r="34" />
+                <text class="t-m c-sur" x="1180" y="176" text-anchor="middle">1</text>
+                <rect class="fantome" x="1076" y="236" width="208" height="128" rx="24" />
+                <circle class="encre-p" cx="1180" cy="300" r="34" />
+                <text class="t-m c-sur" x="1180" y="316" text-anchor="middle">1</text>
+              </g>
+              <g data-etape="2">
+                <rect class="carte-p" x="60" y="376" width="900" height="124" rx="28" />
+                <circle class="encre-p" cx="112" cy="438" r="36" />
+                <text class="t-m c-sur" x="112" y="454" text-anchor="middle">2</text>
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-hand"
+                  x="176"
+                  y="404"
+                  width="68"
+                  height="68"
+                />
+                <text class="t-ms c-fort" x="276" y="432">Le droit de dire</text>
+                <text class="t-ms c-fort" x="276" y="478">«&nbsp;je ne sais pas&nbsp;»</text>
+                <rect class="carte-p" x="60" y="534" width="900" height="124" rx="28" />
+                <circle class="encre-p" cx="112" cy="596" r="36" />
+                <text class="t-m c-sur" x="112" y="612" text-anchor="middle">2</text>
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-quote"
+                  x="176"
+                  y="562"
+                  width="68"
+                  height="68"
+                />
+                <text class="t-ms c-fort" x="276" y="612">Demander les sources</text>
+                <rect class="fantome" x="1076" y="376" width="208" height="128" rx="24" />
+                <circle class="encre-p" cx="1180" cy="440" r="34" />
+                <text class="t-m c-sur" x="1180" y="456" text-anchor="middle">2</text>
+              </g>
+              <g data-etape="3">
+                <rect class="carte-p" x="60" y="692" width="900" height="124" rx="28" />
+                <circle class="encre-p" cx="112" cy="754" r="36" />
+                <text class="t-m c-sur" x="112" y="770" text-anchor="middle">3</text>
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-calendar"
+                  x="176"
+                  y="720"
+                  width="68"
+                  height="68"
+                />
+                <text class="t-ms c-fort" x="276" y="748">Un sujet connu,</text>
+                <text class="t-ms c-fort" x="276" y="794">plutôt que récent</text>
+                <rect class="fantome" x="1076" y="516" width="208" height="128" rx="24" />
+                <circle class="encre-p" cx="1180" cy="580" r="34" />
+                <text class="t-m c-sur" x="1180" y="596" text-anchor="middle">3</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Schéma illustratif, sans pourcentage&nbsp;: les leviers réduisent le risque sans
+            l’annuler. Source&nbsp;: Permis IA, fiche 4.
+          </p>
+        </section>
+
+        <!-- 4.4 -->
+        <section class="planche" id="p-4-4" data-partie="2" aria-labelledby="t-4-4">
+          <header class="planche__tete">
+            <span class="planche__puce">4.4</span>
+            <h2 id="t-4-4" class="planche__titre">Les documents presque justes</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-4-4 de-4-4">
+              <title id="ti-4-4">Les documents presque justes</title>
+              <desc id="de-4-4">
+                Courbes&nbsp;: avec 0, 1, 2, 4, 8 et 18 documents en trop, les bonnes réponses sur
+                100 tombent de 56 à 46, 35, 27, 26 puis 23 avec des documents qui ressemblent à la
+                réponse, et seulement de 56 à 47, 38, 31, 31 puis 35 avec des documents pris au
+                hasard. Pour une IA récente, le score sur 100 est de 78 sans rien ajouter, 71 avec
+                des documents au hasard, 63 avec une vieille conversation et 48 avec des documents
+                presque justes.
+              </desc>
+              <g data-etape="1">
+                <text class="t-xs c-fort" x="60" y="78">
+                  Llama 2 (2023)&nbsp;: bonnes réponses sur 100
+                </text>
+                <path class="trait-legende tirets" d="M140 120H880M140 340H880" />
+                <path class="trait-legende" d="M140 560H880M140 120V560" />
+                <text class="t-xs c-legende" x="120" y="130" text-anchor="end">100</text>
+                <text class="t-xs c-legende" x="120" y="350" text-anchor="end">50</text>
+                <text class="t-xs c-legende" x="120" y="570" text-anchor="end">0</text>
+                <text class="t-xs c-legende" x="140" y="608" text-anchor="middle">0</text>
+                <text class="t-xs c-legende" x="280" y="608" text-anchor="middle">1</text>
+                <text class="t-xs c-legende" x="420" y="608" text-anchor="middle">2</text>
+                <text class="t-xs c-legende" x="560" y="608" text-anchor="middle">4</text>
+                <text class="t-xs c-legende" x="700" y="608" text-anchor="middle">8</text>
+                <text class="t-xs c-legende" x="840" y="608" text-anchor="middle">18</text>
+                <text class="t-xs c-legende" x="510" y="656" text-anchor="middle">
+                  Nombre de documents en trop
+                </text>
+                <path
+                  class="trait-legende tirets"
+                  d="M140 313.6L280 353.2L420 392.8L560 423.6L700 423.6L840 406"
+                />
+                <rect class="neutre" x="129" y="302.6" width="22" height="22" rx="4" />
+                <rect class="neutre" x="269" y="342.2" width="22" height="22" rx="4" />
+                <rect class="neutre" x="409" y="381.8" width="22" height="22" rx="4" />
+                <rect class="neutre" x="549" y="412.6" width="22" height="22" rx="4" />
+                <rect class="neutre" x="689" y="412.6" width="22" height="22" rx="4" />
+                <rect class="neutre" x="829" y="395" width="22" height="22" rx="4" />
+                <path
+                  class="trait-alerte"
+                  d="M140 313.6L280 357.6L420 406L560 441.2L700 445.6L840 458.8"
+                />
+                <circle class="aplat-alerte" cx="140" cy="313.6" r="12" />
+                <circle class="aplat-alerte" cx="280" cy="357.6" r="12" />
+                <circle class="aplat-alerte" cx="420" cy="406" r="12" />
+                <circle class="aplat-alerte" cx="560" cy="441.2" r="12" />
+                <circle class="aplat-alerte" cx="700" cy="445.6" r="12" />
+                <circle class="aplat-alerte" cx="840" cy="458.8" r="12" />
+                <text class="t-m c-fort" x="140" y="287.6" text-anchor="middle">56</text>
+                <text class="t-m c-alerte" x="840" y="514.8" text-anchor="middle">23</text>
+                <text class="t-m c-fort" x="840" y="382" text-anchor="middle">35</text>
+                <circle class="aplat-alerte" cx="168" cy="176" r="12" />
+                <text class="t-xs c-alerte" x="196" y="187">Documents qui ressemblent</text>
+                <rect class="neutre" x="157" y="211" width="22" height="22" rx="4" />
+                <text class="t-xs c-fort" x="196" y="229">Documents au hasard</text>
+              </g>
+              <g data-etape="2">
+                <path class="trait-p tirets" d="M560 313V441" />
+                <text class="t-xs c-p" x="586" y="372">56 → 27&nbsp;:</text>
+                <text class="t-xs c-p" x="586" y="408">deux fois moins</text>
+              </g>
+              <g data-etape="3">
+                <text class="t-xs c-fort" x="960" y="78">Gemini 2.5 Pro (2026), sur 100</text>
+                <text class="t-xs c-fort" x="960" y="150">Rien</text>
+                <rect class="piste" x="960" y="166" width="580" height="64" rx="18" />
+                <rect class="neutre" x="960" y="166" width="452.4" height="64" rx="18" />
+                <text class="t-l c-fort" x="1432.4" y="216">78</text>
+                <text class="t-xs c-fort" x="960" y="300">Documents au hasard</text>
+                <rect class="piste" x="960" y="316" width="580" height="64" rx="18" />
+                <rect class="neutre" x="960" y="316" width="411.8" height="64" rx="18" />
+                <text class="t-l c-fort" x="1391.8" y="366">71</text>
+                <text class="t-xs c-fort" x="960" y="450">Vieille conversation</text>
+                <rect class="piste" x="960" y="466" width="580" height="64" rx="18" />
+                <rect class="neutre" x="960" y="466" width="365.4" height="64" rx="18" />
+                <text class="t-l c-fort" x="1345.4" y="516">63</text>
+                <text class="t-xs c-fort" x="960" y="600">Documents presque justes</text>
+                <rect class="piste" x="960" y="616" width="580" height="64" rx="18" />
+                <rect class="aplat-alerte" x="960" y="616" width="278.4" height="64" rx="18" />
+                <text class="t-l c-alerte" x="1258.4" y="666">48</text>
+              </g>
+              <g data-etape="4">
+                <rect class="encre-p" x="60" y="738" width="1480" height="124" rx="36" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-puzzle"
+                  x="104"
+                  y="774"
+                  width="52"
+                  height="52"
+                />
+                <text class="t-m c-sur" x="190" y="818">
+                  Ce qui ressemble à la réponse gêne plus que le hasard
+                </text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Sources&nbsp;: Cuconasu et al., «&nbsp;The Power of Noise&nbsp;», SIGIR 2024, tableaux 1
+            et 2 (Llama 2, 2023, chiffres arrondis)&nbsp;; Lee et al., «&nbsp;Lost in the
+            Noise&nbsp;», janvier 2026, tableau 1 (Gemini 2.5 Pro, score moyen sur 11 tests, étude
+            pas encore relue par d’autres chercheurs).
+          </p>
+        </section>
+
+        <!-- 4.5 -->
+        <section class="planche" id="p-4-5" data-partie="2" aria-labelledby="t-4-5">
+          <header class="planche__tete">
+            <span class="planche__puce">4.5</span>
+            <h2 id="t-4-5" class="planche__titre">Quoi vérifier</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-4-5 de-4-5">
+              <title id="ti-4-5">Quoi vérifier</title>
+              <desc id="de-4-5">
+                Sept types d’éléments à vérifier dans une réponse d’IA&nbsp;: les dates, les
+                chiffres, les noms, les citations, les lois, les liens et le mot
+                «&nbsp;officiel&nbsp;». Pour chacun, on cherche une vraie source.
+              </desc>
+              <g data-etape="1">
+                <rect class="carte-p" x="60" y="50" width="350" height="360" rx="32" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-calendar"
+                  x="183"
+                  y="106"
+                  width="104"
+                  height="104"
+                />
+                <circle class="badge-alerte" cx="366" cy="94" r="28" />
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-triangle-alert"
+                  x="351"
+                  y="79"
+                  width="30"
+                  height="30"
+                />
+                <text class="t-m c-fort" x="235" y="282" text-anchor="middle">Dates</text>
+                <text class="t-xs c-legende" x="235" y="356" text-anchor="middle">
+                  «&nbsp;1887&nbsp;»
+                </text>
+                <rect class="carte-p" x="436.7" y="50" width="350" height="360" rx="32" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-coins"
+                  x="559.7"
+                  y="106"
+                  width="104"
+                  height="104"
+                />
+                <circle class="badge-alerte" cx="742.7" cy="94" r="28" />
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-triangle-alert"
+                  x="727.7"
+                  y="79"
+                  width="30"
+                  height="30"
+                />
+                <text class="t-m c-fort" x="611.7" y="282" text-anchor="middle">Chiffres</text>
+                <text class="t-xs c-legende" x="611.7" y="356" text-anchor="middle">
+                  «&nbsp;3&nbsp;412 habitants&nbsp;»
+                </text>
+                <rect class="carte-p" x="813.3" y="50" width="350" height="360" rx="32" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-user"
+                  x="936.3"
+                  y="106"
+                  width="104"
+                  height="104"
+                />
+                <circle class="badge-alerte" cx="1119.3" cy="94" r="28" />
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-triangle-alert"
+                  x="1104.3"
+                  y="79"
+                  width="30"
+                  height="30"
+                />
+                <text class="t-m c-fort" x="988.3" y="282" text-anchor="middle">Noms</text>
+                <text class="t-xs c-legende" x="988.3" y="356" text-anchor="middle">
+                  «&nbsp;Marcel Dupont&nbsp;»
+                </text>
+                <rect class="carte-p" x="1190" y="50" width="350" height="360" rx="32" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-quote"
+                  x="1313"
+                  y="106"
+                  width="104"
+                  height="104"
+                />
+                <circle class="badge-alerte" cx="1496" cy="94" r="28" />
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-triangle-alert"
+                  x="1481"
+                  y="79"
+                  width="30"
+                  height="30"
+                />
+                <text class="t-m c-fort" x="1365" y="282" text-anchor="middle">Citations</text>
+                <text class="t-xs c-legende" x="1365" y="356" text-anchor="middle">
+                  «&nbsp;Comme l’a dit…&nbsp;»
+                </text>
+              </g>
+              <g data-etape="2">
+                <rect class="carte-p" x="60" y="470" width="350" height="360" rx="32" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-gavel"
+                  x="183"
+                  y="526"
+                  width="104"
+                  height="104"
+                />
+                <circle class="badge-alerte" cx="366" cy="514" r="28" />
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-triangle-alert"
+                  x="351"
+                  y="499"
+                  width="30"
+                  height="30"
+                />
+                <text class="t-m c-fort" x="235" y="702" text-anchor="middle">Lois</text>
+                <text class="t-xs c-legende" x="235" y="776" text-anchor="middle">
+                  «&nbsp;loi de 2019&nbsp;»
+                </text>
+                <rect class="carte-p" x="436.7" y="470" width="350" height="360" rx="32" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-link"
+                  x="559.7"
+                  y="526"
+                  width="104"
+                  height="104"
+                />
+                <circle class="badge-alerte" cx="742.7" cy="514" r="28" />
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-triangle-alert"
+                  x="727.7"
+                  y="499"
+                  width="30"
+                  height="30"
+                />
+                <text class="t-m c-fort" x="611.7" y="702" text-anchor="middle">Liens</text>
+                <text class="t-xs c-legende" x="611.7" y="776" text-anchor="middle">
+                  «&nbsp;regles.example&nbsp;»
+                </text>
+                <rect class="carte-p" x="813.3" y="470" width="350" height="360" rx="32" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-badge-check"
+                  x="936.3"
+                  y="526"
+                  width="104"
+                  height="104"
+                />
+                <circle class="badge-alerte" cx="1119.3" cy="514" r="28" />
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-triangle-alert"
+                  x="1104.3"
+                  y="499"
+                  width="30"
+                  height="30"
+                />
+                <text class="t-ms c-fort" x="988.3" y="702" text-anchor="middle">
+                  Le mot «&nbsp;officiel&nbsp;»
+                </text>
+                <text class="t-xs c-legende" x="988.3" y="776" text-anchor="middle">
+                  «&nbsp;site officiel&nbsp;»
+                </text>
+              </g>
+              <g data-etape="3">
+                <rect class="encre-p" x="1190" y="470" width="350" height="360" rx="32" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-search"
+                  x="1313"
+                  y="526"
+                  width="104"
+                  height="104"
+                />
+                <text class="t-m c-sur" x="1365" y="702" text-anchor="middle">Je vérifie</text>
+                <text class="t-xs c-sur" x="1365" y="760" text-anchor="middle">
+                  sur une vraie source
+                </text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Exemples inventés pour illustrer. Source&nbsp;: Permis IA, fiche 4.
+          </p>
+        </section>
+      </div>
+      <div class="chapitre-pied" data-partie="2">
+        <nav class="chapitre-nav" aria-label="Chapitres voisins (bas de page)">
+          <a class="bouton bouton--secondaire" href="3-modele-effort.html"
+            ><svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-left" /></svg
+            >Chapitre&nbsp;3&nbsp;· Le bon cerveau</a
+          >
+          <a class="bouton bouton--secondaire" href="index.html"
+            ><svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-house" /></svg
+            >Sommaire</a
+          >
+          <a class="bouton bouton--primaire" href="5-complaisance.html"
+            >Chapitre&nbsp;5&nbsp;· Biais et complaisance<svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-right" /></svg
+          ></a>
+        </nav>
+      </div>
+    </main>
+
+    <footer class="pied">
+      <div class="pied__interieur">
+        <p>
+          &copy;&nbsp;2026 <strong>Skazy Formation</strong>,
+          <span class="insecable">Nouvelle-Calédonie</span>&nbsp;·
+          <a href="https://formation.skazy.nc" target="_blank" rel="noopener">formation.skazy.nc</a>
+        </p>
+        <p>
+          Usage réservé aux stagiaires de Skazy Formation&nbsp;: reproduction et réutilisation dans
+          une autre formation interdites sans accord écrit.
+        </p>
+      </div>
+    </footer>
+
+    <button type="button" class="haut-de-page" id="haut-de-page" hidden>
+      <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-arrow-up" /></svg>
+      <span class="invisible">Remonter en haut de la page</span>
+    </button>
+  </body>
+</html>

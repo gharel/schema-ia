@@ -1,0 +1,693 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Le bon cerveau · L’IA en schémas · Skazy Formation</title>
+    <meta
+      name="description"
+      content="Chapitre 3 de L’IA en schémas : trois tailles de modèle, l’effort de réflexion, le bon modèle pour la tâche, l’anatomie d’un prompt."
+    />
+    <!-- Support réservé aux stagiaires et à l'équipe : la page n'apparaît pas dans les moteurs de recherche. -->
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="light dark" />
+    <!-- La page a son propre thème sombre : sans ce verrou, le mode nuit de Brave (Dark Reader) la repeint, même en thème clair. -->
+    <meta name="darkreader-lock" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1f1f1f" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link
+      rel="preload"
+      href="assets/fonts/georama-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="assets/css/charte.css" />
+    <link rel="stylesheet" href="assets/css/planches.css" />
+    <script>
+      // Thème choisi, appliqué avant l'affichage pour éviter un éclair de la mauvaise couleur.
+      try {
+        const theme = JSON.parse(localStorage.getItem('skazy-outils:theme'));
+        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+      } catch {
+        // stockage indisponible : thème du système
+      }
+    </script>
+    <script type="module" src="assets/js/theme.js"></script>
+    <script type="module" src="assets/js/haut-de-page.js"></script>
+    <script type="module" src="assets/js/projection.js"></script>
+  </head>
+  <body>
+    <script>
+      // Projection demandée par l'adresse&nbsp;: la mise en page plein écran s'applique dès le premier affichage.
+      if (/[?&]projection\b/.test(location.search)) document.body.classList.add('projection');
+    </script>
+    <a class="lien-evitement" href="#contenu">Aller aux planches</a>
+
+    <header class="bandeau">
+      <div class="bandeau__interieur">
+        <a class="bandeau__lien" href="index.html">
+          <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-house" /></svg>
+          <span class="bandeau__txt">Accueil</span>
+        </a>
+        <a class="bandeau__nom" href="index.html">
+          <img class="bandeau__pastille" src="favicon.svg" width="28" height="28" alt="" />
+          <span class="bandeau__nom-texte">L’IA en schémas</span>
+        </a>
+        <div class="bandeau__actions">
+          <button
+            type="button"
+            class="bouton bouton--primaire bouton-projeter"
+            id="bouton-projeter"
+          >
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-presentation" />
+            </svg>
+            <span class="bandeau__txt">Projeter</span>
+          </button>
+          <button type="button" class="bouton-icone" id="bouton-theme" hidden>
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-contrast" />
+            </svg>
+          </button>
+          <a
+            class="bandeau__lien bandeau__lien-outils"
+            href="https://gharel.github.io/home/"
+            target="_top"
+            title="Tous les outils Skazy Formation"
+          >
+            <img src="assets/img/les-outils.svg" width="26" height="26" alt="" />
+            <span class="bandeau__txt">Les outils</span>
+          </a>
+          <span class="bandeau__filet" aria-hidden="true"></span>
+          <a
+            class="bandeau__logo"
+            href="https://formation.skazy.nc"
+            target="_blank"
+            rel="noopener"
+            aria-label="Site de Skazy Formation (nouvel onglet)"
+            title="Site de Skazy Formation (nouvel onglet)"
+          >
+            <img
+              class="logo logo--clair"
+              src="assets/img/logo-skazy-formation.svg"
+              alt=""
+              width="109"
+              height="36"
+            />
+            <img
+              class="logo logo--sombre"
+              src="assets/img/logo-skazy-formation-blanc.svg"
+              alt=""
+              width="109"
+              height="36"
+            />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <header class="chapitre-tete" data-partie="1">
+        <p class="puce-partie">Partie&nbsp;1&nbsp;· Comprendre</p>
+        <p class="chapitre-tete__numero">Chapitre&nbsp;3</p>
+        <h1 id="titre-page" tabindex="-1">Le bon cerveau</h1>
+        <nav class="chapitre-nav" aria-label="Chapitres voisins">
+          <a class="bouton bouton--secondaire bouton--petit" href="2-memoire.html">
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-left" />
+            </svg>
+            Chapitre&nbsp;2&nbsp;· Mémoire
+          </a>
+          <a class="bouton bouton--secondaire bouton--petit" href="4-hallucinations.html">
+            Chapitre&nbsp;4&nbsp;· Hallucinations
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-right" />
+            </svg>
+          </a>
+        </nav>
+      </header>
+
+      <div class="planches">
+        <!-- 3.1 -->
+        <section class="planche" id="p-3-1" data-partie="1" data-express aria-labelledby="t-3-1">
+          <header class="planche__tete">
+            <span class="planche__puce">3.1</span>
+            <h2 id="t-3-1" class="planche__titre">Trois tailles de modèle</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-3-1 de-3-1">
+              <title id="ti-3-1">Trois tailles de modèle</title>
+              <desc id="de-3-1">
+                Trois tailles de modèle. Le modèle rapide, comme un stagiaire rapide&nbsp;: 160
+                tokens par seconde, qualité 52 sur 100, 1&nbsp;$ par million de tokens lus et
+                5&nbsp;$ par million écrits (Claude Haiku, OpenAI Luna). Le modèle standard, comme
+                un collègue efficace&nbsp;: 90 tokens par seconde, qualité 76, 2&nbsp;$ et 10&nbsp;$
+                (Sonnet, Terra). Le modèle expert, comme un spécialiste&nbsp;: 60 tokens par
+                seconde, qualité 88, 4&nbsp;$ et 20&nbsp;$ (Opus, Sol). Plus puissant encore&nbsp;:
+                Fable chez Claude, Astra chez OpenAI, 10&nbsp;$ et 50&nbsp;$.
+              </desc>
+              <g data-etape="1">
+                <rect class="feuille" x="60" y="30" width="480" height="700" rx="40" />
+                <circle class="encre-6" cx="150" cy="115" r="52" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-zap"
+                  x="122"
+                  y="87"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-l c-fort" x="225" y="120">Rapide</text>
+                <text class="t-xs c-legende" x="225" y="166">stagiaire rapide</text>
+                <path class="trait-legende" d="M100 672H500" />
+                <text class="t-xs c-fort" x="300" y="708" text-anchor="middle">
+                  Claude Haiku&nbsp;· OpenAI Luna
+                </text>
+                <rect class="feuille" x="560" y="30" width="480" height="700" rx="40" />
+                <circle class="encre-1" cx="650" cy="115" r="52" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-briefcase-business"
+                  x="622"
+                  y="87"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-l c-fort" x="725" y="120">Standard</text>
+                <text class="t-xs c-legende" x="725" y="166">collègue efficace</text>
+                <path class="trait-legende" d="M600 672H1000" />
+                <text class="t-xs c-fort" x="800" y="708" text-anchor="middle">
+                  Claude Sonnet&nbsp;· OpenAI Terra
+                </text>
+                <rect class="feuille" x="1060" y="30" width="480" height="700" rx="40" />
+                <circle class="encre-3" cx="1150" cy="115" r="52" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-brain"
+                  x="1122"
+                  y="87"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-l c-fort" x="1225" y="120">Expert</text>
+                <text class="t-xs c-legende" x="1225" y="166">spécialiste</text>
+                <path class="trait-legende" d="M1100 672H1500" />
+                <text class="t-xs c-fort" x="1300" y="708" text-anchor="middle">
+                  Claude Opus&nbsp;· OpenAI Sol
+                </text>
+              </g>
+              <g data-etape="2">
+                <text class="t-s c-fort" x="100" y="250">Vitesse</text>
+                <text class="t-l c-p" x="500" y="254" text-anchor="end">160</text>
+                <rect class="piste" x="100" y="268" width="400" height="40" rx="20" />
+                <rect class="aplat-p" x="100" y="268" width="400" height="40" rx="20" />
+                <text class="t-xs c-legende" x="100" y="346">tokens par seconde</text>
+                <text class="t-s c-fort" x="100" y="400">Qualité</text>
+                <text class="t-l c-3" x="500" y="404" text-anchor="end">52</text>
+                <rect class="piste" x="100" y="418" width="400" height="40" rx="20" />
+                <rect class="aplat-3" x="100" y="418" width="208" height="40" rx="20" />
+                <text class="t-xs c-legende" x="100" y="496">sur 100</text>
+                <text class="t-s c-fort" x="600" y="250">Vitesse</text>
+                <text class="t-l c-p" x="1000" y="254" text-anchor="end">90</text>
+                <rect class="piste" x="600" y="268" width="400" height="40" rx="20" />
+                <rect class="aplat-p" x="600" y="268" width="225" height="40" rx="20" />
+                <text class="t-xs c-legende" x="600" y="346">tokens par seconde</text>
+                <text class="t-s c-fort" x="600" y="400">Qualité</text>
+                <text class="t-l c-3" x="1000" y="404" text-anchor="end">76</text>
+                <rect class="piste" x="600" y="418" width="400" height="40" rx="20" />
+                <rect class="aplat-3" x="600" y="418" width="304" height="40" rx="20" />
+                <text class="t-xs c-legende" x="600" y="496">sur 100</text>
+                <text class="t-s c-fort" x="1100" y="250">Vitesse</text>
+                <text class="t-l c-p" x="1500" y="254" text-anchor="end">60</text>
+                <rect class="piste" x="1100" y="268" width="400" height="40" rx="20" />
+                <rect class="aplat-p" x="1100" y="268" width="150" height="40" rx="20" />
+                <text class="t-xs c-legende" x="1100" y="346">tokens par seconde</text>
+                <text class="t-s c-fort" x="1100" y="400">Qualité</text>
+                <text class="t-l c-3" x="1500" y="404" text-anchor="end">88</text>
+                <rect class="piste" x="1100" y="418" width="400" height="40" rx="20" />
+                <rect class="aplat-3" x="1100" y="418" width="352" height="40" rx="20" />
+                <text class="t-xs c-legende" x="1100" y="496">sur 100</text>
+              </g>
+              <g data-etape="3">
+                <text class="t-s c-fort" x="100" y="550">Coût</text>
+                <text class="t-l c-2" x="500" y="554" text-anchor="end">1&nbsp;$ / 5&nbsp;$</text>
+                <rect class="piste" x="100" y="568" width="400" height="40" rx="20" />
+                <rect class="aplat-2" x="100" y="568" width="100" height="40" rx="20" />
+                <text class="t-xs c-legende" x="100" y="646">par million lus / écrits</text>
+                <text class="t-s c-fort" x="600" y="550">Coût</text>
+                <text class="t-l c-2" x="1000" y="554" text-anchor="end">2&nbsp;$ / 10&nbsp;$</text>
+                <rect class="piste" x="600" y="568" width="400" height="40" rx="20" />
+                <rect class="aplat-2" x="600" y="568" width="200" height="40" rx="20" />
+                <text class="t-xs c-legende" x="600" y="646">par million lus / écrits</text>
+                <text class="t-s c-fort" x="1100" y="550">Coût</text>
+                <text class="t-l c-2" x="1500" y="554" text-anchor="end">4&nbsp;$ / 20&nbsp;$</text>
+                <rect class="piste" x="1100" y="568" width="400" height="40" rx="20" />
+                <rect class="aplat-2" x="1100" y="568" width="400" height="40" rx="20" />
+                <text class="t-xs c-legende" x="1100" y="646">par million lus / écrits</text>
+              </g>
+              <g data-etape="4">
+                <rect class="carte-p" x="60" y="756" width="1480" height="120" rx="36" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-star"
+                  x="96"
+                  y="784"
+                  width="64"
+                  height="64"
+                />
+                <text class="t-m c-fort" x="190" y="830">
+                  Plus puissant&nbsp;: Fable&nbsp;· Astra
+                </text>
+                <text class="t-l c-p" x="1500" y="834" text-anchor="end">
+                  10&nbsp;$ / 50&nbsp;$
+                </text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Source&nbsp;: Permis IA, fiche 3. Tarifs publics de l’API, prix vérifiés le 7 octobre
+            2026&nbsp;; les noms changent souvent.
+          </p>
+        </section>
+
+        <!-- 3.2 -->
+        <section class="planche" id="p-3-2" data-partie="1" aria-labelledby="t-3-2">
+          <header class="planche__tete">
+            <span class="planche__puce">3.2</span>
+            <h2 id="t-3-2" class="planche__titre">L’effort de réflexion</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-3-2 de-3-2">
+              <title id="ti-3-2">L’effort de réflexion</title>
+              <desc id="de-3-2">
+                Un curseur à cinq crans&nbsp;: Bas, Moyen, Haut, Très haut, Max. Quand l’effort
+                monte, la qualité gagne −10, 0, +5, +8, +10 points, une courbe qui s’aplatit. Mais
+                les tokens de réflexion, donc le coût et l’attente, sont multipliés par 0,2, 1, 2,
+                3,5 puis 6&nbsp;: des barres qui grandissent de plus en plus vite. De Haut à Max, on
+                gagne 5 points de qualité pour trois fois plus de réflexion.
+              </desc>
+              <g data-etape="1">
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-sliders-horizontal"
+                  x="60"
+                  y="76"
+                  width="68"
+                  height="68"
+                />
+                <rect class="piste" x="330" y="94" width="1120" height="32" rx="16" />
+                <rect class="aplat-p" x="330" y="94" width="280" height="32" rx="16" />
+                <circle class="neutre" cx="330" cy="110" r="18" />
+                <circle class="neutre" cx="610" cy="110" r="18" />
+                <circle class="neutre" cx="890" cy="110" r="18" />
+                <circle class="neutre" cx="1170" cy="110" r="18" />
+                <circle class="neutre" cx="1450" cy="110" r="18" />
+                <circle class="encre-p" cx="610" cy="110" r="34" />
+                <text class="t-s c-fort" x="330" y="204" text-anchor="middle">Bas</text>
+                <text class="t-s c-fort" x="610" y="204" text-anchor="middle">Moyen</text>
+                <text class="t-s c-fort" x="890" y="204" text-anchor="middle">Haut</text>
+                <text class="t-s c-fort" x="1170" y="204" text-anchor="middle">Très&nbsp;haut</text>
+                <text class="t-s c-fort" x="1450" y="204" text-anchor="middle">Max</text>
+              </g>
+              <g data-etape="2">
+                <text class="t-s c-p" x="60" y="380">Qualité</text>
+                <path class="trait-legende tirets" d="M290 395H1500" />
+                <path class="trait-p" d="M330 505L610 395L890 340L1170 307L1450 285" />
+                <circle class="encre-p" cx="330" cy="505" r="15" />
+                <text class="t-m c-p" x="330" y="475" text-anchor="middle">−10</text>
+                <circle class="encre-p" cx="610" cy="395" r="15" />
+                <text class="t-m c-p" x="610" y="365" text-anchor="middle">0</text>
+                <circle class="encre-p" cx="890" cy="340" r="15" />
+                <text class="t-m c-p" x="890" y="310" text-anchor="middle">+5</text>
+                <circle class="encre-p" cx="1170" cy="307" r="15" />
+                <text class="t-m c-p" x="1170" y="277" text-anchor="middle">+8</text>
+                <circle class="encre-p" cx="1450" cy="285" r="15" />
+                <text class="t-m c-p" x="1450" y="255" text-anchor="middle">+10</text>
+                <text class="t-s c-2" x="60" y="770">Réflexion</text>
+                <path class="trait-legende" d="M290 800H1500" />
+                <rect class="encre-2" x="275" y="794.4" width="110" height="5.6" rx="10" />
+                <text class="t-m c-2" x="330" y="778.4" text-anchor="middle">×0,2</text>
+                <rect class="encre-2" x="555" y="772" width="110" height="28" rx="10" />
+                <text class="t-m c-2" x="610" y="756" text-anchor="middle">×1</text>
+                <rect class="encre-2" x="835" y="744" width="110" height="56" rx="10" />
+                <text class="t-m c-2" x="890" y="728" text-anchor="middle">×2</text>
+                <rect class="encre-2" x="1115" y="702" width="110" height="98" rx="10" />
+                <text class="t-m c-2" x="1170" y="686" text-anchor="middle">×3,5</text>
+                <rect class="encre-2" x="1395" y="632" width="110" height="168" rx="10" />
+                <text class="t-m c-2" x="1450" y="616" text-anchor="middle">×6</text>
+              </g>
+              <g data-etape="3">
+                <text class="t-s c-fort" x="290" y="580">De Haut à Max</text>
+                <text class="t-m c-p" x="290" y="636">+5 de qualité</text>
+                <text class="t-m c-2" x="290" y="692">mais ×3 de réflexion</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Source&nbsp;: Permis IA, fiche 3 (valeurs de la simulation). Qualité&nbsp;: points
+            gagnés ou perdus&nbsp;; réflexion&nbsp;: multiplicateur de tokens de réflexion (donc de
+            coût et de temps).
+          </p>
+        </section>
+
+        <!-- 3.3 -->
+        <section class="planche" id="p-3-3" data-partie="1" aria-labelledby="t-3-3">
+          <header class="planche__tete">
+            <span class="planche__puce">3.3</span>
+            <h2 id="t-3-3" class="planche__titre">Le bon modèle pour la tâche</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-3-3 de-3-3">
+              <title id="ti-3-3">Le bon modèle pour la tâche</title>
+              <desc id="de-3-3">
+                Cinq tâches avec la qualité qu’elles exigent sur 100&nbsp;: corriger une faute 35,
+                résumer un e-mail 50, écrire un rapport 70, créer une appli 84, résoudre un problème
+                difficile 92. Trois repères verticaux montrent ce que chaque modèle atteint&nbsp;:
+                rapide 52, standard 76, expert 88. Corriger une faute et résumer un e-mail passent
+                avec le modèle rapide, le rapport avec le standard, l’appli avec l’expert, le
+                problème difficile demande l’expert avec un effort maximal. Une tâche simple se
+                confie à un petit modèle.
+              </desc>
+              <g data-etape="1">
+                <text class="t-s c-fort" x="60" y="214">Corriger une faute</text>
+                <rect class="piste" x="520" y="170" width="860" height="64" rx="18" />
+                <rect class="encre-p" x="520" y="170" width="301" height="64" rx="18" />
+                <text class="t-m c-sur" x="545" y="216">35</text>
+                <text class="t-s c-fort" x="60" y="324">Résumer un e-mail</text>
+                <rect class="piste" x="520" y="280" width="860" height="64" rx="18" />
+                <rect class="encre-p" x="520" y="280" width="430" height="64" rx="18" />
+                <text class="t-m c-sur" x="545" y="326">50</text>
+                <text class="t-s c-fort" x="60" y="434">Écrire un rapport</text>
+                <rect class="piste" x="520" y="390" width="860" height="64" rx="18" />
+                <rect class="encre-p" x="520" y="390" width="602" height="64" rx="18" />
+                <text class="t-m c-sur" x="545" y="436">70</text>
+                <text class="t-s c-fort" x="60" y="544">Créer une appli</text>
+                <rect class="piste" x="520" y="500" width="860" height="64" rx="18" />
+                <rect class="encre-p" x="520" y="500" width="722.4" height="64" rx="18" />
+                <text class="t-m c-sur" x="545" y="546">84</text>
+                <text class="t-s c-fort" x="60" y="654">Problème difficile</text>
+                <rect class="piste" x="520" y="610" width="860" height="64" rx="18" />
+                <rect class="encre-p" x="520" y="610" width="791.2" height="64" rx="18" />
+                <text class="t-m c-sur" x="545" y="656">92</text>
+              </g>
+              <g data-etape="2">
+                <path class="trait-6 pointille" d="M967.2 120V715" />
+                <circle class="encre-6" cx="967.2" cy="62" r="40" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-zap"
+                  x="943.2"
+                  y="38"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-m c-fort" x="967.2" y="748" text-anchor="middle">52</text>
+                <text class="t-xs c-legende" x="967.2" y="786" text-anchor="middle">Rapide</text>
+                <path class="trait-1 tirets" d="M1173.6 120V715" />
+                <circle class="encre-1" cx="1173.6" cy="62" r="40" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-briefcase-business"
+                  x="1149.6"
+                  y="38"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-m c-fort" x="1173.6" y="748" text-anchor="middle">76</text>
+                <text class="t-xs c-legende" x="1189.6" y="786" text-anchor="end">Standard</text>
+                <path class="trait-3" d="M1276.8 120V715" />
+                <circle class="encre-3" cx="1276.8" cy="62" r="40" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-brain"
+                  x="1252.8"
+                  y="38"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-m c-fort" x="1276.8" y="748" text-anchor="middle">88</text>
+                <text class="t-xs c-legende" x="1260.8" y="786" text-anchor="start">Expert</text>
+              </g>
+              <g data-etape="3">
+                <circle class="encre-6" cx="1460" cy="202" r="38" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-zap"
+                  x="1436"
+                  y="178"
+                  width="48"
+                  height="48"
+                />
+                <circle class="encre-6" cx="1460" cy="312" r="38" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-zap"
+                  x="1436"
+                  y="288"
+                  width="48"
+                  height="48"
+                />
+                <circle class="encre-1" cx="1460" cy="422" r="38" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-briefcase-business"
+                  x="1436"
+                  y="398"
+                  width="48"
+                  height="48"
+                />
+                <circle class="encre-3" cx="1460" cy="532" r="38" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-brain"
+                  x="1436"
+                  y="508"
+                  width="48"
+                  height="48"
+                />
+                <circle class="encre-3" cx="1460" cy="642" r="38" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-brain"
+                  x="1436"
+                  y="618"
+                  width="48"
+                  height="48"
+                />
+                <circle class="encre-p" cx="1385" cy="642" r="30" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-sliders-horizontal"
+                  x="1367"
+                  y="624"
+                  width="36"
+                  height="36"
+                />
+                <rect class="encre-p" x="60" y="812" width="1480" height="76" rx="38" />
+                <text class="t-m c-sur" x="800" y="865" text-anchor="middle">
+                  Tâche simple → petit modèle
+                </text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Source&nbsp;: Permis IA, fiche 3 (qualités exigées et niveaux de la simulation). Le
+            problème difficile demande aussi l’effort maximal du modèle expert.
+          </p>
+        </section>
+
+        <!-- 3.4 -->
+        <section class="planche" id="p-3-4" data-partie="1" data-express aria-labelledby="t-3-4">
+          <header class="planche__tete">
+            <span class="planche__puce">3.4</span>
+            <h2 id="t-3-4" class="planche__titre">Anatomie d’un prompt</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-3-4 de-3-4">
+              <title id="ti-3-4">Anatomie d’un prompt</title>
+              <desc id="de-3-4">
+                Un bon prompt se construit en blocs empilés&nbsp;: le contexte (Lucie, secrétaire
+                d’un club de randonnée, écrit aux 40 membres, cotisation de 35&nbsp;€), une action
+                précise (écrire un mail de rappel), l’objectif (que tout le monde ait payé avant le
+                30 novembre) et, en plus, la phrase «&nbsp;Si tu ne sais pas, dis-le. S’il te manque
+                une info, pose-moi des questions.&nbsp;». L’IA répond avec 35&nbsp;€ et le 30
+                novembre. Ce qu’on ne dit pas, l’IA le devine. Une info en trop, l’ancien prix de
+                30&nbsp;€, peut l’égarer&nbsp;: elle risque d’écrire 30&nbsp;€.
+              </desc>
+              <g data-etape="1">
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-circle-help"
+                  x="60"
+                  y="28"
+                  width="64"
+                  height="64"
+                />
+                <text class="t-m c-p" x="145" y="76">Ce que vous ne dites pas, l’IA le devine</text>
+                <rect class="feuille" x="60" y="120" width="1030" height="140" rx="28" />
+                <rect class="encre-1" x="60" y="120" width="300" height="140" rx="28" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-user"
+                  x="84"
+                  y="162"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-sur" x="160" y="204">Contexte</text>
+                <text class="t-xs c-fort" x="390" y="166">Lucie, secrétaire d’un club de</text>
+                <text class="t-xs c-fort" x="390" y="206">randonnée, écrit aux 40 membres.</text>
+                <text class="t-xs c-fort" x="390" y="246">
+                  Cotisation de cette année&nbsp;: 35&nbsp;€
+                </text>
+                <rect class="feuille" x="60" y="274" width="1030" height="140" rx="28" />
+                <rect class="encre-2" x="60" y="274" width="300" height="140" rx="28" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-mouse-pointer-click"
+                  x="84"
+                  y="316"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-sur" x="160" y="340">Action</text>
+                <text class="t-m c-sur" x="160" y="388">précise</text>
+                <text class="t-xs c-fort" x="390" y="336">Écris un mail pour rappeler</text>
+                <text class="t-xs c-fort" x="390" y="378">de payer la cotisation.</text>
+                <rect class="feuille" x="60" y="428" width="1030" height="140" rx="28" />
+                <rect class="encre-3" x="60" y="428" width="300" height="140" rx="28" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-target"
+                  x="84"
+                  y="470"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-sur" x="160" y="512">Objectif</text>
+                <text class="t-xs c-fort" x="390" y="490">Que tout le monde ait payé avant</text>
+                <text class="t-xs c-fort" x="390" y="532">le 30 novembre. Ton amical.</text>
+                <rect class="feuille" x="1130" y="120" width="410" height="310" rx="36" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-bot"
+                  x="1160"
+                  y="146"
+                  width="64"
+                  height="64"
+                />
+                <text class="t-s c-p" x="1240" y="196">Réponse</text>
+                <rect class="encre-p" x="1155" y="262" width="155" height="84" rx="24" />
+                <text class="t-l c-sur" x="1232" y="326" text-anchor="middle">35&nbsp;€</text>
+                <rect class="encre-p" x="1325" y="262" width="190" height="84" rx="24" />
+                <text class="t-m c-sur" x="1420" y="320" text-anchor="middle">30 nov.</text>
+                <path class="trait-legende" d="M1160 388h330" />
+              </g>
+              <g data-etape="2">
+                <rect class="feuille" x="60" y="582" width="1030" height="140" rx="28" />
+                <rect class="encre-6" x="60" y="582" width="300" height="140" rx="28" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-circle-help"
+                  x="84"
+                  y="624"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-sur" x="160" y="666">En plus</text>
+                <text class="t-xs c-fort" x="390" y="628">Si tu ne sais pas, dis-le.</text>
+                <text class="t-xs c-fort" x="390" y="668">S’il te manque une info,</text>
+                <text class="t-xs c-fort" x="390" y="708">pose-moi des questions.</text>
+              </g>
+              <g data-etape="3">
+                <rect
+                  class="badge-alerte tirets"
+                  x="60"
+                  y="740"
+                  width="1030"
+                  height="140"
+                  rx="28"
+                />
+                <rect class="aplat-alerte" x="60" y="740" width="300" height="140" rx="28" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-triangle-alert"
+                  x="84"
+                  y="782"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-sur" x="160" y="806">Info</text>
+                <text class="t-m c-sur" x="160" y="854">en trop</text>
+                <text class="t-xs c-fort" x="390" y="802">L’an dernier, la cotisation</text>
+                <text class="t-xs c-fort" x="390" y="844">était de 30&nbsp;€.</text>
+                <path class="trait-alerte" d="M1090 810H1335V712" />
+                <path class="aplat-alerte" d="M1315 722h40l-20-34z" />
+                <rect class="badge-alerte" x="1130" y="470" width="410" height="220" rx="36" />
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-triangle-alert"
+                  x="1160"
+                  y="494"
+                  width="64"
+                  height="64"
+                />
+                <text class="t-s c-alerte" x="1240" y="544">Mauvais prix</text>
+                <rect class="badge-alerte" x="1200" y="580" width="270" height="84" rx="24" />
+                <text class="t-l c-alerte" x="1335" y="644" text-anchor="middle">30&nbsp;€</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Source&nbsp;: Permis IA, fiche 3. Exemple fabriqué pour comprendre&nbsp;: l’IA choisit
+            souvent le bon prix, mais pas toujours.
+          </p>
+        </section>
+      </div>
+
+      <div class="chapitre-pied" data-partie="1">
+        <nav class="chapitre-nav" aria-label="Chapitres voisins (bas de page)">
+          <a class="bouton bouton--secondaire" href="2-memoire.html">
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-left" />
+            </svg>
+            Chapitre&nbsp;2&nbsp;· Mémoire
+          </a>
+          <a class="bouton bouton--secondaire" href="index.html">
+            <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-house" /></svg>
+            Sommaire
+          </a>
+          <a class="bouton bouton--primaire" href="4-hallucinations.html">
+            Chapitre&nbsp;4&nbsp;· Hallucinations
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-arrow-right" />
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </main>
+
+    <footer class="pied">
+      <div class="pied__interieur">
+        <p>
+          &copy;&nbsp;2026 <strong>Skazy Formation</strong>,
+          <span class="insecable">Nouvelle-Calédonie</span>&nbsp;·
+          <a href="https://formation.skazy.nc" target="_blank" rel="noopener">formation.skazy.nc</a>
+        </p>
+        <p>
+          Usage réservé aux stagiaires de Skazy Formation&nbsp;: reproduction et réutilisation dans
+          une autre formation interdites sans accord écrit.
+        </p>
+      </div>
+    </footer>
+
+    <button type="button" class="haut-de-page" id="haut-de-page" hidden>
+      <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-arrow-up" /></svg>
+      <span class="invisible">Remonter en haut de la page</span>
+    </button>
+  </body>
+</html>
