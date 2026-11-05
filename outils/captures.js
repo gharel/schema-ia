@@ -74,10 +74,16 @@ for (const chapitre of pages) {
       await page.close();
       continue;
     }
-    const etapes = await page
-      .locator(`#${ancre} [data-etape]`)
-      .evaluateAll((els) => Math.max(0, ...els.map((e) => Number(e.dataset.etape))));
-    for (let i = 1; i < etapes; i++) await page.keyboard.press('ArrowRight');
+    // La planche s'ouvre sur son titre seul : on avance jusqu'à ce que tout soit affiché.
+    const complete = () =>
+      page
+        .locator(`#${ancre}`)
+        .evaluate(
+          (p) =>
+            !p.classList.contains('planche--titre-seul') &&
+            [...p.querySelectorAll('[data-etape]')].every((e) => e.classList.contains('etape-vue')),
+        );
+    for (let i = 0; i < 20 && !(await complete()); i++) await page.keyboard.press('ArrowRight');
     await page.waitForTimeout(600);
     await page.screenshot({
       path: `${SORTIE}${chapitre.fichier.replace('.html', '')}-${planche.id}-projection.png`,

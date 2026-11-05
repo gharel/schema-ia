@@ -6,7 +6,7 @@
     <title>Agent sur mesure · L’IA en schémas · Skazy Formation</title>
     <meta
       name="description"
-      content="Chapitre 8 de L’IA en schémas : les cinq briques d’un agent, ce qui est toujours lu et ce qui est lu au besoin."
+      content="Chapitre 8 de L’IA en schémas : ce qu’est un agent, ses cinq briques, ce qui est toujours lu et ce qui est lu au besoin."
     />
     <!-- Support réservé aux stagiaires et à l'équipe : la page n'apparaît pas dans les moteurs de recherche. -->
     <meta name="robots" content="noindex" />
@@ -138,62 +138,133 @@
         >
           <header class="planche__tete">
             <span class="planche__puce">8.1</span>
-            <h2 id="t-8-1" class="planche__titre">Les 5 briques d’un agent</h2>
+            <h2 id="t-8-1" class="planche__titre">Qu’est-ce qu’un agent&nbsp;?</h2>
           </header>
           <div class="planche__scene">
             <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-8-1 de-8-1">
-              <title id="ti-8-1">Les 5 briques d’un agent</title>
+              <title id="ti-8-1">Qu’est-ce qu’un agent&nbsp;?</title>
               <desc id="de-8-1">
-                Cinq briques s’empilent&nbsp;: la tâche (qui revient souvent, avec des étapes), les
-                consignes (AGENTS.md, court, moins de 200 lignes), les outils (le moins possible),
-                les limites (vous validez avant tout envoi) et le test (sur de vrais cas, on corrige
-                les consignes si l’agent se trompe).
+                Un agent, c’est une IA qui agit pour vous. Exemple, l’agent des devis de
+                l’agence&nbsp;: un but (préparer les devis de l’agence), des consignes (dans
+                AGENTS.md, écrites une fois) et des outils (le fichier des tarifs, le modèle de
+                devis). Il tourne en boucle, regarde, décide, agit, vérifie, et recommence si
+                besoin, jusqu’au but. Le résultat&nbsp;: un devis en brouillon, que vous validez
+                avant l’envoi.
               </desc>
               <g data-etape="1">
-                <rect class="carte-p" x="100" y="682" width="700" height="112" rx="28" />
-                <circle class="encre-p" cx="168" cy="738" r="32" />
-                <text class="t-m c-sur" x="168" y="753" text-anchor="middle">1</text>
-                <text class="t-l c-p" x="244" y="759">Tâche</text>
-                <path class="trait-legende" d="M830 738H880" />
-                <text class="t-m c-fort" x="910" y="753">Qui revient souvent</text>
+                <circle class="encre-p" cx="190" cy="175" r="85" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-bot"
+                  x="140"
+                  y="125"
+                  width="100"
+                  height="100"
+                />
+                <text class="t-l c-fort" x="320" y="160">Un agent</text>
+                <text class="t-m c-p" x="320" y="228">une IA qui agit pour vous</text>
               </g>
               <g data-etape="2">
-                <rect class="carte-p" x="100" y="538" width="700" height="112" rx="28" />
-                <circle class="encre-p" cx="168" cy="594" r="32" />
-                <text class="t-m c-sur" x="168" y="609" text-anchor="middle">2</text>
-                <text class="t-l c-p" x="244" y="615">Consignes</text>
-                <path class="trait-legende" d="M830 594H880" />
-                <text class="t-m c-fort" x="910" y="609">Moins de 200 lignes</text>
+                <text class="t-xs c-legende" x="100" y="318">
+                  Exemple&nbsp;: l’agent des devis de l’agence
+                </text>
+                <rect class="carte-p" x="100" y="345" width="440" height="190" rx="28" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-target"
+                  x="132"
+                  y="375"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-p" x="208" y="418">Un but</text>
+                <text class="t-xs c-fort" x="132" y="476">Préparer les devis</text>
+                <text class="t-xs c-fort" x="132" y="514">de l’agence</text>
+                <rect class="carte-p" x="580" y="345" width="440" height="190" rx="28" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-scroll-text"
+                  x="612"
+                  y="375"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-p" x="688" y="418">Des consignes</text>
+                <text class="t-xs c-fort" x="612" y="476">Dans AGENTS.md,</text>
+                <text class="t-xs c-fort" x="612" y="514">écrites une fois</text>
+                <rect class="carte-p" x="1060" y="345" width="440" height="190" rx="28" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-wrench"
+                  x="1092"
+                  y="375"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-p" x="1168" y="418">Des outils</text>
+                <text class="t-xs c-fort" x="1092" y="476">Le fichier des tarifs,</text>
+                <text class="t-xs c-fort" x="1092" y="514">le modèle de devis</text>
               </g>
               <g data-etape="3">
-                <rect class="carte-p" x="100" y="394" width="700" height="112" rx="28" />
-                <circle class="encre-p" cx="168" cy="450" r="32" />
-                <text class="t-m c-sur" x="168" y="465" text-anchor="middle">3</text>
-                <text class="t-l c-p" x="244" y="471">Outils</text>
-                <path class="trait-legende" d="M830 450H880" />
-                <text class="t-m c-fort" x="910" y="465">Le moins possible</text>
+                <rect class="feuille" x="100" y="600" width="200" height="70" rx="35" />
+                <text class="t-s c-p" x="200" y="647" text-anchor="middle">Regarde</text>
+                <path class="trait-p" d="M310 635H338" />
+                <path class="encre-p" d="M354 635l-16-9v18z" />
+                <rect class="feuille" x="360" y="600" width="200" height="70" rx="35" />
+                <text class="t-s c-p" x="460" y="647" text-anchor="middle">Décide</text>
+                <path class="trait-p" d="M570 635H598" />
+                <path class="encre-p" d="M614 635l-16-9v18z" />
+                <rect class="feuille" x="620" y="600" width="200" height="70" rx="35" />
+                <text class="t-s c-p" x="720" y="647" text-anchor="middle">Agit</text>
+                <path class="trait-p" d="M830 635H858" />
+                <path class="encre-p" d="M874 635l-16-9v18z" />
+                <rect class="feuille" x="880" y="600" width="200" height="70" rx="35" />
+                <text class="t-s c-p" x="980" y="647" text-anchor="middle">Vérifie</text>
+                <path class="trait-p" d="M980 680V706H200V694" />
+                <path class="encre-p" d="M200 678l-9 16h18z" />
+                <text class="t-xs c-legende" x="590" y="742" text-anchor="middle">
+                  recommence si besoin
+                </text>
+                <path class="trait-p" d="M1090 635H1118" />
+                <path class="encre-p" d="M1134 635l-16-9v18z" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-target"
+                  x="1150"
+                  y="607"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-fort" x="1222" y="651">Jusqu’au but</text>
               </g>
               <g data-etape="4">
-                <rect class="carte-p" x="100" y="250" width="700" height="112" rx="28" />
-                <circle class="encre-p" cx="168" cy="306" r="32" />
-                <text class="t-m c-sur" x="168" y="321" text-anchor="middle">4</text>
-                <text class="t-l c-p" x="244" y="327">Limites</text>
-                <path class="trait-legende" d="M830 306H880" />
-                <text class="t-m c-fort" x="910" y="321">Vous validez avant l’envoi</text>
-              </g>
-              <g data-etape="5">
-                <rect class="encre-p" x="100" y="106" width="700" height="112" rx="28" />
-                <circle class="surface" cx="168" cy="162" r="32" />
-                <text class="t-m c-p" x="168" y="177" text-anchor="middle">5</text>
-                <text class="t-l c-sur" x="244" y="183">Test</text>
-                <path class="trait-legende" d="M830 162H880" />
-                <text class="t-m c-fort" x="910" y="177">Sur de vrais cas</text>
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-file-text"
+                  x="100"
+                  y="792"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-fort" x="176" y="836">Un devis en brouillon</text>
+                <path class="trait-p" d="M666 820H702" />
+                <path class="encre-p" d="M718 820l-16-9v18z" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-user-check"
+                  x="736"
+                  y="792"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-m c-p" x="812" y="836">Vous validez avant l’envoi</text>
               </g>
             </svg>
           </div>
           <p class="planche__source">
-            Tâche qui revient souvent, avec des étapes&nbsp;; outils en nombre minimal.
-            Source&nbsp;: Permis IA, fiche&nbsp;8 (repère&nbsp;: moins de 200 lignes).
+            Définition et exemple du Permis IA, fiche&nbsp;8&nbsp;: «&nbsp;Un agent, c’est une IA
+            qui agit pour toi. Donne-lui un but, des consignes et des outils.&nbsp;» La boucle en
+            détail&nbsp;: planche&nbsp;7.2.
           </p>
         </section>
 
@@ -207,12 +278,81 @@
         >
           <header class="planche__tete">
             <span class="planche__puce">8.2</span>
-            <h2 id="t-8-2" class="planche__titre">Toujours lu ou lu au besoin</h2>
+            <h2 id="t-8-2" class="planche__titre">Les 5 briques d’un agent</h2>
           </header>
           <div class="planche__scene">
             <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-8-2 de-8-2">
-              <title id="ti-8-2">Toujours lu ou lu au besoin</title>
+              <title id="ti-8-2">Les 5 briques d’un agent</title>
               <desc id="de-8-2">
+                Cinq briques, dans l’ordre&nbsp;: la tâche (qui revient souvent, avec des étapes),
+                les consignes (AGENTS.md, court, moins de 200 lignes), les outils (le moins
+                possible), les limites (vous validez avant tout envoi) et le test (sur de vrais cas,
+                on corrige les consignes si l’agent se trompe).
+              </desc>
+              <g data-etape="1">
+                <rect class="carte-p" x="100" y="106" width="700" height="112" rx="28" />
+                <circle class="encre-p" cx="168" cy="162" r="32" />
+                <text class="t-m c-sur" x="168" y="177" text-anchor="middle">1</text>
+                <text class="t-l c-p" x="244" y="183">Tâche</text>
+                <path class="trait-legende" d="M830 162H880" />
+                <text class="t-m c-fort" x="910" y="177">Qui revient souvent</text>
+              </g>
+              <g data-etape="2">
+                <rect class="carte-p" x="100" y="250" width="700" height="112" rx="28" />
+                <circle class="encre-p" cx="168" cy="306" r="32" />
+                <text class="t-m c-sur" x="168" y="321" text-anchor="middle">2</text>
+                <text class="t-l c-p" x="244" y="327">Consignes</text>
+                <path class="trait-legende" d="M830 306H880" />
+                <text class="t-m c-fort" x="910" y="321">Moins de 200 lignes</text>
+              </g>
+              <g data-etape="3">
+                <rect class="carte-p" x="100" y="394" width="700" height="112" rx="28" />
+                <circle class="encre-p" cx="168" cy="450" r="32" />
+                <text class="t-m c-sur" x="168" y="465" text-anchor="middle">3</text>
+                <text class="t-l c-p" x="244" y="471">Outils</text>
+                <path class="trait-legende" d="M830 450H880" />
+                <text class="t-m c-fort" x="910" y="465">Le moins possible</text>
+              </g>
+              <g data-etape="4">
+                <rect class="carte-p" x="100" y="538" width="700" height="112" rx="28" />
+                <circle class="encre-p" cx="168" cy="594" r="32" />
+                <text class="t-m c-sur" x="168" y="609" text-anchor="middle">4</text>
+                <text class="t-l c-p" x="244" y="615">Limites</text>
+                <path class="trait-legende" d="M830 594H880" />
+                <text class="t-m c-fort" x="910" y="609">Vous validez avant l’envoi</text>
+              </g>
+              <g data-etape="5">
+                <rect class="encre-p" x="100" y="682" width="700" height="112" rx="28" />
+                <circle class="surface" cx="168" cy="738" r="32" />
+                <text class="t-m c-p" x="168" y="753" text-anchor="middle">5</text>
+                <text class="t-l c-sur" x="244" y="759">Test</text>
+                <path class="trait-legende" d="M830 738H880" />
+                <text class="t-m c-fort" x="910" y="753">Sur de vrais cas</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Tâche qui revient souvent, avec des étapes&nbsp;; outils en nombre minimal.
+            Source&nbsp;: Permis IA, fiche&nbsp;8 (repère&nbsp;: moins de 200 lignes).
+          </p>
+        </section>
+
+        <!-- 8.3 -->
+        <section
+          class="planche"
+          id="p-8-3"
+          data-partie="3"
+          data-parcours="intermediaire"
+          aria-labelledby="t-8-3"
+        >
+          <header class="planche__tete">
+            <span class="planche__puce">8.3</span>
+            <h2 id="t-8-3" class="planche__titre">Toujours lu ou lu au besoin</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-8-3 de-8-3">
+              <title id="ti-8-3">Toujours lu ou lu au besoin</title>
+              <desc id="de-8-3">
                 Le dossier agence contient AGENTS.md (toujours relu, 80 lignes),
                 skills/devis/SKILL.md (méthode de 300 lignes, ouverte pour un devis) et
                 tarifs-2027.pdf (120 lignes de prix, ouvert à la demande). Pour une question simple,
@@ -220,7 +360,7 @@
                 une Skill, 80 lignes. Pour un devis, 500 lignes dans les deux cas.
               </desc>
               <defs>
-                <pattern id="hach-8-2" width="24" height="24" patternUnits="userSpaceOnUse">
+                <pattern id="hach-8-3" width="24" height="24" patternUnits="userSpaceOnUse">
                   <path class="hachure-trait" d="M-6 6L6 -6M-6 30L30 -6M18 30L30 18" />
                 </pattern>
               </defs>
@@ -263,7 +403,7 @@
                 <text class="t-m c-fort" x="900" y="210">Tout dans AGENTS.md</text>
                 <rect class="piste" x="900" y="250" width="600" height="56" rx="18" />
                 <rect class="encre-p" x="900" y="250" width="126" height="56" rx="12" />
-                <rect class="hach-8-2" x="1040" y="250" width="460" height="56" rx="8" />
+                <rect class="hach-8-3" x="1040" y="250" width="460" height="56" rx="8" />
                 <text class="t-s c-legende" x="900" y="120">Pour une question simple</text>
                 <text class="t-xl c-alerte" x="900" y="410">380</text>
                 <text class="t-s c-legende" x="1100" y="410">lignes lues</text>

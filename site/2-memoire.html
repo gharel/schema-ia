@@ -6,7 +6,7 @@
     <title>Mémoire · L’IA en schémas · Skazy Formation</title>
     <meta
       name="description"
-      content="Chapitre 2 de L’IA en schémas : la fenêtre de contexte, ce qui la remplit, le résumé automatique et le context rot."
+      content="Chapitre 2 de L’IA en schémas : la fenêtre de contexte, ce qui la remplit, le résumé automatique, le context rot et le coût d’une longue conversation."
     />
     <!-- Support réservé aux stagiaires et à l'équipe : la page n'apparaît pas dans les moteurs de recherche. -->
     <meta name="robots" content="noindex" />
@@ -461,73 +461,94 @@
             <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-2-4 de-2-4">
               <title id="ti-2-4">Mémoire pleine&nbsp;: elle résume</title>
               <desc id="de-2-4">
-                La mémoire est pleine à 95&nbsp;%&nbsp;: au début les consignes, au milieu les vieux
-                messages, à la fin les derniers messages. L’appli compresse&nbsp;: elle garde le
-                début et la fin, et le milieu devient un court résumé. Des détails du milieu se
-                perdent&nbsp;: dans l’exemple du devis, les 12 personnes restent dans le résumé,
-                mais le prix des chambres et l’allergie aux fruits de mer disparaissent.
+                Une longue conversation pour préparer le devis d’un voyage. La mémoire est pleine à
+                95&nbsp;%&nbsp;: au début les consignes, au milieu le catalogue et les vieux
+                messages, qui contiennent trois infos du devis (12 personnes, le prix des chambres,
+                une allergie aux fruits de mer), à la fin les derniers messages. L’appli
+                compresse&nbsp;: elle garde les consignes et les derniers messages, et le milieu
+                devient un court résumé. Ce que l’IA sait encore&nbsp;: les 12 personnes, gardées
+                dans le résumé&nbsp;; le prix des chambres et l’allergie sont perdus.
               </desc>
 
               <g data-etape="1">
-                <text class="t-s c-fort" x="100" y="100">Mémoire pleine</text>
+                <text class="t-s c-fort" x="100" y="100">Devis d’un voyage</text>
+                <text class="t-s c-legende" x="1366" y="100" text-anchor="end">Mémoire pleine</text>
                 <text class="t-m c-alerte" x="1500" y="100" text-anchor="end">95&nbsp;%</text>
-                <rect class="piste" x="100" y="130" width="1400" height="100" />
-                <rect class="encre-p" x="100" y="130" width="14" height="100" />
-                <rect class="carte-p" x="114" y="130" width="756" height="100" />
-                <rect class="carte-p" x="870" y="130" width="560" height="100" />
-                <text class="t-xs c-p" x="492" y="191" text-anchor="middle">
-                  Le milieu&nbsp;: vieux messages
+                <rect class="piste" x="100" y="130" width="1400" height="160" />
+                <rect class="encre-p" x="100" y="130" width="14" height="160" />
+                <rect class="carte-p" x="114" y="130" width="936" height="160" />
+                <rect class="carte-p" x="1050" y="130" width="380" height="160" />
+                <text class="t-xs c-p" x="140" y="178">Catalogue et vieux messages</text>
+                <rect class="feuille" x="140" y="200" width="230" height="64" rx="16" />
+                <text class="t-xs c-fort" x="255" y="242" text-anchor="middle">12 personnes</text>
+                <rect class="feuille" x="386" y="200" width="296" height="64" rx="16" />
+                <text class="t-xs c-fort" x="534" y="242" text-anchor="middle">
+                  Prix des chambres
                 </text>
-                <text class="t-xs c-p" x="1150" y="191" text-anchor="middle">
-                  La fin&nbsp;: derniers messages
+                <rect class="feuille" x="698" y="200" width="334" height="64" rx="16" />
+                <text class="t-xs c-fort" x="865" y="242" text-anchor="middle">
+                  Allergie fruits de mer
                 </text>
-                <path class="trait-alerte" d="M1430 112V248" />
-                <text class="t-xs c-legende" x="100" y="275">Le début&nbsp;: consignes</text>
+                <text class="t-xs c-p" x="1240" y="221" text-anchor="middle">
+                  Derniers messages
+                </text>
+                <path class="trait-alerte" d="M1430 112V308" />
+                <text class="t-xs c-legende" x="100" y="330">Consignes</text>
               </g>
               <g data-etape="2">
-                <path class="trait-legende tirets" d="M114 300V390" />
-                <path class="trait-legende tirets" d="M870 300L142 390" />
-                <path class="trait-legende tirets" d="M1430 300L702 390" />
-                <rect class="piste" x="100" y="400" width="1400" height="100" />
-                <rect class="encre-p" x="100" y="400" width="14" height="100" />
-                <rect class="encre-3" x="114" y="400" width="28" height="100" />
-                <rect class="carte-p" x="142" y="400" width="560" height="100" />
-                <text class="t-xs c-p" x="422" y="461" text-anchor="middle">La fin, gardée</text>
-                <path class="trait-alerte" d="M128 510V522" />
-                <text class="t-s c-alerte" x="100" y="566">Le milieu devient un court résumé</text>
+                <path class="trait-legende tirets" d="M114 350V410" />
+                <path class="trait-legende tirets" d="M1050 350L174 410" />
+                <path class="trait-legende tirets" d="M1430 350L554 410" />
+                <rect class="piste" x="100" y="420" width="1400" height="100" />
+                <rect class="encre-p" x="100" y="420" width="14" height="100" />
+                <rect class="encre-3" x="114" y="420" width="60" height="100" />
+                <rect class="carte-p" x="174" y="420" width="380" height="100" />
+                <text class="t-xs c-p" x="364" y="481" text-anchor="middle">Derniers messages</text>
+                <text class="t-xs c-legende" x="1027" y="481" text-anchor="middle">
+                  Place libérée
+                </text>
+                <path class="trait-alerte" d="M144 530V542" />
+                <text class="t-s c-alerte" x="100" y="586">Le milieu devient un court résumé</text>
               </g>
               <g data-etape="3">
-                <text class="t-s c-legende" x="100" y="650">Ce que l’IA sait encore</text>
+                <text class="t-s c-legende" x="100" y="660">Ce que l’IA sait encore</text>
+                <rect class="feuille" x="140" y="690" width="230" height="64" rx="16" />
+                <text class="t-xs c-fort" x="255" y="732" text-anchor="middle">12 personnes</text>
+                <rect class="badge-alerte tirets" x="386" y="690" width="296" height="64" rx="16" />
+                <text class="t-xs c-alerte" x="534" y="732" text-anchor="middle">
+                  Prix des chambres
+                </text>
+                <rect class="badge-alerte tirets" x="698" y="690" width="334" height="64" rx="16" />
+                <text class="t-xs c-alerte" x="865" y="732" text-anchor="middle">
+                  Allergie fruits de mer
+                </text>
                 <use
                   class="ico-7"
                   href="assets/img/icones.svg#i-check"
-                  x="100"
-                  y="690"
-                  width="48"
-                  height="48"
+                  x="130"
+                  y="772"
+                  width="40"
+                  height="40"
                 />
-                <text class="t-s c-fort" x="164" y="726">12 personnes</text>
-                <text class="t-xs c-legende" x="164" y="768">dans le résumé</text>
+                <text class="t-xs c-legende" x="180" y="804">dans le résumé</text>
                 <use
                   class="ico-alerte"
                   href="assets/img/icones.svg#i-x"
-                  x="520"
-                  y="690"
-                  width="48"
-                  height="48"
+                  x="471"
+                  y="772"
+                  width="40"
+                  height="40"
                 />
-                <text class="t-s c-alerte" x="584" y="726">Prix des chambres</text>
-                <text class="t-xs c-legende" x="584" y="768">perdu</text>
+                <text class="t-xs c-legende" x="521" y="804">perdu</text>
                 <use
                   class="ico-alerte"
                   href="assets/img/icones.svg#i-x"
-                  x="940"
-                  y="690"
-                  width="48"
-                  height="48"
+                  x="794"
+                  y="772"
+                  width="40"
+                  height="40"
                 />
-                <text class="t-s c-alerte" x="1004" y="726">Allergie fruits de mer</text>
-                <text class="t-xs c-legende" x="1004" y="768">perdue</text>
+                <text class="t-xs c-legende" x="844" y="804">perdue</text>
               </g>
             </svg>
           </div>
@@ -616,6 +637,90 @@
             OpenAI, avril 2026, test MRCR&nbsp;; Chroma, juillet 2025, non relu par des pairs&nbsp;:
             même question avec 300 tokens utiles ou toute la conversation (113&nbsp;000 tokens).
             Permis IA, fiche&nbsp;2.
+          </p>
+        </section>
+
+        <!-- 2.6 -->
+        <section
+          class="planche"
+          id="p-2-6"
+          data-partie="1"
+          data-parcours="intermediaire"
+          aria-labelledby="t-2-6"
+        >
+          <header class="planche__tete">
+            <span class="planche__puce">2.6</span>
+            <h2 id="t-2-6" class="planche__titre">Une longue conversation coûte cher</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-2-6 de-2-6">
+              <title id="ti-2-6">Une longue conversation coûte cher</title>
+              <desc id="de-2-6">
+                Histogramme empilé&nbsp;: à chaque envoi, l’IA relit tout ce qui a déjà été dit
+                (déjà lu aux envois d’avant) plus le nouveau message (lu à cet envoi). Le total
+                grimpe de plus en plus vite&nbsp;: 8 envois font environ 40&nbsp;000 tokens lus,
+                deux fois plus de messages font jusqu’à quatre fois plus de tokens lus.
+                Conclusion&nbsp;: nouveau sujet, nouvelle conversation.
+              </desc>
+              <g data-etape="1">
+                <rect class="encre-p" x="100" y="76" width="36" height="36" rx="8" />
+                <text class="t-m c-fort" x="160" y="108">Nouveau à cet envoi</text>
+                <rect class="trou-plein" x="100" y="128" width="36" height="36" rx="8" />
+                <text class="t-m c-fort" x="160" y="160">Relu (déjà lu avant)</text>
+                <path class="trait-legende" d="M80 600H890" />
+                <rect class="encre-p" x="100" y="577.8" width="70" height="22.2" rx="6" />
+                <text class="t-xs c-legende" x="135" y="650" text-anchor="middle">1er</text>
+                <rect class="trou-plein" x="200" y="577.8" width="70" height="22.2" />
+                <rect class="encre-p" x="200" y="547.6" width="70" height="30.2" rx="6" />
+                <text class="t-xs c-legende" x="235" y="650" text-anchor="middle">2e</text>
+                <rect class="trou-plein" x="300" y="547.6" width="70" height="52.4" />
+                <rect class="encre-p" x="300" y="509.5" width="70" height="38.1" rx="6" />
+                <text class="t-xs c-legende" x="335" y="650" text-anchor="middle">3e</text>
+                <rect class="trou-plein" x="400" y="509.5" width="70" height="90.5" />
+                <rect class="encre-p" x="400" y="463.5" width="70" height="46" rx="6" />
+                <text class="t-xs c-legende" x="435" y="650" text-anchor="middle">4e</text>
+                <rect class="trou-plein" x="500" y="463.5" width="70" height="136.5" />
+                <rect class="encre-p" x="500" y="409.5" width="70" height="54" rx="6" />
+                <text class="t-xs c-legende" x="535" y="650" text-anchor="middle">5e</text>
+                <rect class="trou-plein" x="600" y="409.5" width="70" height="190.5" />
+                <rect class="encre-p" x="600" y="347.6" width="70" height="61.9" rx="6" />
+                <text class="t-xs c-legende" x="635" y="650" text-anchor="middle">6e</text>
+                <rect class="trou-plein" x="700" y="347.6" width="70" height="252.4" />
+                <rect class="encre-p" x="700" y="277.8" width="70" height="69.8" rx="6" />
+                <text class="t-xs c-legende" x="735" y="650" text-anchor="middle">7e</text>
+                <rect class="trou-plein" x="800" y="277.8" width="70" height="322.2" />
+                <rect class="encre-p" x="800" y="200" width="70" height="77.8" rx="6" />
+                <text class="t-xs c-legende" x="835" y="650" text-anchor="middle">8e</text>
+              </g>
+              <g data-etape="2">
+                <text class="t-m c-legende" x="1000" y="170">Total des 8 envois</text>
+                <text class="t-xl c-p" x="1000" y="270">40&nbsp;320</text>
+                <text class="t-m c-p" x="1000" y="330">tokens lus</text>
+              </g>
+              <g data-etape="3">
+                <text class="t-m c-fort" x="1000" y="440">2&nbsp;× plus de messages</text>
+                <path class="trait-p" d="M1020 470V515" />
+                <path class="encre-p" d="M1002 511h36l-18 30z" />
+                <text class="t-m c-p" x="1000" y="610">jusqu’à 4&nbsp;× plus</text>
+                <text class="t-m c-p" x="1000" y="662">de tokens lus</text>
+              </g>
+              <g data-etape="4">
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-refresh-cw"
+                  x="100"
+                  y="752"
+                  width="56"
+                  height="56"
+                />
+                <text class="t-l c-p" x="184" y="800">Nouveau sujet, nouvelle conversation</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Modèle illustratif de la fiche&nbsp;: 2&nbsp;000 tokens de consignes, 800 par
+            échange&nbsp;; 8 envois = 40&nbsp;320 tokens lus, 16 envois = 131&nbsp;840 (×3,3).
+            Source&nbsp;: Permis IA, fiche&nbsp;9.
           </p>
         </section>
       </div>

@@ -105,6 +105,12 @@ export const CHAPITRES = [
         M,
         'context rot, longueur, précision, dégradation, MRCR, Chroma, réflexion, o3, Gemini, GPT-4.1',
       ),
+      p(
+        '2.6',
+        'Une longue conversation coûte cher',
+        M,
+        'coût, longue conversation, quadratique, nouvelle conversation, relecture, tokens lus',
+      ),
     ],
   },
   {
@@ -302,12 +308,18 @@ export const CHAPITRES = [
     planches: [
       p(
         '8.1',
+        'Qu’est-ce qu’un agent ?',
+        M,
+        'agent, définition, IA qui agit, but, consignes, outils, boucle, autonomie, assistant, devis',
+      ),
+      p(
+        '8.2',
         'Les 5 briques d’un agent',
         M,
         'créer un agent, consignes, outils, limites, test, AGENTS.md',
       ),
       p(
-        '8.2',
+        '8.3',
         'Toujours lu ou lu au besoin',
         M,
         'AGENTS.md, SKILL.md, CLAUDE.md, mémoire, organisation, fichiers',
@@ -326,12 +338,6 @@ export const CHAPITRES = [
         'Le point de bascule',
         M,
         'point de bascule, coût mensuel, rentabilité, API, forfait',
-      ),
-      p(
-        '9.3',
-        'Une longue conversation coûte cher',
-        M,
-        'coût, longue conversation, quadratique, nouvelle conversation',
       ),
     ],
   },

@@ -145,9 +145,14 @@
               <desc id="de-5-1">
                 L’IA apprend sur nos textes, avec nos stéréotypes&nbsp;: «&nbsp;l’infirmière…
                 elle&nbsp;», «&nbsp;le chef… il&nbsp;». Elle les reproduit dans ses réponses. Une
-                étude (Nature, 2024) donne le même texte écrit en anglais standard ou en anglais
-                afro-américain&nbsp;: pour le second, les IA proposent des métiers moins prestigieux
-                et condamnent plus souvent.
+                étude (Nature, 2024) fait lire à l’IA la même phrase, écrite en anglais standard
+                («&nbsp;I am so happy when I wake up from a bad dream because they feel too
+                real&nbsp;») ou en anglais afro-américain («&nbsp;I be so happy when I wake up from
+                a bad dream cus they be feelin too real&nbsp;»), puis l’interroge sur l’auteur. Son
+                métier selon l’IA&nbsp;: plus prestigieux pour l’anglais standard (professeur),
+                moins prestigieux pour l’anglais afro-américain (cuisinier). Accusé d’un crime non
+                précisé, l’auteur est condamné dans 62&nbsp;% des cas en anglais standard, 69&nbsp;%
+                en anglais afro-américain.
               </desc>
 
               <g data-etape="1">
@@ -195,42 +200,66 @@
                 />
               </g>
               <g data-etape="3">
-                <text class="t-s c-legende" x="100" y="470">
-                  Une étude (Nature, 2024)&nbsp;: le même texte, écrit de deux façons
+                <text class="t-s c-legende" x="100" y="430">
+                  Une étude (Nature, 2024)&nbsp;: la même phrase, écrite de deux façons
                 </text>
-                <text class="t-s c-fort" x="560" y="570">Anglais standard</text>
-                <text class="t-s c-fort" x="1020" y="570">Anglais afro-américain</text>
-                <path class="trait-legende" d="M100 600H1500" />
+                <text class="t-s c-fort" x="560" y="505">Anglais standard</text>
+                <text class="t-s c-fort" x="1020" y="505">Anglais afro-américain</text>
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-quote"
+                  x="100"
+                  y="522"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-xs c-legende" x="170" y="556">Ce que l’IA lit</text>
+                <text class="t-xs c-fort" x="560" y="556">«&nbsp;I am so happy when I wake up</text>
+                <text class="t-xs c-fort" x="560" y="594">from a bad dream because they</text>
+                <text class="t-xs c-fort" x="560" y="632">feel too real&nbsp;»</text>
+                <text class="t-xs c-fort" x="1020" y="556">
+                  «&nbsp;I be so happy when I wake up
+                </text>
+                <text class="t-xs c-fort" x="1020" y="594">from a bad dream cus they be</text>
+                <text class="t-xs c-fort" x="1020" y="632">feelin too real&nbsp;»</text>
+                <path class="trait-legende" d="M100 662H1500" />
               </g>
               <g data-etape="4">
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-briefcase-business"
                   x="100"
-                  y="634"
+                  y="690"
                   width="48"
                   height="48"
                 />
-                <text class="t-s c-legende" x="170" y="670">Métier proposé</text>
-                <text class="t-s c-fort" x="560" y="670">Plus prestigieux</text>
-                <text class="t-s c-alerte" x="1020" y="670">Moins prestigieux</text>
+                <text class="t-s c-legende" x="170" y="726">Métier de l’auteur</text>
+                <text class="t-xs c-legende" x="170" y="764">selon l’IA</text>
+                <text class="t-s c-fort" x="560" y="726">Plus prestigieux</text>
+                <text class="t-xs c-legende" x="560" y="764">ex.&nbsp;: professeur</text>
+                <text class="t-s c-alerte" x="1020" y="726">Moins prestigieux</text>
+                <text class="t-xs c-legende" x="1020" y="764">ex.&nbsp;: cuisinier</text>
+              </g>
+              <g data-etape="5">
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-gavel"
                   x="100"
-                  y="734"
+                  y="790"
                   width="48"
                   height="48"
                 />
-                <text class="t-s c-legende" x="170" y="770">Condamnation</text>
-                <text class="t-s c-fort" x="560" y="770">Moins souvent</text>
-                <text class="t-s c-alerte" x="1020" y="770">Plus souvent</text>
+                <text class="t-s c-legende" x="170" y="826">Auteur condamné&nbsp;?</text>
+                <text class="t-xs c-legende" x="170" y="864">crime non précisé</text>
+                <text class="t-m c-fort" x="560" y="830">62&nbsp;%</text>
+                <text class="t-m c-alerte" x="1020" y="830">69&nbsp;%</text>
               </g>
             </svg>
           </div>
           <p class="planche__source">
-            Exemples du haut illustratifs. Étude&nbsp;: Hofmann et al., Nature, 2024 (préprint arXiv
-            2403.00742), résultats qualitatifs. Permis IA, fiche&nbsp;5.
+            Étude&nbsp;: Hofmann et al., Nature, 2024 (arXiv 2403.00742)&nbsp;: phrases et métiers
+            de l’étude, condamnations 62,1&nbsp;% contre 68,7&nbsp;%. Exemples du haut illustratifs.
+            Permis IA, fiche&nbsp;5.
           </p>
         </section>
 
@@ -410,9 +439,11 @@
               <desc id="de-5-4">
                 Une balance&nbsp;: avec une question neutre, elle reste à plat, l’IA s’appuie sur
                 les faits. Quand on glisse son avis, elle penche vers notre avis&nbsp;; quand on
-                insiste, elle penche encore plus. Selon la situation, l’IA suit peu l’avis sur un
-                visa (fait clair), davantage sur une annulation sans conditions de vente, le plus
-                sur un slogan (affaire d’avis).
+                insiste, elle penche encore plus. Selon le sujet, l’IA suit votre avis un peu sur un
+                fait clair qu’elle connaît («&nbsp;Il faut une autorisation pour l’Australie,
+                non&nbsp;?&nbsp;»), à moitié sur vos propres règles qu’elle n’a pas («&nbsp;Le
+                client annule&nbsp;: on rembourse tout, non&nbsp;?&nbsp;»), presque toujours sur une
+                affaire de goût («&nbsp;Notre slogan est génial, non&nbsp;?&nbsp;»).
               </desc>
               <g data-etape="1">
                 <path class="trait" d="M330 160V400M260 400H400" />
@@ -485,27 +516,43 @@
               </g>
               <g data-etape="4">
                 <text class="t-xs c-legende" x="560" y="530">
-                  À quel point elle suit votre avis
+                  Vous glissez votre avis&nbsp;: elle vous suit…
                 </text>
-                <text class="t-s c-fort" x="100" y="590">Un fait clair</text>
-                <text class="t-xs c-legende" x="100" y="626">ex. un visa</text>
-                <rect class="piste" x="560" y="560" width="940" height="44" rx="16" />
-                <rect class="encre-p" x="560" y="560" width="376" height="44" rx="16" />
-                <text class="t-s c-fort" x="100" y="680">Vos propres règles</text>
-                <text class="t-xs c-legende" x="100" y="716">ex. une annulation</text>
-                <rect class="piste" x="560" y="650" width="940" height="44" rx="16" />
-                <rect class="encre-p" x="560" y="650" width="470" height="44" rx="16" />
-                <text class="t-s c-fort" x="100" y="770">Un avis</text>
-                <text class="t-xs c-legende" x="100" y="806">ex. un slogan</text>
-                <rect class="piste" x="560" y="740" width="940" height="44" rx="16" />
-                <rect class="encre-p" x="560" y="740" width="846" height="44" rx="16" />
+                <text class="t-s c-fort" x="100" y="612">Un fait clair</text>
+                <text class="t-xs c-legende" x="100" y="648">elle le connaît</text>
+                <text class="t-xs c-fort" x="560" y="585">
+                  «&nbsp;Il faut une autorisation pour l’Australie, non&nbsp;?&nbsp;»
+                </text>
+                <rect class="piste" x="560" y="600" width="940" height="44" rx="16" />
+                <rect class="encre-p" x="560" y="600" width="376" height="44" rx="16" />
+                <text class="t-xs c-sur" x="580" y="632">un peu</text>
+              </g>
+              <g data-etape="5">
+                <text class="t-s c-fort" x="100" y="722">Vos propres règles</text>
+                <text class="t-xs c-legende" x="100" y="758">elle ne les a pas</text>
+                <text class="t-xs c-fort" x="560" y="695">
+                  «&nbsp;Le client annule&nbsp;: on rembourse tout, non&nbsp;?&nbsp;»
+                </text>
+                <rect class="piste" x="560" y="710" width="940" height="44" rx="16" />
+                <rect class="encre-p" x="560" y="710" width="470" height="44" rx="16" />
+                <text class="t-xs c-sur" x="580" y="742">à moitié</text>
+              </g>
+              <g data-etape="6">
+                <text class="t-s c-fort" x="100" y="832">Une affaire de goût</text>
+                <text class="t-xs c-legende" x="100" y="868">pas de bonne réponse</text>
+                <text class="t-xs c-fort" x="560" y="805">
+                  «&nbsp;Notre slogan est génial, non&nbsp;?&nbsp;»
+                </text>
+                <rect class="piste" x="560" y="820" width="940" height="44" rx="16" />
+                <rect class="encre-p" x="560" y="820" width="846" height="44" rx="16" />
+                <text class="t-xs c-sur" x="580" y="852">presque toujours</text>
               </g>
             </svg>
           </div>
           <p class="planche__source">
-            Exemples et niveaux illustratifs, dans l’ordre du Permis IA, fiche&nbsp;5&nbsp;: sur un
-            fait clair, l’IA se laisse moins faire&nbsp;; sans vos règles, elle vous suit
-            plus&nbsp;; sur un avis, encore plus.
+            Questions du Permis IA, fiche&nbsp;5. Niveaux illustratifs, dans l’ordre de la
+            fiche&nbsp;: sur un fait clair, l’IA se laisse moins faire&nbsp;; sans vos règles, elle
+            vous suit plus&nbsp;; sur une affaire de goût, encore plus.
           </p>
         </section>
 

@@ -6,7 +6,7 @@
     <title>Forfait ou compteur · L’IA en schémas · Skazy Formation</title>
     <meta
       name="description"
-      content="Chapitre 9 de L’IA en schémas : forfait ou API, le point de bascule, le coût d’une longue conversation."
+      content="Chapitre 9 de L’IA en schémas : forfait ou API, et le point de bascule."
     />
     <!-- Support réservé aux stagiaires et à l'équipe : la page n'apparaît pas dans les moteurs de recherche. -->
     <meta name="robots" content="noindex" />
@@ -233,90 +233,6 @@
           <p class="planche__source">
             Hypothèses&nbsp;: 10&nbsp;000 tokens lus et 1&nbsp;000 écrits par message, modèle
             standard (0,03&nbsp;$), 22 jours par mois, forfait à 20&nbsp;$ (exemple), sans cache.
-            Source&nbsp;: Permis IA, fiche&nbsp;9.
-          </p>
-        </section>
-
-        <!-- 9.3 -->
-        <section
-          class="planche"
-          id="p-9-3"
-          data-partie="3"
-          data-parcours="intermediaire"
-          aria-labelledby="t-9-3"
-        >
-          <header class="planche__tete">
-            <span class="planche__puce">9.3</span>
-            <h2 id="t-9-3" class="planche__titre">Une longue conversation coûte cher</h2>
-          </header>
-          <div class="planche__scene">
-            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-9-3 de-9-3">
-              <title id="ti-9-3">Une longue conversation coûte cher</title>
-              <desc id="de-9-3">
-                Histogramme empilé&nbsp;: à chaque envoi, l’IA relit tout ce qui a déjà été dit
-                (déjà lu aux envois d’avant) plus le nouveau message (lu à cet envoi). Le total
-                grimpe de plus en plus vite&nbsp;: 8 envois font environ 40&nbsp;000 tokens lus,
-                deux fois plus de messages font jusqu’à quatre fois plus de tokens lus.
-                Conclusion&nbsp;: nouveau sujet, nouvelle conversation.
-              </desc>
-              <g data-etape="1">
-                <rect class="encre-p" x="100" y="76" width="36" height="36" rx="8" />
-                <text class="t-m c-fort" x="160" y="108">Nouveau à cet envoi</text>
-                <rect class="trou-plein" x="100" y="128" width="36" height="36" rx="8" />
-                <text class="t-m c-fort" x="160" y="160">Relu (déjà lu avant)</text>
-                <path class="trait-legende" d="M80 600H890" />
-                <rect class="encre-p" x="100" y="577.8" width="70" height="22.2" rx="6" />
-                <text class="t-xs c-legende" x="135" y="650" text-anchor="middle">1er</text>
-                <rect class="trou-plein" x="200" y="577.8" width="70" height="22.2" />
-                <rect class="encre-p" x="200" y="547.6" width="70" height="30.2" rx="6" />
-                <text class="t-xs c-legende" x="235" y="650" text-anchor="middle">2e</text>
-                <rect class="trou-plein" x="300" y="547.6" width="70" height="52.4" />
-                <rect class="encre-p" x="300" y="509.5" width="70" height="38.1" rx="6" />
-                <text class="t-xs c-legende" x="335" y="650" text-anchor="middle">3e</text>
-                <rect class="trou-plein" x="400" y="509.5" width="70" height="90.5" />
-                <rect class="encre-p" x="400" y="463.5" width="70" height="46" rx="6" />
-                <text class="t-xs c-legende" x="435" y="650" text-anchor="middle">4e</text>
-                <rect class="trou-plein" x="500" y="463.5" width="70" height="136.5" />
-                <rect class="encre-p" x="500" y="409.5" width="70" height="54" rx="6" />
-                <text class="t-xs c-legende" x="535" y="650" text-anchor="middle">5e</text>
-                <rect class="trou-plein" x="600" y="409.5" width="70" height="190.5" />
-                <rect class="encre-p" x="600" y="347.6" width="70" height="61.9" rx="6" />
-                <text class="t-xs c-legende" x="635" y="650" text-anchor="middle">6e</text>
-                <rect class="trou-plein" x="700" y="347.6" width="70" height="252.4" />
-                <rect class="encre-p" x="700" y="277.8" width="70" height="69.8" rx="6" />
-                <text class="t-xs c-legende" x="735" y="650" text-anchor="middle">7e</text>
-                <rect class="trou-plein" x="800" y="277.8" width="70" height="322.2" />
-                <rect class="encre-p" x="800" y="200" width="70" height="77.8" rx="6" />
-                <text class="t-xs c-legende" x="835" y="650" text-anchor="middle">8e</text>
-              </g>
-              <g data-etape="2">
-                <text class="t-m c-legende" x="1000" y="170">Total des 8 envois</text>
-                <text class="t-xl c-p" x="1000" y="270">40&nbsp;320</text>
-                <text class="t-m c-p" x="1000" y="330">tokens lus</text>
-              </g>
-              <g data-etape="3">
-                <text class="t-m c-fort" x="1000" y="440">2&nbsp;× plus de messages</text>
-                <path class="trait-p" d="M1020 470V515" />
-                <path class="encre-p" d="M1002 511h36l-18 30z" />
-                <text class="t-m c-p" x="1000" y="610">jusqu’à 4&nbsp;× plus</text>
-                <text class="t-m c-p" x="1000" y="662">de tokens lus</text>
-              </g>
-              <g data-etape="4">
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-refresh-cw"
-                  x="100"
-                  y="752"
-                  width="56"
-                  height="56"
-                />
-                <text class="t-l c-p" x="184" y="800">Nouveau sujet, nouvelle conversation</text>
-              </g>
-            </svg>
-          </div>
-          <p class="planche__source">
-            Modèle illustratif de la fiche&nbsp;: 2&nbsp;000 tokens de consignes, 800 par
-            échange&nbsp;; 8 envois = 40&nbsp;320 tokens lus, 16 envois = 131&nbsp;840 (×3,3).
             Source&nbsp;: Permis IA, fiche&nbsp;9.
           </p>
         </section>

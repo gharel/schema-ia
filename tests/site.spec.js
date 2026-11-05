@@ -309,8 +309,12 @@ test.describe('projection', () => {
   const idsVisibles = (page) =>
     page.evaluate(() => [...document.querySelectorAll('.planche:not([hidden])')].map((p) => p.id));
   const etapesVues = (page) => page.locator('.planche:not([hidden]) .etape-vue').count();
+  const titreSeul = (page) =>
+    page
+      .locator('.planche:not([hidden])')
+      .evaluate((p) => p.classList.contains('planche--titre-seul'));
 
-  test('?projection : une seule planche, les étapes une à une, puis la suivante', async ({
+  test('?projection : le titre seul, puis les étapes une à une, puis la suivante', async ({
     page,
   }) => {
     const erreurs = await ouvrir(page, '1-tokens.html?projection#p-1-2');
@@ -319,8 +323,17 @@ test.describe('projection', () => {
     await expect(page.locator('.pied')).toBeHidden();
     expect(await idsVisibles(page)).toEqual(['p-1-2']);
     await expect(page.locator('.projection__rang')).toHaveText(`1.2 · 2 / ${TOTAL}`);
-    expect(await etapesVues(page)).toBe(1);
+    // En arrivant : le titre seul, la scène et la source masquées (le formateur pose la question).
+    expect(await titreSeul(page)).toBe(true);
+    expect(await etapesVues(page)).toBe(0);
+    await expect(page.locator('#t-1-2')).toBeVisible();
+    await expect(page.locator('#p-1-2 .planche__scene')).toHaveCSS('opacity', '0');
+    await expect(page.locator('#p-1-2 .planche__source')).toHaveCSS('opacity', '0');
 
+    await page.keyboard.press('ArrowRight');
+    expect(await titreSeul(page)).toBe(false);
+    expect(await etapesVues(page)).toBe(1);
+    await expect(page.locator('#p-1-2 .planche__scene')).toHaveCSS('opacity', '1');
     await page.keyboard.press('ArrowRight');
     expect(await etapesVues(page)).toBe(2);
     await page.keyboard.press('Space');
@@ -330,12 +343,27 @@ test.describe('projection', () => {
     await page.keyboard.press('PageDown');
     expect(await idsVisibles(page)).toEqual(['p-1-3']);
     expect(await page.evaluate(() => location.hash)).toBe('#p-1-3');
-    expect(await etapesVues(page)).toBe(1);
+    expect(await titreSeul(page)).toBe(true);
+    expect(await etapesVues(page)).toBe(0);
 
     // Retour : la planche précédente s'affiche avec toutes ses étapes.
     await page.keyboard.press('ArrowLeft');
     expect(await idsVisibles(page)).toEqual(['p-1-2']);
+    expect(await titreSeul(page)).toBe(false);
     expect(await etapesVues(page)).toBe(3);
+    // Puis, en reculant, jusqu'au titre seul avant de quitter la planche.
+    for (let k = 2; k >= 1; k--) {
+      await page.keyboard.press('ArrowLeft');
+      expect(await etapesVues(page)).toBe(k);
+    }
+    await page.keyboard.press('ArrowLeft');
+    expect(await idsVisibles(page)).toEqual(['p-1-2']);
+    expect(await titreSeul(page)).toBe(true);
+    await page.keyboard.press('PageUp');
+    expect(await idsVisibles(page)).toEqual(['p-1-1']);
+    await page.keyboard.press('PageDown');
+    expect(await idsVisibles(page)).toEqual(['p-1-2']);
+    expect(await titreSeul(page)).toBe(true);
 
     // La scène tient dans l'écran, en 16:9.
     const scene = await page.locator('.planche:not([hidden]) .planche__scene').boundingBox();
@@ -350,21 +378,27 @@ test.describe('projection', () => {
     expect(erreurs).toEqual([]);
   });
 
-  test('data-depart="0" : la situation de départ se montre seule, puis une étape par clic', async ({
+  test('data-depart="0" : le titre, la situation de départ seule, puis une étape par clic', async ({
     page,
   }) => {
     const erreurs = await ouvrir(page, '4-hallucinations.html?projection#p-4-3');
     expect(await idsVisibles(page)).toEqual(['p-4-3']);
+    expect(await titreSeul(page)).toBe(true);
+    await page.keyboard.press('ArrowRight');
+    expect(await titreSeul(page)).toBe(false);
     expect(await etapesVues(page)).toBe(0);
     for (let k = 1; k <= 5; k++) {
       await page.keyboard.press('ArrowRight');
       expect(await etapesVues(page)).toBe(k);
     }
-    // En revenant en arrière, on retrouve la jauge pleine avant de quitter la planche.
+    // En revenant en arrière, on retrouve la jauge pleine, puis le titre seul.
     for (let k = 4; k >= 0; k--) {
       await page.keyboard.press('ArrowLeft');
       expect(await etapesVues(page)).toBe(k);
     }
+    expect(await titreSeul(page)).toBe(false);
+    await page.keyboard.press('ArrowLeft');
+    expect(await titreSeul(page)).toBe(true);
     expect(await idsVisibles(page)).toEqual(['p-4-3']);
     expect(erreurs).toEqual([]);
   });
@@ -374,6 +408,9 @@ test.describe('projection', () => {
   }) => {
     await ouvrir(page, '1-tokens.html?projection');
     expect(await idsVisibles(page)).toEqual(['p-1-1']);
+    // La scène masquée (titre seul) reste cliquable.
+    await page.locator('.planche:not([hidden]) .planche__scene').click();
+    expect(await etapesVues(page)).toBe(1);
     await page.locator('.planche:not([hidden]) .planche__scene').click();
     expect(await etapesVues(page)).toBe(2);
     await page.keyboard.press('End');

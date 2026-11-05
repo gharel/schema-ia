@@ -1218,6 +1218,18 @@ body.projection {
   pointer-events: none;
 }
 
+/* En arrivant sur une planche, le titre seul : la scène et la source gardent leur place (le titre
+   ne bouge pas) et restent cliquables (le clic montre la suite). */
+.projection .planche__scene,
+.projection .planche__source {
+  transition: opacity 0.4s ease;
+}
+
+.projection .planche--titre-seul .planche__scene,
+.projection .planche--titre-seul .planche__source {
+  opacity: 0;
+}
+
 .projection__pied {
   position: fixed;
   right: 0;
@@ -1786,7 +1798,7 @@ body.projection {
   stroke-width: 4;
 }
 
-/* 9.1 à 9.3 : série 2 (API), grille, courbes épaisses, « déjà lu ». */
+/* 9.1, 9.2 et 2.6 : série 2 (API), grille, courbes épaisses, « déjà lu ». */
 .carte-2 {
   fill: var(--serie-2-fond);
   stroke: var(--serie-2-texte);
@@ -1810,8 +1822,8 @@ body.projection {
   stroke-dasharray: 12 8;
 }
 
-.hach-8-2 {
-  fill: url(#hach-8-2);
+.hach-8-3 {
+  fill: url(#hach-8-3);
   stroke: var(--alerte);
   stroke-width: 4;
   stroke-dasharray: 12 8;

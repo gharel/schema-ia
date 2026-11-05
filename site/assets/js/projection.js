@@ -3,14 +3,15 @@
  *
  * - Activé par ?projection dans l'adresse ou par le bouton « Projeter » du bandeau (qui projette
  *   la planche visible). Le corps de la page reçoit la classe .projection (voir planches.css).
- * - Les éléments [data-etape="k"] d'une planche apparaissent dans l'ordre (classe .etape-vue).
+ * - Une planche s'ouvre sur son titre seul (classe .planche--titre-seul), puis les éléments
+ *   [data-etape="k"] apparaissent dans l'ordre (classe .etape-vue).
  * - → Espace PageDown clic : étape suivante, puis planche suivante, puis chapitre suivant.
  *   ← PageUp : l'inverse (la planche précédente s'affiche avec toutes ses étapes).
  *   Début / Fin : première / dernière planche de la page. F : plein écran. Échap : quitter.
  * - ?parcours=initiation ou ?parcours=intermediaire : seulement les planches de ce parcours
  *   (attribut data-parcours), y compris d'une page à l'autre. ?express reste un alias d'initiation.
  * - Le hash (#p-1-3) positionne la planche ; il est mis à jour pendant la projection.
- * - La numérotation (« 1.2 · 2 / 43 », ou « Initiation · 3 / 14 » en parcours) et la navigation entre
+ * - La numérotation (« 1.2 · 2 / 44 », ou « Initiation · 3 / 14 » en parcours) et la navigation entre
  *   les pages viennent de plan.js.
  *
  * Module ES sans dépendance.
@@ -48,9 +49,11 @@ function etapesDe(planche) {
   return maxEtapes.get(planche);
 }
 
-// En arrivant sur une planche, l'étape 1 est déjà visible (pas de scène vide), sauf si la planche
-// porte data-depart="0" : sa situation de départ (hors étapes) se montre seule d'abord.
-const premiereEtape = (planche) =>
+// En arrivant sur une planche, seul son titre se voit (le formateur peut poser la question) :
+// état TITRE_SEUL, scène et source masquées. Le premier clic montre l'étape 1, ou, si la planche
+// porte data-depart="0", sa situation de départ (hors étapes) seule d'abord.
+const TITRE_SEUL = -1;
+const premiereScene = (planche) =>
   planche.dataset.depart === '0' ? 0 : Math.min(1, etapesDe(planche));
 
 function recherche(avecProjection) {
@@ -125,6 +128,7 @@ function construirePied() {
 }
 
 function afficherEtapes(planche, k) {
+  planche.classList.toggle('planche--titre-seul', k === TITRE_SEUL);
   for (const element of planche.querySelectorAll('[data-etape]')) {
     element.classList.toggle('etape-vue', Number(element.dataset.etape) <= k);
   }
@@ -172,19 +176,24 @@ function allerPage(sens) {
 
 function suivant() {
   const planche = liste[indice];
-  if (etape < etapesDe(planche)) montrer(indice, etape + 1, { annoncer: false });
-  else if (indice < liste.length - 1) montrer(indice + 1, premiereEtape(liste[indice + 1]));
+  if (etape < etapesDe(planche)) {
+    const k = etape === TITRE_SEUL ? premiereScene(planche) : etape + 1;
+    montrer(indice, k, { annoncer: false });
+  } else if (indice < liste.length - 1) montrer(indice + 1, TITRE_SEUL);
   else allerPage(1);
 }
 
 function precedent() {
-  if (etape > premiereEtape(liste[indice])) montrer(indice, etape - 1, { annoncer: false });
-  else if (indice > 0) montrer(indice - 1, etapesDe(liste[indice - 1]));
+  const planche = liste[indice];
+  if (etape > TITRE_SEUL) {
+    const k = etape === premiereScene(planche) ? TITRE_SEUL : etape - 1;
+    montrer(indice, k, { annoncer: false });
+  } else if (indice > 0) montrer(indice - 1, etapesDe(liste[indice - 1]));
   else allerPage(-1);
 }
 
 function debut() {
-  montrer(0, premiereEtape(liste[0]));
+  montrer(0, TITRE_SEUL);
 }
 
 function fin() {
@@ -222,7 +231,7 @@ function entrer(i, k) {
   corps.classList.add('projection');
   if (!pied) construirePied();
   scrollTo(0, 0);
-  montrer(i, k ?? premiereEtape(liste[i]));
+  montrer(i, k ?? TITRE_SEUL);
 }
 
 function sortir() {
@@ -305,7 +314,7 @@ function demarrer() {
   addEventListener('hashchange', () => {
     if (!actif) return;
     const i = liste.findIndex((p) => p.id === location.hash.slice(1));
-    if (i >= 0 && i !== indice) montrer(i, premiereEtape(liste[i]));
+    if (i >= 0 && i !== indice) montrer(i, TITRE_SEUL);
   });
 
   if (parametres.has('projection')) {
