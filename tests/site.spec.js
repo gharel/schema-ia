@@ -350,6 +350,25 @@ test.describe('projection', () => {
     expect(erreurs).toEqual([]);
   });
 
+  test('data-depart="0" : la situation de départ se montre seule, puis une étape par clic', async ({
+    page,
+  }) => {
+    const erreurs = await ouvrir(page, '4-hallucinations.html?projection#p-4-3');
+    expect(await idsVisibles(page)).toEqual(['p-4-3']);
+    expect(await etapesVues(page)).toBe(0);
+    for (let k = 1; k <= 5; k++) {
+      await page.keyboard.press('ArrowRight');
+      expect(await etapesVues(page)).toBe(k);
+    }
+    // En revenant en arrière, on retrouve la jauge pleine avant de quitter la planche.
+    for (let k = 4; k >= 0; k--) {
+      await page.keyboard.press('ArrowLeft');
+      expect(await etapesVues(page)).toBe(k);
+    }
+    expect(await idsVisibles(page)).toEqual(['p-4-3']);
+    expect(erreurs).toEqual([]);
+  });
+
   test('un clic sur la scène avance, Début et Fin sautent, le pied annonce la planche', async ({
     page,
   }) => {

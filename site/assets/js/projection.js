@@ -48,7 +48,10 @@ function etapesDe(planche) {
   return maxEtapes.get(planche);
 }
 
-const premiereEtape = (planche) => Math.min(1, etapesDe(planche));
+// En arrivant sur une planche, l'étape 1 est déjà visible (pas de scène vide), sauf si la planche
+// porte data-depart="0" : sa situation de départ (hors étapes) se montre seule d'abord.
+const premiereEtape = (planche) =>
+  planche.dataset.depart === '0' ? 0 : Math.min(1, etapesDe(planche));
 
 function recherche(avecProjection) {
   const morceaux = [];

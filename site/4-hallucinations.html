@@ -316,6 +316,7 @@
           id="p-4-3"
           data-partie="2"
           data-parcours="intermediaire"
+          data-depart="0"
           aria-labelledby="t-4-3"
         >
           <header class="planche__tete">
@@ -326,11 +327,10 @@
             <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-4-3 de-4-3">
               <title id="ti-4-3">Les leviers contre l’invention</title>
               <desc id="de-4-3">
-                Cinq leviers font baisser le risque d’invention, représenté par une jauge de cinq
-                blocs (chaque levier en retire un)&nbsp;: fournir un document, activer la recherche
-                web, donner le droit de dire «&nbsp;je ne sais pas&nbsp;», demander les sources,
-                choisir un sujet connu plutôt que récent. Le dernier bloc reste toujours
-                plein&nbsp;: le risque n’est jamais à zéro.
+                Au départ, une jauge de risque d’invention pleine. Chaque levier retire un
+                bloc&nbsp;: fournir un document, activer la recherche web, autoriser «&nbsp;je ne
+                sais pas&nbsp;», demander les sources, choisir un sujet connu plutôt que récent. Le
+                socle reste&nbsp;: le risque n’est jamais à zéro.
               </desc>
               <defs>
                 <pattern
@@ -352,8 +352,6 @@
               <rect class="remplis-h43" x="1000" y="700" width="180" height="90" rx="20" />
               <text class="t-m c-alerte" x="1230" y="130">Risque</text>
               <text class="t-m c-alerte" x="1230" y="178">d’invention</text>
-              <text class="t-m c-alerte" x="1230" y="735">Jamais</text>
-              <text class="t-m c-alerte" x="1230" y="783">à zéro</text>
               <g data-etape="1">
                 <use
                   class="ico-p"
@@ -364,15 +362,10 @@
                   height="64"
                 />
                 <text class="t-m c-fort" x="196" y="160">Un document fourni</text>
+                <path class="trait-legende tirets" d="M840 145H970" />
                 <rect class="fantome" x="994" y="96" width="192" height="98" rx="24" />
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-file-text"
-                  x="1062"
-                  y="117"
-                  width="56"
-                  height="56"
-                />
+              </g>
+              <g data-etape="2">
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-globe"
@@ -382,17 +375,10 @@
                   height="64"
                 />
                 <text class="t-m c-fort" x="196" y="280">La recherche web</text>
+                <path class="trait-legende tirets" d="M840 265H970" />
                 <rect class="fantome" x="994" y="216" width="192" height="98" rx="24" />
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-globe"
-                  x="1062"
-                  y="237"
-                  width="56"
-                  height="56"
-                />
               </g>
-              <g data-etape="2">
+              <g data-etape="3">
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-hand"
@@ -404,15 +390,10 @@
                 <text class="t-m c-fort" x="196" y="400">
                   Autoriser «&nbsp;je ne sais pas&nbsp;»
                 </text>
+                <path class="trait-legende tirets" d="M840 385H970" />
                 <rect class="fantome" x="994" y="336" width="192" height="98" rx="24" />
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-hand"
-                  x="1062"
-                  y="357"
-                  width="56"
-                  height="56"
-                />
+              </g>
+              <g data-etape="4">
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-quote"
@@ -422,17 +403,10 @@
                   height="64"
                 />
                 <text class="t-m c-fort" x="196" y="520">Demander les sources</text>
+                <path class="trait-legende tirets" d="M840 505H970" />
                 <rect class="fantome" x="994" y="456" width="192" height="98" rx="24" />
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-quote"
-                  x="1062"
-                  y="477"
-                  width="56"
-                  height="56"
-                />
               </g>
-              <g data-etape="3">
+              <g data-etape="5">
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-calendar"
@@ -442,15 +416,10 @@
                   height="64"
                 />
                 <text class="t-m c-fort" x="196" y="640">Un sujet connu, pas récent</text>
+                <path class="trait-legende tirets" d="M840 625H970" />
                 <rect class="fantome" x="994" y="576" width="192" height="98" rx="24" />
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-calendar"
-                  x="1062"
-                  y="597"
-                  width="56"
-                  height="56"
-                />
+                <text class="t-m c-alerte" x="1230" y="735">Jamais</text>
+                <text class="t-m c-alerte" x="1230" y="783">à zéro</text>
               </g>
             </svg>
           </div>
