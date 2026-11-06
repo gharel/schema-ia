@@ -64,7 +64,7 @@ tests/site.spec.js              Playwright (+ aides.js)
 - `?parcours=initiation` ou `?parcours=intermediaire` (avec `?projection`) limite la navigation aux planches du parcours, dans la page et d’une page à l’autre ; `?express` reste un alias d’initiation. Le pied affiche « Initiation · 3 / 14 » (« 1.2 · 2 / 46 » hors parcours). Totaux toujours calculés depuis `plan.js`.
 - Sommaire : boutons « Tout projeter », « Initiation · n », « Intermédiaire · n » ; marqueurs distincts par forme + lettre + couleur (pastille pleine « I », carré à contour « M ») avec légende.
 - Recherche (`recherche.js`) : champ sous le héros, raccourci « / », insensible à la casse et aux accents, tolère une lettre manquante, titre avant mots-clés avant titre de chapitre, 8 résultats, ↓ ↑ Entrée Échap. Chaque résultat : lien vers la planche et lien « Projeter ». Le bloc est masqué sans JavaScript.
-- Héros : éventail de trois vraies planches en miniature (copies des SVG de 1.3, 6.3 et 9.2, `.miniature`, `aria-hidden`). Si l’un de ces schémas change, lancer `npm run miniatures` (recopie le SVG dans `index.html`). `projection.js` ignore les miniatures.
+- Héros : éventail de trois vraies planches en miniature (copies des SVG de 1.2, 6.3 et 9.2, `.miniature`, `aria-hidden`). Si l’un de ces schémas change, lancer `npm run miniatures` (recopie le SVG dans `index.html`). `projection.js` ignore les miniatures.
 
 ## Ajouter une planche ou un chapitre
 

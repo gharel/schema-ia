@@ -566,7 +566,7 @@ test.describe('recherche du sommaire', () => {
     await ouvrir(page, 'index.html');
     for (const saisie of ['Token', 'TOKEN', 'tokn']) {
       await champ(page).fill(saisie);
-      expect(await rangs(page), saisie).toContain('1.2');
+      expect(await rangs(page), saisie).toContain('1.6');
     }
     await champ(page).fill('Mémoire');
     const avecAccent = await rangs(page);
