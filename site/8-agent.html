@@ -6,7 +6,7 @@
     <title>Agent sur mesure · L’IA en schémas · Skazy Formation</title>
     <meta
       name="description"
-      content="Chapitre 8 de L’IA en schémas : ce qu’est un agent, ses cinq briques, ce qui est toujours lu et ce qui est lu au besoin."
+      content="Chapitre 8 de L’IA en schémas : répondre ou agir, ce qu’est un agent, sa boucle, le risque selon l’accès donné, ses cinq briques, ce qui est toujours lu et ce qui est lu au besoin."
     />
     <!-- Support réservé aux stagiaires et à l'équipe : la page n'apparaît pas dans les moteurs de recherche. -->
     <meta name="robots" content="noindex" />
@@ -68,6 +68,12 @@
             </svg>
             <span class="bandeau__txt">Projeter</span>
           </button>
+          <a class="bandeau__lien" href="glossaire.html">
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-book-open" />
+            </svg>
+            <span class="bandeau__txt">Glossaire</span>
+          </a>
           <button type="button" class="bouton-icone" id="bouton-theme" hidden>
             <svg class="icone" aria-hidden="true">
               <use href="assets/img/icones.svg#i-contrast" />
@@ -133,23 +139,126 @@
           class="planche"
           id="p-8-1"
           data-partie="3"
-          data-parcours="intermediaire"
+          data-parcours="initiation"
           aria-labelledby="t-8-1"
         >
           <header class="planche__tete">
             <span class="planche__puce">8.1</span>
-            <h2 id="t-8-1" class="planche__titre">Qu’est-ce qu’un agent&nbsp;?</h2>
+            <h2 id="t-8-1" class="planche__titre">Répondre ou agir</h2>
           </header>
           <div class="planche__scene">
             <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-8-1 de-8-1">
-              <title id="ti-8-1">Qu’est-ce qu’un agent&nbsp;?</title>
+              <title id="ti-8-1">Répondre ou agir</title>
               <desc id="de-8-1">
+                Trois outils&nbsp;: le chat donne une réponse, l’agent travaille en plusieurs étapes
+                sur vos fichiers, l’agent de code crée ou modifie un logiciel. Un mail va au chat,
+                des factures à l’agent, un site à l’agent de code.
+              </desc>
+              <g data-etape="1">
+                <circle class="encre-p" cx="300" cy="300" r="110" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-message-circle"
+                  x="240"
+                  y="240"
+                  width="121"
+                  height="121"
+                />
+                <text class="t-m c-p" x="300" y="490" text-anchor="middle">Chat</text>
+                <text class="t-xs c-legende" x="300" y="532" text-anchor="middle">
+                  répond dans la conversation
+                </text>
+                <circle class="encre-p" cx="800" cy="300" r="110" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-bot"
+                  x="740"
+                  y="240"
+                  width="121"
+                  height="121"
+                />
+                <text class="t-m c-p" x="800" y="490" text-anchor="middle">Agent</text>
+                <text class="t-xs c-legende" x="800" y="532" text-anchor="middle">
+                  agit sur vos fichiers
+                </text>
+                <circle class="encre-p" cx="1300" cy="300" r="110" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-code"
+                  x="1240"
+                  y="240"
+                  width="121"
+                  height="121"
+                />
+                <text class="t-m c-p" x="1300" y="490" text-anchor="middle">Agent de code</text>
+                <text class="t-xs c-legende" x="1300" y="532" text-anchor="middle">
+                  crée un logiciel
+                </text>
+              </g>
+              <g data-etape="2">
+                <path class="trait-legende" d="M300 560V610" />
+                <rect class="feuille" x="110" y="630" width="380" height="90" rx="45" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-mail"
+                  x="150"
+                  y="653"
+                  width="44"
+                  height="44"
+                />
+                <text class="t-s c-fort" x="210" y="687">Un mail</text>
+                <path class="trait-legende" d="M800 560V610" />
+                <rect class="feuille" x="610" y="630" width="380" height="90" rx="45" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-receipt"
+                  x="650"
+                  y="653"
+                  width="44"
+                  height="44"
+                />
+                <text class="t-s c-fort" x="710" y="687">Des factures</text>
+                <path class="trait-legende" d="M1300 560V610" />
+                <rect class="feuille" x="1110" y="630" width="380" height="90" rx="45" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-globe"
+                  x="1150"
+                  y="653"
+                  width="44"
+                  height="44"
+                />
+                <text class="t-s c-fort" x="1210" y="687">Un site</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Source&nbsp;: Permis IA, fiche&nbsp;7. Chat plus Cowork égale Claude
+            (septembre&nbsp;2026)&nbsp;; chez ChatGPT&nbsp;: Work. Noms vérifiés en
+            octobre&nbsp;2026.
+          </p>
+        </section>
+
+        <!-- 8.2 -->
+        <section
+          class="planche"
+          id="p-8-2"
+          data-partie="3"
+          data-parcours="intermediaire"
+          aria-labelledby="t-8-2"
+        >
+          <header class="planche__tete">
+            <span class="planche__puce">8.2</span>
+            <h2 id="t-8-2" class="planche__titre">Qu’est-ce qu’un agent&nbsp;?</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-8-2 de-8-2">
+              <title id="ti-8-2">Qu’est-ce qu’un agent&nbsp;?</title>
+              <desc id="de-8-2">
                 Un agent, c’est une IA qui agit pour vous. Exemple, l’agent des devis de
                 l’agence&nbsp;: un but (préparer les devis de l’agence), des consignes (dans
                 AGENTS.md, écrites une fois) et des outils (le fichier des tarifs, le modèle de
-                devis). Il tourne en boucle, regarde, décide, agit, vérifie, et recommence si
-                besoin, jusqu’au but. Le résultat&nbsp;: un devis en brouillon, que vous validez
-                avant l’envoi.
+                devis). Le résultat&nbsp;: un devis en brouillon, que vous validez avant l’envoi.
               </desc>
               <g data-etape="1">
                 <circle class="encre-p" cx="190" cy="175" r="85" />
@@ -206,84 +315,237 @@
                 <text class="t-xs c-fort" x="1092" y="514">le modèle de devis</text>
               </g>
               <g data-etape="3">
-                <rect class="feuille" x="100" y="600" width="200" height="70" rx="35" />
-                <text class="t-s c-p" x="200" y="647" text-anchor="middle">Regarde</text>
-                <path class="trait-p" d="M310 635H338" />
-                <path class="encre-p" d="M354 635l-16-9v18z" />
-                <rect class="feuille" x="360" y="600" width="200" height="70" rx="35" />
-                <text class="t-s c-p" x="460" y="647" text-anchor="middle">Décide</text>
-                <path class="trait-p" d="M570 635H598" />
-                <path class="encre-p" d="M614 635l-16-9v18z" />
-                <rect class="feuille" x="620" y="600" width="200" height="70" rx="35" />
-                <text class="t-s c-p" x="720" y="647" text-anchor="middle">Agit</text>
-                <path class="trait-p" d="M830 635H858" />
-                <path class="encre-p" d="M874 635l-16-9v18z" />
-                <rect class="feuille" x="880" y="600" width="200" height="70" rx="35" />
-                <text class="t-s c-p" x="980" y="647" text-anchor="middle">Vérifie</text>
-                <path class="trait-p" d="M980 680V706H200V694" />
-                <path class="encre-p" d="M200 678l-9 16h18z" />
-                <text class="t-xs c-legende" x="590" y="742" text-anchor="middle">
-                  recommence si besoin
-                </text>
-                <path class="trait-p" d="M1090 635H1118" />
-                <path class="encre-p" d="M1134 635l-16-9v18z" />
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-target"
-                  x="1150"
-                  y="607"
-                  width="56"
-                  height="56"
-                />
-                <text class="t-m c-fort" x="1222" y="651">Jusqu’au but</text>
-              </g>
-              <g data-etape="4">
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-file-text"
                   x="100"
-                  y="792"
+                  y="642"
                   width="56"
                   height="56"
                 />
-                <text class="t-m c-fort" x="176" y="836">Un devis en brouillon</text>
-                <path class="trait-p" d="M666 820H702" />
-                <path class="encre-p" d="M718 820l-16-9v18z" />
+                <text class="t-m c-fort" x="176" y="686">Un devis en brouillon</text>
+                <path class="trait-p" d="M666 670H702" />
+                <path class="encre-p" d="M718 670l-16-9v18z" />
                 <use
                   class="ico-p"
                   href="assets/img/icones.svg#i-user-check"
                   x="736"
-                  y="792"
+                  y="642"
                   width="56"
                   height="56"
                 />
-                <text class="t-m c-p" x="812" y="836">Vous validez avant l’envoi</text>
+                <text class="t-m c-p" x="812" y="686">Vous validez avant l’envoi</text>
               </g>
             </svg>
           </div>
           <p class="planche__source">
             Définition et exemple du Permis IA, fiche&nbsp;8&nbsp;: «&nbsp;Un agent, c’est une IA
-            qui agit pour toi. Donne-lui un but, des consignes et des outils.&nbsp;» La boucle en
-            détail&nbsp;: planche&nbsp;7.2.
+            qui agit pour toi. Donne-lui un but, des consignes et des outils.&nbsp;»
           </p>
         </section>
 
-        <!-- 8.2 -->
+        <!-- 8.3 -->
         <section
           class="planche"
-          id="p-8-2"
+          id="p-8-3"
           data-partie="3"
           data-parcours="intermediaire"
-          aria-labelledby="t-8-2"
+          aria-labelledby="t-8-3"
         >
           <header class="planche__tete">
-            <span class="planche__puce">8.2</span>
-            <h2 id="t-8-2" class="planche__titre">Les 5 briques d’un agent</h2>
+            <span class="planche__puce">8.3</span>
+            <h2 id="t-8-3" class="planche__titre">La boucle de l’agent</h2>
           </header>
           <div class="planche__scene">
-            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-8-2 de-8-2">
-              <title id="ti-8-2">Les 5 briques d’un agent</title>
-              <desc id="de-8-2">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-8-3 de-8-3">
+              <title id="ti-8-3">La boucle de l’agent</title>
+              <desc id="de-8-3">
+                Sur la demande «&nbsp;Prépare le devis de Mme&nbsp;Gope&nbsp;», l’agent tourne sur
+                une piste en boucle&nbsp;: il regarde (2 adultes, 3 nuits, île des Pins, mars),
+                décide (ouvrir la grille des tarifs), agit (calcule le prix, remplit le devis),
+                vérifie. Il manque la date&nbsp;: il refait un tour, puis range un brouillon prêt.
+              </desc>
+              <g data-etape="1">
+                <path
+                  class="piste-boucle"
+                  d="M420 200H1180A250 250 0 0 1 1180 700H420A250 250 0 0 1 420 200Z"
+                />
+                <path
+                  class="piste-axe"
+                  d="M420 200H1180A250 250 0 0 1 1180 700H420A250 250 0 0 1 420 200Z"
+                />
+                <path class="pointe-legende" d="M780 178l36 22-36 22z" />
+                <path class="pointe-legende" d="M1408 450h44l-22 36z" />
+                <path class="pointe-legende" d="M820 678l-36 22 36 22z" />
+                <path class="pointe-legende" d="M148 470h44l-22-36z" />
+                <circle class="encre-p" cx="500" cy="200" r="56" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-eye"
+                  x="469"
+                  y="169"
+                  width="62"
+                  height="62"
+                />
+                <text class="t-m c-p" x="500" y="112" text-anchor="middle">1&nbsp;· Regarde</text>
+                <circle class="encre-p" cx="1100" cy="200" r="56" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-lightbulb"
+                  x="1069"
+                  y="169"
+                  width="62"
+                  height="62"
+                />
+                <text class="t-m c-p" x="1100" y="112" text-anchor="middle">2&nbsp;· Décide</text>
+                <circle class="encre-p" cx="1100" cy="700" r="56" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-hand"
+                  x="1069"
+                  y="669"
+                  width="62"
+                  height="62"
+                />
+                <text class="t-m c-p" x="1100" y="808" text-anchor="middle">3&nbsp;· Agit</text>
+                <circle class="encre-p" cx="500" cy="700" r="56" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-search"
+                  x="469"
+                  y="669"
+                  width="62"
+                  height="62"
+                />
+                <text class="t-m c-p" x="500" y="808" text-anchor="middle">4&nbsp;· Vérifie</text>
+              </g>
+              <g data-etape="2">
+                <rect class="surface-2" x="410" y="405" width="780" height="90" rx="45" />
+                <text class="t-s c-fort" x="800" y="464" text-anchor="middle">
+                  «&nbsp;Prépare le devis de Mme&nbsp;Gope.&nbsp;»
+                </text>
+              </g>
+              <g data-etape="3">
+                <rect class="encre-p" x="410" y="405" width="780" height="90" rx="45" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-circle-check"
+                  x="600"
+                  y="428"
+                  width="44"
+                  height="44"
+                />
+                <text class="t-s c-sur" x="664" y="464">Brouillon prêt</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Exemple fabriqué pour comprendre. Source&nbsp;: Permis IA, fiche&nbsp;7.
+          </p>
+        </section>
+
+        <!-- 8.4 -->
+        <section
+          class="planche"
+          id="p-8-4"
+          data-partie="3"
+          data-parcours="intermediaire"
+          aria-labelledby="t-8-4"
+        >
+          <header class="planche__tete">
+            <span class="planche__puce">8.4</span>
+            <h2 id="t-8-4" class="planche__titre">Plus d’accès, plus de risque</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-8-4 de-8-4">
+              <title id="ti-8-4">Plus d’accès, plus de risque</title>
+              <desc id="de-8-4">
+                Escalier de risque en quatre marches selon ce qu’on donne à l’IA&nbsp;: très faible
+                quand on écrit soi-même son texte, faible quand on colle un e-mail ou un PDF reçu,
+                moyen avec un assistant branché sur la boîte mail en lecture seule, élevé avec un
+                agent qui lit les e-mails et répond seul. Par défaut, l’IA demande la permission
+                avant d’agir.
+              </desc>
+              <g data-etape="1">
+                <rect class="neutre" x="100" y="500" width="300" height="120" rx="24" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-pencil"
+                  x="226"
+                  y="536"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-m c-fort" x="250" y="470" text-anchor="middle">Très faible</text>
+                <text class="t-s c-fort" x="250" y="700" text-anchor="middle">Vous écrivez</text>
+                <text class="t-s c-fort" x="250" y="742" text-anchor="middle">le texte</text>
+              </g>
+              <g data-etape="2">
+                <rect class="carte-p" x="466" y="390" width="300" height="230" rx="24" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-paperclip"
+                  x="592"
+                  y="426"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-m c-fort" x="616" y="360" text-anchor="middle">Faible</text>
+                <text class="t-s c-fort" x="616" y="700" text-anchor="middle">Vous collez un</text>
+                <text class="t-s c-fort" x="616" y="742" text-anchor="middle">e-mail reçu</text>
+              </g>
+              <g data-etape="3">
+                <rect class="encre-p" x="832" y="280" width="300" height="340" rx="24" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-mail"
+                  x="958"
+                  y="316"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-m c-fort" x="982" y="250" text-anchor="middle">Moyen</text>
+                <text class="t-s c-fort" x="982" y="700" text-anchor="middle">Assistant mail,</text>
+                <text class="t-s c-fort" x="982" y="742" text-anchor="middle">lecture seule</text>
+              </g>
+              <g data-etape="4">
+                <rect class="aplat-alerte" x="1198" y="170" width="300" height="450" rx="24" />
+                <use
+                  class="ico-sur"
+                  href="assets/img/icones.svg#i-send"
+                  x="1324"
+                  y="206"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-m c-alerte" x="1348" y="140" text-anchor="middle">Élevé</text>
+                <text class="t-s c-fort" x="1348" y="700" text-anchor="middle">Agent qui</text>
+                <text class="t-s c-fort" x="1348" y="742" text-anchor="middle">répond seul</text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Source&nbsp;: Permis IA, fiche&nbsp;7. Niveaux et exemples de la fiche, simplifiés. Par
+            défaut, l’IA demande la permission avant d’agir.
+          </p>
+        </section>
+
+        <!-- 8.5 -->
+        <section
+          class="planche"
+          id="p-8-5"
+          data-partie="3"
+          data-parcours="intermediaire"
+          aria-labelledby="t-8-5"
+        >
+          <header class="planche__tete">
+            <span class="planche__puce">8.5</span>
+            <h2 id="t-8-5" class="planche__titre">Les 5 briques d’un agent</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-8-5 de-8-5">
+              <title id="ti-8-5">Les 5 briques d’un agent</title>
+              <desc id="de-8-5">
                 Cinq briques, dans l’ordre&nbsp;: la tâche (qui revient souvent, avec des étapes),
                 les consignes (AGENTS.md, court, moins de 200 lignes), les outils (le moins
                 possible), les limites (vous validez avant tout envoi) et le test (sur de vrais cas,
@@ -337,22 +599,22 @@
           </p>
         </section>
 
-        <!-- 8.3 -->
+        <!-- 8.6 -->
         <section
           class="planche"
-          id="p-8-3"
+          id="p-8-6"
           data-partie="3"
           data-parcours="intermediaire"
-          aria-labelledby="t-8-3"
+          aria-labelledby="t-8-6"
         >
           <header class="planche__tete">
-            <span class="planche__puce">8.3</span>
-            <h2 id="t-8-3" class="planche__titre">Toujours lu ou lu au besoin</h2>
+            <span class="planche__puce">8.6</span>
+            <h2 id="t-8-6" class="planche__titre">Toujours lu ou lu au besoin</h2>
           </header>
           <div class="planche__scene">
-            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-8-3 de-8-3">
-              <title id="ti-8-3">Toujours lu ou lu au besoin</title>
-              <desc id="de-8-3">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-8-6 de-8-6">
+              <title id="ti-8-6">Toujours lu ou lu au besoin</title>
+              <desc id="de-8-6">
                 Le dossier agence contient AGENTS.md (toujours relu, 80 lignes),
                 skills/devis/SKILL.md (méthode de 300 lignes, ouverte pour un devis) et
                 tarifs-2027.pdf (120 lignes de prix, ouvert à la demande). Pour une question simple,
@@ -360,7 +622,7 @@
                 une Skill, 80 lignes. Pour un devis, 500 lignes dans les deux cas.
               </desc>
               <defs>
-                <pattern id="hach-8-3" width="24" height="24" patternUnits="userSpaceOnUse">
+                <pattern id="hach-8-6" width="24" height="24" patternUnits="userSpaceOnUse">
                   <path class="hachure-trait" d="M-6 6L6 -6M-6 30L30 -6M18 30L30 18" />
                 </pattern>
               </defs>
@@ -403,7 +665,7 @@
                 <text class="t-m c-fort" x="900" y="210">Tout dans AGENTS.md</text>
                 <rect class="piste" x="900" y="250" width="600" height="56" rx="18" />
                 <rect class="encre-p" x="900" y="250" width="126" height="56" rx="12" />
-                <rect class="hach-8-3" x="1040" y="250" width="460" height="56" rx="8" />
+                <rect class="hach-8-6" x="1040" y="250" width="460" height="56" rx="8" />
                 <text class="t-s c-legende" x="900" y="120">Pour une question simple</text>
                 <text class="t-xl c-alerte" x="900" y="410">380</text>
                 <text class="t-s c-legende" x="1100" y="410">lignes lues</text>

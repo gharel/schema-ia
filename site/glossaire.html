@@ -1,0 +1,1009 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Glossaire · L’IA en schémas · Skazy Formation</title>
+    <meta
+      name="description"
+      content="Glossaire de L’IA en schémas : les mots de l’IA, en une phrase, avec les planches où les retrouver."
+    />
+    <!-- Support réservé aux stagiaires et à l'équipe : la page n'apparaît pas dans les moteurs de recherche. -->
+    <meta name="robots" content="noindex" />
+    <meta name="color-scheme" content="light dark" />
+    <!-- La page a son propre thème sombre : sans ce verrou, le mode nuit de Brave (Dark Reader) la repeint, même en thème clair. -->
+    <meta name="darkreader-lock" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1f1f1f" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link
+      rel="preload"
+      href="assets/fonts/georama-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="assets/css/charte.css" />
+    <link rel="stylesheet" href="assets/css/planches.css" />
+    <script>
+      // Thème choisi, appliqué avant l'affichage pour éviter un éclair de la mauvaise couleur.
+      try {
+        const theme = JSON.parse(localStorage.getItem('skazy-outils:theme'));
+        if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme;
+      } catch {
+        // stockage indisponible : thème du système
+      }
+    </script>
+    <script type="module" src="assets/js/theme.js"></script>
+    <script type="module" src="assets/js/haut-de-page.js"></script>
+  </head>
+  <body>
+    <a class="lien-evitement" href="#contenu">Aller au glossaire</a>
+
+    <header class="bandeau">
+      <div class="bandeau__interieur">
+        <a class="bandeau__lien" href="index.html">
+          <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-house" /></svg>
+          <span class="bandeau__txt">Accueil</span>
+        </a>
+        <a class="bandeau__nom" href="index.html">
+          <img class="bandeau__pastille" src="favicon.svg" width="28" height="28" alt="" />
+          <span class="bandeau__nom-texte">L’IA en schémas</span>
+        </a>
+        <div class="bandeau__actions">
+          <a class="bandeau__lien" href="glossaire.html" aria-current="page">
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-book-open" />
+            </svg>
+            <span class="bandeau__txt">Glossaire</span>
+          </a>
+          <button type="button" class="bouton-icone" id="bouton-theme" hidden>
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-contrast" />
+            </svg>
+          </button>
+          <a
+            class="bandeau__lien bandeau__lien-outils"
+            href="https://gharel.github.io/home/"
+            target="_top"
+            title="Tous les outils Skazy Formation"
+          >
+            <img src="assets/img/les-outils.svg" width="26" height="26" alt="" />
+            <span class="bandeau__txt">Les outils</span>
+          </a>
+          <span class="bandeau__filet" aria-hidden="true"></span>
+          <a
+            class="bandeau__logo"
+            href="https://formation.skazy.nc"
+            target="_blank"
+            rel="noopener"
+            aria-label="Site de Skazy Formation (nouvel onglet)"
+            title="Site de Skazy Formation (nouvel onglet)"
+          >
+            <img
+              class="logo logo--clair"
+              src="assets/img/logo-skazy-formation.svg"
+              alt=""
+              width="109"
+              height="36"
+            />
+            <img
+              class="logo logo--sombre"
+              src="assets/img/logo-skazy-formation-blanc.svg"
+              alt=""
+              width="109"
+              height="36"
+            />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <header class="chapitre-tete">
+        <h1 id="titre-page" tabindex="-1">Glossaire</h1>
+        <p class="glossaire__intro">
+          Les mots de l’IA, en une phrase, avec les planches où les retrouver.
+        </p>
+        <nav class="glossaire__lettres" aria-label="Lettres du glossaire">
+          <a href="#lettre-a">A</a><a href="#lettre-b">B</a><a href="#lettre-c">C</a
+          ><a href="#lettre-d">D</a><a href="#lettre-e">E</a><a href="#lettre-f">F</a
+          ><a href="#lettre-g">G</a><a href="#lettre-h">H</a><a href="#lettre-i">I</a
+          ><a href="#lettre-l">L</a><a href="#lettre-m">M</a><a href="#lettre-p">P</a
+          ><a href="#lettre-r">R</a><a href="#lettre-s">S</a><a href="#lettre-t">T</a>
+        </nav>
+      </header>
+
+      <div class="glossaire">
+        <section class="glossaire__groupe" id="lettre-a" aria-labelledby="titre-lettre-a">
+          <h2 class="glossaire__lettre" id="titre-lettre-a">A</h2>
+          <dl class="glossaire__liste">
+            <div class="terme" id="agent">
+              <dt class="terme__mot">Agent</dt>
+              <dd class="terme__def">
+                Une IA qui agit pour vous, avec un but, des consignes et des outils. Elle tourne en
+                boucle&nbsp;: elle regarde, décide, agit et vérifie, jusqu’au but.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="8-agent.html#p-8-1" data-partie="3"
+                      ><span class="rang">8.1</span>Répondre ou agir</a
+                    >
+                  </li>
+                  <li>
+                    <a href="8-agent.html#p-8-2" data-partie="3"
+                      ><span class="rang">8.2</span>Qu’est-ce qu’un agent&nbsp;?</a
+                    >
+                  </li>
+                  <li>
+                    <a href="8-agent.html#p-8-3" data-partie="3"
+                      ><span class="rang">8.3</span>La boucle de l’agent</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="agent-de-code">
+              <dt class="terme__mot">Agent de code</dt>
+              <dd class="terme__def">
+                Un agent qui crée ou modifie un logiciel. Chez Claude&nbsp;: Code&nbsp;; chez
+                ChatGPT&nbsp;: Codex.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="8-agent.html#p-8-1" data-partie="3"
+                      ><span class="rang">8.1</span>Répondre ou agir</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="agents-md">
+              <dt class="terme__mot">AGENTS.md</dt>
+              <dd class="terme__def">
+                Le fichier de consignes d’un agent, relu au début de chaque conversation. Court et
+                clair&nbsp;: moins de 200 lignes.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="8-agent.html#p-8-5" data-partie="3"
+                      ><span class="rang">8.5</span>Les 5 briques d’un agent</a
+                    >
+                  </li>
+                  <li>
+                    <a href="8-agent.html#p-8-6" data-partie="3"
+                      ><span class="rang">8.6</span>Toujours lu ou lu au besoin</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="api">
+              <dt class="terme__mot">API</dt>
+              <dd class="terme__def">
+                L’accès au compteur&nbsp;: on paie chaque token lu et écrit, sans pause, avec un
+                plafond de dépense.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="9-forfait-api.html#p-9-1" data-partie="3"
+                      ><span class="rang">9.1</span>Forfait ou compteur</a
+                    >
+                  </li>
+                  <li>
+                    <a href="9-forfait-api.html#p-9-2" data-partie="3"
+                      ><span class="rang">9.2</span>Le point de bascule</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="apps">
+              <dt class="terme__mot">Apps</dt>
+              <dd class="terme__def">
+                Le nom des connecteurs chez ChatGPT, rangés dans les Plugins.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="7-boite-outils.html#p-7-5" data-partie="3"
+                      ><span class="rang">7.5</span>Mêmes outils, autres noms</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+        <section class="glossaire__groupe" id="lettre-b" aria-labelledby="titre-lettre-b">
+          <h2 class="glossaire__lettre" id="titre-lettre-b">B</h2>
+          <dl class="glossaire__liste">
+            <div class="terme" id="biais">
+              <dt class="terme__mot">Biais</dt>
+              <dd class="terme__def">
+                Une erreur qui va toujours dans le même sens&nbsp;: l’IA reproduit les stéréotypes
+                de ses textes et peut juger quelqu’un sur sa façon d’écrire ou sur son genre.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="5-complaisance.html#p-5-1" data-partie="2"
+                      ><span class="rang">5.1</span>Elle reproduit nos stéréotypes</a
+                    >
+                  </li>
+                  <li>
+                    <a href="5-complaisance.html#p-5-2" data-partie="2"
+                      ><span class="rang">5.2</span>Jugé sur sa façon d’écrire</a
+                    >
+                  </li>
+                  <li>
+                    <a href="5-complaisance.html#p-5-3" data-partie="2"
+                      ><span class="rang">5.3</span>Homme ou femme, pas le même conseil</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="biais-automatisation">
+              <dt class="terme__mot">Biais d’automatisation</dt>
+              <dd class="terme__def">
+                Faire trop confiance à une machine qui a souvent raison, au point de ne plus
+                vérifier&nbsp;: la réponse fausse passe.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="5-complaisance.html#p-5-6" data-partie="2"
+                      ><span class="rang">5.6</span>Le biais d’automatisation</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+        <section class="glossaire__groupe" id="lettre-c" aria-labelledby="titre-lettre-c">
+          <h2 class="glossaire__lettre" id="titre-lettre-c">C</h2>
+          <dl class="glossaire__liste">
+            <div class="terme" id="chat">
+              <dt class="terme__mot">Chat</dt>
+              <dd class="terme__def">
+                La conversation&nbsp;: l’IA répond dans la fenêtre, vous faites le reste.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="8-agent.html#p-8-1" data-partie="3"
+                      ><span class="rang">8.1</span>Répondre ou agir</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="competence">
+              <dt class="terme__mot">Compétence</dt>
+              <dd class="terme__def">
+                Le nom d’une Skill en français, chez Claude, ChatGPT et Gemini.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="7-boite-outils.html#p-7-2" data-partie="3"
+                      ><span class="rang">7.2</span>La Skill</a
+                    >
+                  </li>
+                  <li>
+                    <a href="7-boite-outils.html#p-7-5" data-partie="3"
+                      ><span class="rang">7.5</span>Mêmes outils, autres noms</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="complaisance">
+              <dt class="terme__mot">Complaisance</dt>
+              <dd class="terme__def">
+                La tendance de l’IA à vous donner raison (en anglais&nbsp;: sycophancy), surtout
+                quand vous glissez votre avis ou que vous insistez.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="5-complaisance.html#p-5-4" data-partie="2"
+                      ><span class="rang">5.4</span>D’où vient le «&nbsp;oui&nbsp;»</a
+                    >
+                  </li>
+                  <li>
+                    <a href="5-complaisance.html#p-5-5" data-partie="2"
+                      ><span class="rang">5.5</span>La question oriente la réponse</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="compression">
+              <dt class="terme__mot">Compression</dt>
+              <dd class="terme__def">
+                Quand la mémoire est pleine, l’appli résume les vieux messages pour faire de la
+                place. Des détails se perdent, sans prévenir.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="2-memoire.html#p-2-4" data-partie="1"
+                      ><span class="rang">2.4</span>Mémoire pleine&nbsp;: elle résume</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="connecteur">
+              <dt class="terme__mot">Connecteur</dt>
+              <dd class="terme__def">
+                Une porte entre l’IA et un autre outil (Gmail, Drive, agenda), en lecture seule ou
+                en écriture. Plus d’accès, plus de risque.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="7-boite-outils.html#p-7-3" data-partie="3"
+                      ><span class="rang">7.3</span>Le Connecteur</a
+                    >
+                  </li>
+                  <li>
+                    <a href="7-boite-outils.html#p-7-4" data-partie="3"
+                      ><span class="rang">7.4</span>Projet, Skill ou Connecteur&nbsp;?</a
+                    >
+                  </li>
+                  <li>
+                    <a href="8-agent.html#p-8-4" data-partie="3"
+                      ><span class="rang">8.4</span>Plus d’accès, plus de risque</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="context-rot">
+              <dt class="terme__mot">Context rot</dt>
+              <dd class="terme__def">
+                Plus le texte est long, moins l’IA est précise&nbsp;: elle rate des détails, même
+                dans une grande fenêtre.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="2-memoire.html#p-2-5" data-partie="1"
+                      ><span class="rang">2.5</span>Plus c’est long, moins c’est précis</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+        <section class="glossaire__groupe" id="lettre-d" aria-labelledby="titre-lettre-d">
+          <h2 class="glossaire__lettre" id="titre-lettre-d">D</h2>
+          <dl class="glossaire__liste">
+            <div class="terme" id="date-de-coupure">
+              <dt class="terme__mot">Date de coupure</dt>
+              <dd class="terme__def">
+                La date où s’arrêtent les textes appris par le modèle. Après, il ne sait rien, sauf
+                s’il fait une recherche web.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="1-tokens.html#p-1-6" data-partie="1"
+                      ><span class="rang">1.6</span>Elle ne sait rien après une date</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="dechargement-cognitif">
+              <dt class="terme__mot">Déchargement cognitif</dt>
+              <dd class="terme__def">
+                Laisser l’IA réfléchir à votre place. À force de tout déléguer, l’esprit critique
+                baisse&nbsp;: faites d’abord, comparez ensuite.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="5-complaisance.html#p-5-7" data-partie="2"
+                      ><span class="rang">5.7</span>Déléguer sans désapprendre</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="donnees-personnelles">
+              <dt class="terme__mot">Données personnelles</dt>
+              <dd class="terme__def">
+                Ce que vous donnez à l’IA part sur les serveurs du fournisseur. À vérifier&nbsp;:
+                qui le stocke, combien de temps, et si cela sert à entraîner l’IA.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="6-message-piege.html#p-6-4" data-partie="2"
+                      ><span class="rang">6.4</span>Où vont vos données</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+        <section class="glossaire__groupe" id="lettre-e" aria-labelledby="titre-lettre-e">
+          <h2 class="glossaire__lettre" id="titre-lettre-e">E</h2>
+          <dl class="glossaire__liste">
+            <div class="terme" id="effort">
+              <dt class="terme__mot">Effort de réflexion</dt>
+              <dd class="terme__def">
+                Le temps que l’IA passe à réfléchir avant de répondre, réglé de Bas à Max. De Haut à
+                Max&nbsp;: +5 points de qualité pour trois fois plus de réflexion.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="3-modele-effort.html#p-3-2" data-partie="1"
+                      ><span class="rang">3.2</span>L’effort de réflexion</a
+                    >
+                  </li>
+                  <li>
+                    <a href="3-modele-effort.html#p-3-3" data-partie="1"
+                      ><span class="rang">3.3</span>Le bon modèle pour la tâche</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="entrainement">
+              <dt class="terme__mot">Entraînement</dt>
+              <dd class="terme__def">
+                La naissance d’un modèle&nbsp;: il lit d’immenses quantités de textes
+                (pré-entraînement), apprend à suivre des consignes, puis des humains notent ses
+                réponses.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="1-tokens.html#p-1-1" data-partie="1"
+                      ><span class="rang">1.1</span>Comment naît un modèle</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+        <section class="glossaire__groupe" id="lettre-f" aria-labelledby="titre-lettre-f">
+          <h2 class="glossaire__lettre" id="titre-lettre-f">F</h2>
+          <dl class="glossaire__liste">
+            <div class="terme" id="fenetre-de-contexte">
+              <dt class="terme__mot">Fenêtre de contexte</dt>
+              <dd class="terme__def">
+                La mémoire de travail de l’IA, mesurée en tokens&nbsp;: 200 000 tokens, c’est
+                environ un gros roman. Consignes, documents et conversation s’y partagent la place.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="2-memoire.html#p-2-1" data-partie="1"
+                      ><span class="rang">2.1</span>La fenêtre de contexte</a
+                    >
+                  </li>
+                  <li>
+                    <a href="2-memoire.html#p-2-3" data-partie="1"
+                      ><span class="rang">2.3</span>Ce qui remplit la mémoire</a
+                    >
+                  </li>
+                  <li>
+                    <a href="2-memoire.html#p-2-6" data-partie="1"
+                      ><span class="rang">2.6</span>Une longue conversation coûte cher</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="forfait">
+              <dt class="terme__mot">Forfait</dt>
+              <dd class="terme__def">
+                Un abonnement à prix fixe (par exemple 20 $ par mois), avec un quota de messages,
+                puis une pause.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="9-forfait-api.html#p-9-1" data-partie="3"
+                      ><span class="rang">9.1</span>Forfait ou compteur</a
+                    >
+                  </li>
+                  <li>
+                    <a href="9-forfait-api.html#p-9-2" data-partie="3"
+                      ><span class="rang">9.2</span>Le point de bascule</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+        <section class="glossaire__groupe" id="lettre-g" aria-labelledby="titre-lettre-g">
+          <h2 class="glossaire__lettre" id="titre-lettre-g">G</h2>
+          <dl class="glossaire__liste">
+            <div class="terme" id="gem">
+              <dt class="terme__mot">Gem</dt>
+              <dd class="terme__def">
+                L’assistant sur mesure de Gemini. Il devient une compétence le 17 novembre 2026,
+                puis disparaît le 17 décembre.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="7-boite-outils.html#p-7-5" data-partie="3"
+                      ><span class="rang">7.5</span>Mêmes outils, autres noms</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="gpt-personnalise">
+              <dt class="terme__mot">GPT personnalisé</dt>
+              <dd class="terme__def">
+                L’assistant sur mesure de ChatGPT&nbsp;: des instructions et des documents. Il passe
+                dans les Plugins le 11 décembre 2026.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="7-boite-outils.html#p-7-5" data-partie="3"
+                      ><span class="rang">7.5</span>Mêmes outils, autres noms</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+        <section class="glossaire__groupe" id="lettre-h" aria-labelledby="titre-lettre-h">
+          <h2 class="glossaire__lettre" id="titre-lettre-h">H</h2>
+          <dl class="glossaire__liste">
+            <div class="terme" id="hallucination">
+              <dt class="terme__mot">Hallucination</dt>
+              <dd class="terme__def">
+                Une réponse inventée qui a l’air vraie, écrite avec le même ton assuré que le reste.
+                L’IA préfère souvent deviner plutôt que dire «&nbsp;je ne sais pas&nbsp;».
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="4-hallucinations.html#p-4-1" data-partie="2"
+                      ><span class="rang">4.1</span>Une invention qui a l’air vraie</a
+                    >
+                  </li>
+                  <li>
+                    <a href="4-hallucinations.html#p-4-2" data-partie="2"
+                      ><span class="rang">4.2</span>Pourquoi elle préfère deviner</a
+                    >
+                  </li>
+                  <li>
+                    <a href="4-hallucinations.html#p-4-3" data-partie="2"
+                      ><span class="rang">4.3</span>Les leviers contre l’invention</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+        <section class="glossaire__groupe" id="lettre-i" aria-labelledby="titre-lettre-i">
+          <h2 class="glossaire__lettre" id="titre-lettre-i">I</h2>
+          <dl class="glossaire__liste">
+            <div class="terme" id="injection-de-prompt">
+              <dt class="terme__mot">Injection de prompt</dt>
+              <dd class="terme__def">
+                Un ordre caché dans un e-mail, une page web ou un document. L’IA le lit comme le
+                reste du texte et peut lui obéir.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="6-message-piege.html#p-6-1" data-partie="2"
+                      ><span class="rang">6.1</span>Le trajet de l’ordre caché</a
+                    >
+                  </li>
+                  <li>
+                    <a href="6-message-piege.html#p-6-2" data-partie="2"
+                      ><span class="rang">6.2</span>Ce que voit l’humain, ce que lit l’IA</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+        <section class="glossaire__groupe" id="lettre-l" aria-labelledby="titre-lettre-l">
+          <h2 class="glossaire__lettre" id="titre-lettre-l">L</h2>
+          <dl class="glossaire__liste">
+            <div class="terme" id="llm">
+              <dt class="terme__mot">LLM</dt>
+              <dd class="terme__def">
+                Grand modèle de langage&nbsp;: un modèle entraîné sur d’immenses quantités de
+                textes, qui prédit la suite d’un texte. ChatGPT, Claude et Gemini en utilisent.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="1-tokens.html#p-1-1" data-partie="1"
+                      ><span class="rang">1.1</span>Comment naît un modèle</a
+                    >
+                  </li>
+                  <li>
+                    <a href="1-tokens.html#p-1-3" data-partie="1"
+                      ><span class="rang">1.3</span>Prédire le mot suivant</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+        <section class="glossaire__groupe" id="lettre-m" aria-labelledby="titre-lettre-m">
+          <h2 class="glossaire__lettre" id="titre-lettre-m">M</h2>
+          <dl class="glossaire__liste">
+            <div class="terme" id="mcp">
+              <dt class="terme__mot">MCP</dt>
+              <dd class="terme__def">
+                La norme commune pour brancher des connecteurs à l’IA (Model Context Protocol).
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="7-boite-outils.html#p-7-3" data-partie="3"
+                      ><span class="rang">7.3</span>Le Connecteur</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="memoire-appli">
+              <dt class="terme__mot">Mémoire de l’appli</dt>
+              <dd class="terme__def">
+                Les notes que l’appli garde sur vous d’une conversation à l’autre. Elles prennent de
+                la place dans la fenêtre avant votre premier message.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="2-memoire.html#p-2-3" data-partie="1"
+                      ><span class="rang">2.3</span>Ce qui remplit la mémoire</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="modele">
+              <dt class="terme__mot">Modèle</dt>
+              <dd class="terme__def">
+                Le programme qui écrit les réponses. Trois tailles&nbsp;: rapide, standard,
+                expert&nbsp;; chez Claude&nbsp;: Haiku, Sonnet, Opus.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="3-modele-effort.html#p-3-1" data-partie="1"
+                      ><span class="rang">3.1</span>Trois tailles de modèle</a
+                    >
+                  </li>
+                  <li>
+                    <a href="3-modele-effort.html#p-3-3" data-partie="1"
+                      ><span class="rang">3.3</span>Le bon modèle pour la tâche</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+        <section class="glossaire__groupe" id="lettre-p" aria-labelledby="titre-lettre-p">
+          <h2 class="glossaire__lettre" id="titre-lettre-p">P</h2>
+          <dl class="glossaire__liste">
+            <div class="terme" id="plugin">
+              <dt class="terme__mot">Plugin</dt>
+              <dd class="terme__def">
+                Chez ChatGPT, un paquet qui regroupe des compétences et des apps.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="7-boite-outils.html#p-7-5" data-partie="3"
+                      ><span class="rang">7.5</span>Mêmes outils, autres noms</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="point-de-bascule">
+              <dt class="terme__mot">Point de bascule</dt>
+              <dd class="terme__def">
+                Le nombre de messages par jour où le forfait devient moins cher que l’API&nbsp;:
+                vers 30 par jour dans l’exemple.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="9-forfait-api.html#p-9-2" data-partie="3"
+                      ><span class="rang">9.2</span>Le point de bascule</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="prediction">
+              <dt class="terme__mot">Prédiction</dt>
+              <dd class="terme__def">
+                Ce que fait l’IA à chaque mot&nbsp;: elle donne des chances à chaque suite possible
+                et écrit la plus probable. Même quand aucune ne se détache, elle reste sûre d’elle.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="1-tokens.html#p-1-3" data-partie="1"
+                      ><span class="rang">1.3</span>Prédire le mot suivant</a
+                    >
+                  </li>
+                  <li>
+                    <a href="1-tokens.html#p-1-5" data-partie="1"
+                      ><span class="rang">1.5</span>Sujet rare, réponse sûre d’elle</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="projet">
+              <dt class="terme__mot">Projet</dt>
+              <dd class="terme__def">
+                Un espace où l’on range une fois des instructions et des documents. Chaque
+                conversation du projet les relit.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="7-boite-outils.html#p-7-1" data-partie="3"
+                      ><span class="rang">7.1</span>Le Projet</a
+                    >
+                  </li>
+                  <li>
+                    <a href="7-boite-outils.html#p-7-4" data-partie="3"
+                      ><span class="rang">7.4</span>Projet, Skill ou Connecteur&nbsp;?</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="prompt">
+              <dt class="terme__mot">Prompt</dt>
+              <dd class="terme__def">
+                Le message que vous écrivez à l’IA. Un bon prompt donne le contexte, l’action et
+                l’objectif, sans info en trop.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="3-modele-effort.html#p-3-4" data-partie="1"
+                      ><span class="rang">3.4</span>Anatomie d’un prompt</a
+                    >
+                  </li>
+                  <li>
+                    <a href="5-complaisance.html#p-5-5" data-partie="2"
+                      ><span class="rang">5.5</span>La question oriente la réponse</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="prompt-systeme">
+              <dt class="terme__mot">Prompt système</dt>
+              <dd class="terme__def">
+                Les consignes de l’appli, placées avant votre premier message. Elles prennent déjà
+                de la place dans la mémoire.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="2-memoire.html#p-2-3" data-partie="1"
+                      ><span class="rang">2.3</span>Ce qui remplit la mémoire</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+        <section class="glossaire__groupe" id="lettre-r" aria-labelledby="titre-lettre-r">
+          <h2 class="glossaire__lettre" id="titre-lettre-r">R</h2>
+          <dl class="glossaire__liste">
+            <div class="terme" id="rag">
+              <dt class="terme__mot">RAG</dt>
+              <dd class="terme__def">
+                Faire répondre l’IA à partir de documents qu’on lui donne. Elle invente moins, mais
+                un document presque juste peut la tromper.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="4-hallucinations.html#p-4-3" data-partie="2"
+                      ><span class="rang">4.3</span>Les leviers contre l’invention</a
+                    >
+                  </li>
+                  <li>
+                    <a href="4-hallucinations.html#p-4-4" data-partie="2"
+                      ><span class="rang">4.4</span>Les documents presque justes</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="recherche-web">
+              <dt class="terme__mot">Recherche web</dt>
+              <dd class="terme__def">
+                L’IA cherche sur Internet avant de répondre&nbsp;: elle dépasse sa date de coupure
+                et invente moins. Demandez-lui ses sources.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="1-tokens.html#p-1-6" data-partie="1"
+                      ><span class="rang">1.6</span>Elle ne sait rien après une date</a
+                    >
+                  </li>
+                  <li>
+                    <a href="4-hallucinations.html#p-4-3" data-partie="2"
+                      ><span class="rang">4.3</span>Les leviers contre l’invention</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="retours-humains">
+              <dt class="terme__mot">Retours humains</dt>
+              <dd class="terme__def">
+                Des humains comparent des réponses et choisissent la meilleure (en anglais&nbsp;:
+                RLHF). L’IA apprend à plaire, d’où sa tendance à dire oui.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="1-tokens.html#p-1-1" data-partie="1"
+                      ><span class="rang">1.1</span>Comment naît un modèle</a
+                    >
+                  </li>
+                  <li>
+                    <a href="5-complaisance.html#p-5-4" data-partie="2"
+                      ><span class="rang">5.4</span>D’où vient le «&nbsp;oui&nbsp;»</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+        <section class="glossaire__groupe" id="lettre-s" aria-labelledby="titre-lettre-s">
+          <h2 class="glossaire__lettre" id="titre-lettre-s">S</h2>
+          <dl class="glossaire__liste">
+            <div class="terme" id="skill">
+              <dt class="terme__mot">Skill</dt>
+              <dd class="terme__def">
+                Une méthode écrite une fois dans un fichier (SKILL.md). L’IA n’en lit que le titre
+                et l’ouvre quand la tâche le demande.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="7-boite-outils.html#p-7-2" data-partie="3"
+                      ><span class="rang">7.2</span>La Skill</a
+                    >
+                  </li>
+                  <li>
+                    <a href="8-agent.html#p-8-6" data-partie="3"
+                      ><span class="rang">8.6</span>Toujours lu ou lu au besoin</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+        <section class="glossaire__groupe" id="lettre-t" aria-labelledby="titre-lettre-t">
+          <h2 class="glossaire__lettre" id="titre-lettre-t">T</h2>
+          <dl class="glossaire__liste">
+            <div class="terme" id="temperature">
+              <dt class="terme__mot">Température</dt>
+              <dd class="terme__def">
+                La part de hasard dans le choix des mots&nbsp;: la même question peut donner des
+                réponses différentes. Plus elle est haute, plus l’IA est créative.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="1-tokens.html#p-1-4" data-partie="1"
+                      ><span class="rang">1.4</span>Même question, autre réponse</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="token">
+              <dt class="terme__mot">Token</dt>
+              <dd class="terme__def">
+                Le morceau de texte que l’IA lit et écrit&nbsp;: un mot, un bout de mot ou un signe.
+                100 mots font environ 170 tokens. La mémoire et le prix se comptent en tokens.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="1-tokens.html#p-1-2" data-partie="1"
+                      ><span class="rang">1.2</span>Le token, l’unité de tout</a
+                    >
+                  </li>
+                  <li>
+                    <a href="2-memoire.html#p-2-1" data-partie="1"
+                      ><span class="rang">2.1</span>La fenêtre de contexte</a
+                    >
+                  </li>
+                  <li>
+                    <a href="2-memoire.html#p-2-6" data-partie="1"
+                      ><span class="rang">2.6</span>Une longue conversation coûte cher</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+            <div class="terme" id="trio-dangereux">
+              <dt class="terme__mot">Trio dangereux</dt>
+              <dd class="terme__def">
+                Vos données, du contenu venu de l’extérieur et le droit d’envoyer dehors&nbsp;: les
+                trois réunis, une injection de prompt peut faire fuir vos données.
+              </dd>
+              <dd class="terme__planches">
+                <ul aria-label="Planches">
+                  <li>
+                    <a href="6-message-piege.html#p-6-3" data-partie="2"
+                      ><span class="rang">6.3</span>Le trio dangereux</a
+                    >
+                  </li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+        </section>
+      </div>
+    </main>
+
+    <footer class="pied">
+      <div class="pied__interieur">
+        <p>
+          &copy;&nbsp;2026 <strong>Skazy Formation</strong>,
+          <span class="insecable">Nouvelle-Calédonie</span>&nbsp;·
+          <a href="https://formation.skazy.nc" target="_blank" rel="noopener">formation.skazy.nc</a>
+        </p>
+        <p>
+          Usage réservé aux stagiaires de Skazy Formation&nbsp;: reproduction et réutilisation dans
+          une autre formation interdites sans accord écrit.
+        </p>
+      </div>
+    </footer>
+
+    <button type="button" class="haut-de-page" id="haut-de-page" hidden>
+      <svg class="icone" aria-hidden="true"><use href="assets/img/icones.svg#i-arrow-up" /></svg>
+      <span class="invisible">Remonter en haut de la page</span>
+    </button>
+  </body>
+</html>

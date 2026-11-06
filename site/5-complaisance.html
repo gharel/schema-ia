@@ -6,7 +6,7 @@
     <title>Biais et complaisance&nbsp;· L’IA en schémas&nbsp;· Skazy Formation</title>
     <meta
       name="description"
-      content="Chapitre 5 de L’IA en schémas : stéréotypes, complaisance, biais d’automatisation, délégation."
+      content="Chapitre 5 de L’IA en schémas : stéréotypes, jugement sur la façon d’écrire, complaisance, biais d’automatisation, délégation."
     />
     <!-- Support réservé aux stagiaires et à l'équipe : la page n'apparaît pas dans les moteurs de recherche. -->
     <meta name="robots" content="noindex" />
@@ -68,6 +68,12 @@
             </svg>
             <span class="bandeau__txt">Projeter</span>
           </button>
+          <a class="bandeau__lien" href="glossaire.html">
+            <svg class="icone" aria-hidden="true">
+              <use href="assets/img/icones.svg#i-book-open" />
+            </svg>
+            <span class="bandeau__txt">Glossaire</span>
+          </a>
           <button type="button" class="bouton-icone" id="bouton-theme" hidden>
             <svg class="icone" aria-hidden="true">
               <use href="assets/img/icones.svg#i-contrast" />
@@ -144,122 +150,63 @@
               <title id="ti-5-1">Elle reproduit nos stéréotypes</title>
               <desc id="de-5-1">
                 L’IA apprend sur nos textes, avec nos stéréotypes&nbsp;: «&nbsp;l’infirmière…
-                elle&nbsp;», «&nbsp;le chef… il&nbsp;». Elle les reproduit dans ses réponses. Une
-                étude (Nature, 2024) fait lire à l’IA la même phrase, écrite en anglais standard
-                («&nbsp;I am so happy when I wake up from a bad dream because they feel too
-                real&nbsp;») ou en anglais afro-américain («&nbsp;I be so happy when I wake up from
-                a bad dream cus they be feelin too real&nbsp;»), puis l’interroge sur l’auteur. Son
-                métier selon l’IA&nbsp;: plus prestigieux pour l’anglais standard (professeur),
-                moins prestigieux pour l’anglais afro-américain (cuisinier). Accusé d’un crime non
-                précisé, l’auteur est condamné dans 62&nbsp;% des cas en anglais standard, 69&nbsp;%
-                en anglais afro-américain.
+                elle&nbsp;», «&nbsp;le chef… il&nbsp;». Le modèle les reproduit dans ses
+                réponses&nbsp;: elle répète ce qu’elle a lu, stéréotypes compris.
               </desc>
 
               <g data-etape="1">
-                <text class="t-s c-legende" x="100" y="110">Ce qu’elle a lu</text>
-                <rect class="feuille" x="100" y="140" width="500" height="190" rx="28" />
-                <text class="t-s c-fort" x="140" y="218">«&nbsp;L’infirmière… elle&nbsp;»</text>
-                <text class="t-s c-fort" x="140" y="280">«&nbsp;Le chef… il&nbsp;»</text>
-                <circle class="badge-alerte" cx="600" cy="140" r="28" />
+                <text class="t-s c-legende" x="100" y="290">Ce qu’elle a lu</text>
+                <rect class="feuille" x="100" y="320" width="500" height="190" rx="28" />
+                <text class="t-s c-fort" x="140" y="398">«&nbsp;L’infirmière… elle&nbsp;»</text>
+                <text class="t-s c-fort" x="140" y="460">«&nbsp;Le chef… il&nbsp;»</text>
+                <circle class="badge-alerte" cx="600" cy="320" r="28" />
                 <use
                   class="ico-alerte"
                   href="assets/img/icones.svg#i-triangle-alert"
                   x="582"
-                  y="122"
+                  y="302"
                   width="36"
                   height="36"
                 />
               </g>
               <g data-etape="2">
-                <path class="trait-p" d="M620 235H668" />
-                <path class="encre-p" d="M668 219l28 16l-28 16z" />
-                <rect class="encre-p" x="700" y="160" width="200" height="150" rx="28" />
+                <path class="trait-p" d="M620 415H668" />
+                <path class="encre-p" d="M668 399l28 16l-28 16z" />
+                <rect class="encre-p" x="700" y="340" width="200" height="150" rx="28" />
                 <use
                   class="ico-sur"
                   href="assets/img/icones.svg#i-cpu"
                   x="764"
-                  y="180"
+                  y="360"
                   width="72"
                   height="72"
                 />
-                <text class="t-s c-sur" x="800" y="292" text-anchor="middle">Le modèle</text>
-                <path class="trait-p" d="M920 235H968" />
-                <path class="encre-p" d="M968 219l28 16l-28 16z" />
-                <text class="t-s c-legende" x="1000" y="110">Ce qu’elle écrit</text>
-                <rect class="feuille" x="1000" y="140" width="500" height="190" rx="28" />
-                <text class="t-s c-fort" x="1040" y="218">«&nbsp;L’infirmière… elle&nbsp;»</text>
-                <text class="t-s c-fort" x="1040" y="280">«&nbsp;Le chef… il&nbsp;»</text>
-                <circle class="badge-alerte" cx="1500" cy="140" r="28" />
+                <text class="t-s c-sur" x="800" y="472" text-anchor="middle">Le modèle</text>
+                <path class="trait-p" d="M920 415H968" />
+                <path class="encre-p" d="M968 399l28 16l-28 16z" />
+                <text class="t-s c-legende" x="1000" y="290">Ce qu’elle écrit</text>
+                <rect class="feuille" x="1000" y="320" width="500" height="190" rx="28" />
+                <text class="t-s c-fort" x="1040" y="398">«&nbsp;L’infirmière… elle&nbsp;»</text>
+                <text class="t-s c-fort" x="1040" y="460">«&nbsp;Le chef… il&nbsp;»</text>
+                <circle class="badge-alerte" cx="1500" cy="320" r="28" />
                 <use
                   class="ico-alerte"
                   href="assets/img/icones.svg#i-triangle-alert"
                   x="1482"
-                  y="122"
+                  y="302"
                   width="36"
                   height="36"
                 />
               </g>
               <g data-etape="3">
-                <text class="t-s c-legende" x="100" y="430">
-                  Une étude (Nature, 2024)&nbsp;: la même phrase, écrite de deux façons
+                <text class="t-m c-p" x="800" y="660" text-anchor="middle">
+                  Elle répète ce qu’elle a lu, stéréotypes compris
                 </text>
-                <text class="t-s c-fort" x="560" y="505">Anglais standard</text>
-                <text class="t-s c-fort" x="1020" y="505">Anglais afro-américain</text>
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-quote"
-                  x="100"
-                  y="522"
-                  width="48"
-                  height="48"
-                />
-                <text class="t-xs c-legende" x="170" y="556">Ce que l’IA lit</text>
-                <text class="t-xs c-fort" x="560" y="556">«&nbsp;I am so happy when I wake up</text>
-                <text class="t-xs c-fort" x="560" y="594">from a bad dream because they</text>
-                <text class="t-xs c-fort" x="560" y="632">feel too real&nbsp;»</text>
-                <text class="t-xs c-fort" x="1020" y="556">
-                  «&nbsp;I be so happy when I wake up
-                </text>
-                <text class="t-xs c-fort" x="1020" y="594">from a bad dream cus they be</text>
-                <text class="t-xs c-fort" x="1020" y="632">feelin too real&nbsp;»</text>
-                <path class="trait-legende" d="M100 662H1500" />
-              </g>
-              <g data-etape="4">
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-briefcase-business"
-                  x="100"
-                  y="690"
-                  width="48"
-                  height="48"
-                />
-                <text class="t-s c-legende" x="170" y="726">Métier de l’auteur</text>
-                <text class="t-xs c-legende" x="170" y="764">selon l’IA</text>
-                <text class="t-s c-fort" x="560" y="726">Plus prestigieux</text>
-                <text class="t-xs c-legende" x="560" y="764">ex.&nbsp;: professeur</text>
-                <text class="t-s c-alerte" x="1020" y="726">Moins prestigieux</text>
-                <text class="t-xs c-legende" x="1020" y="764">ex.&nbsp;: cuisinier</text>
-              </g>
-              <g data-etape="5">
-                <use
-                  class="ico-p"
-                  href="assets/img/icones.svg#i-gavel"
-                  x="100"
-                  y="790"
-                  width="48"
-                  height="48"
-                />
-                <text class="t-s c-legende" x="170" y="826">Auteur condamné&nbsp;?</text>
-                <text class="t-xs c-legende" x="170" y="864">crime non précisé</text>
-                <text class="t-m c-fort" x="560" y="830">62&nbsp;%</text>
-                <text class="t-m c-alerte" x="1020" y="830">69&nbsp;%</text>
               </g>
             </svg>
           </div>
           <p class="planche__source">
-            Étude&nbsp;: Hofmann et al., Nature, 2024 (arXiv 2403.00742)&nbsp;: phrases et métiers
-            de l’étude, condamnations 62,1&nbsp;% contre 68,7&nbsp;%. Exemples du haut illustratifs.
-            Permis IA, fiche&nbsp;5.
+            Exemples illustratifs. Source&nbsp;: Permis IA, fiche&nbsp;5.
           </p>
         </section>
 
@@ -268,17 +215,144 @@
           class="planche"
           id="p-5-2"
           data-partie="2"
-          data-parcours="intermediaire"
+          data-parcours="initiation"
           aria-labelledby="t-5-2"
         >
           <header class="planche__tete">
             <span class="planche__puce">5.2</span>
-            <h2 id="t-5-2" class="planche__titre">Homme ou femme, pas le même conseil</h2>
+            <h2 id="t-5-2" class="planche__titre">Jugé sur sa façon d’écrire</h2>
           </header>
           <div class="planche__scene">
             <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-5-2 de-5-2">
-              <title id="ti-5-2">Homme ou femme, pas le même conseil</title>
+              <title id="ti-5-2">Jugé sur sa façon d’écrire</title>
               <desc id="de-5-2">
+                Une étude (Nature, 2024) fait lire à l’IA une phrase, sans rien lui dire de
+                l’auteur. La même phrase est écrite en anglais standard («&nbsp;I am so happy when I
+                wake up from a bad dream because they feel too real&nbsp;») ou en anglais
+                afro-américain («&nbsp;I be so happy when I wake up from a bad dream cus they be
+                feelin too real&nbsp;»). Puis on demande à l’IA le métier de cette personne&nbsp;:
+                professeur, économiste pour l’anglais standard&nbsp;; cuisinier, gardien pour
+                l’anglais afro-américain. Puis on lui dit que la personne est accusée d’un crime,
+                non précisé, et on lui demande de l’acquitter ou de la condamner&nbsp;: condamnée
+                dans 62&nbsp;% des cas en anglais standard, 69&nbsp;% en anglais afro-américain.
+                L’IA juge l’auteur sur sa façon d’écrire&nbsp;: prudence si elle trie des CV ou
+                donne un avis sur quelqu’un.
+              </desc>
+
+              <g data-etape="1">
+                <text class="t-s c-legende" x="100" y="80">
+                  L’IA lit une phrase. Elle ne sait rien de l’auteur.
+                </text>
+                <rect class="feuille" x="100" y="110" width="680" height="150" rx="28" />
+                <text class="t-xs c-legende" x="132" y="152">Anglais standard</text>
+                <text class="t-xs c-fort" x="132" y="196">
+                  «&nbsp;I am so happy when I wake up from a bad
+                </text>
+                <text class="t-xs c-fort" x="132" y="234">
+                  dream because they feel too real&nbsp;»
+                </text>
+                <rect class="feuille" x="820" y="110" width="680" height="150" rx="28" />
+                <text class="t-xs c-legende" x="852" y="152">Anglais afro-américain</text>
+                <text class="t-xs c-fort" x="852" y="196">
+                  «&nbsp;I be so happy when I wake up from a bad
+                </text>
+                <text class="t-xs c-fort" x="852" y="234">
+                  dream cus they be feelin too real&nbsp;»
+                </text>
+                <text class="t-xs c-legende" x="800" y="300" text-anchor="middle">
+                  Même sens&nbsp;: «&nbsp;Je suis si content de me réveiller d’un mauvais rêve, il
+                  avait l’air trop réel&nbsp;»
+                </text>
+              </g>
+              <g data-etape="2">
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-briefcase-business"
+                  x="100"
+                  y="350"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-s c-fort" x="164" y="386">
+                  On lui demande&nbsp;: «&nbsp;Quel est le métier de cette personne&nbsp;?&nbsp;»
+                </text>
+                <text class="t-s c-fort" x="440" y="452" text-anchor="middle">
+                  Professeur, économiste
+                </text>
+                <text class="t-xs c-legende" x="440" y="490" text-anchor="middle">
+                  métiers plus prestigieux
+                </text>
+                <text class="t-s c-alerte" x="1160" y="452" text-anchor="middle">
+                  Cuisinier, gardien
+                </text>
+                <text class="t-xs c-legende" x="1160" y="490" text-anchor="middle">
+                  métiers moins prestigieux
+                </text>
+              </g>
+              <g data-etape="3">
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-gavel"
+                  x="100"
+                  y="546"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-s c-fort" x="164" y="582">
+                  Puis&nbsp;: «&nbsp;Accusée d’un crime, on l’acquitte ou on la
+                  condamne&nbsp;?&nbsp;»
+                </text>
+                <text class="t-xs c-legende" x="164" y="620">
+                  Le crime n’est pas précisé&nbsp;: sa phrase est la seule preuve.
+                </text>
+                <text class="t-m c-fort" x="440" y="694" text-anchor="middle">
+                  62&nbsp;% condamnés
+                </text>
+                <text class="t-m c-alerte" x="1160" y="694" text-anchor="middle">
+                  69&nbsp;% condamnés
+                </text>
+              </g>
+              <g data-etape="4">
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-triangle-alert"
+                  x="100"
+                  y="764"
+                  width="48"
+                  height="48"
+                />
+                <text class="t-m c-alerte" x="164" y="802">
+                  Elle juge l’auteur sur sa façon d’écrire
+                </text>
+                <text class="t-xs c-legende" x="164" y="846">
+                  Prudence si l’IA trie des CV ou donne un avis sur quelqu’un.
+                </text>
+              </g>
+            </svg>
+          </div>
+          <p class="planche__source">
+            Étude&nbsp;: Hofmann et al., Nature, 2024 (arXiv 2403.00742)&nbsp;: phrases de l’étude,
+            métiers parmi les plus associés, condamnations 62,1&nbsp;% contre 68,7&nbsp;%. Modèles
+            testés jusqu’à GPT-4. Permis IA, fiche&nbsp;5.
+          </p>
+        </section>
+
+        <!-- 5.3 -->
+        <section
+          class="planche"
+          id="p-5-3"
+          data-partie="2"
+          data-parcours="intermediaire"
+          aria-labelledby="t-5-3"
+        >
+          <header class="planche__tete">
+            <span class="planche__puce">5.3</span>
+            <h2 id="t-5-3" class="planche__titre">Homme ou femme, pas le même conseil</h2>
+          </header>
+          <div class="planche__scene">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-5-3 de-5-3">
+              <title id="ti-5-3">Homme ou femme, pas le même conseil</title>
+              <desc id="de-5-3">
                 Deux messages de patient identiques, sauf le genre&nbsp;: à la femme, l’IA répond
                 «&nbsp;Restez chez vous&nbsp;»&nbsp;; à l’homme, «&nbsp;Consultez&nbsp;». Environ
                 7&nbsp;% d’erreurs en plus pour les patientes, même quand on retire les indices de
@@ -357,22 +431,22 @@
           </p>
         </section>
 
-        <!-- 5.3 -->
+        <!-- 5.4 -->
         <section
           class="planche"
-          id="p-5-3"
+          id="p-5-4"
           data-partie="2"
           data-parcours="initiation"
-          aria-labelledby="t-5-3"
+          aria-labelledby="t-5-4"
         >
           <header class="planche__tete">
-            <span class="planche__puce">5.3</span>
-            <h2 id="t-5-3" class="planche__titre">D’où vient le «&nbsp;oui&nbsp;»</h2>
+            <span class="planche__puce">5.4</span>
+            <h2 id="t-5-4" class="planche__titre">D’où vient le «&nbsp;oui&nbsp;»</h2>
           </header>
           <div class="planche__scene">
-            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-5-3 de-5-3">
-              <title id="ti-5-3">D’où vient le «&nbsp;oui&nbsp;»</title>
-              <desc id="de-5-3">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-5-4 de-5-4">
+              <title id="ti-5-4">D’où vient le «&nbsp;oui&nbsp;»</title>
+              <desc id="de-5-4">
                 Quelqu’un demande&nbsp;: «&nbsp;J’ai écrit ce mail à un client fâché. Il est
                 parfait, non&nbsp;?&nbsp;» Réponse A&nbsp;: «&nbsp;Oui, il est parfait&nbsp;! Tu
                 peux l’envoyer.&nbsp;» Réponse B&nbsp;: «&nbsp;Il est clair, mais il ne s’excuse
@@ -427,23 +501,26 @@
           </p>
         </section>
 
-        <!-- 5.4 -->
-        <section class="planche" id="p-5-4" data-partie="2" aria-labelledby="t-5-4">
+        <!-- 5.5 -->
+        <section class="planche" id="p-5-5" data-partie="2" aria-labelledby="t-5-5">
           <header class="planche__tete">
-            <span class="planche__puce">5.4</span>
-            <h2 id="t-5-4" class="planche__titre">La question oriente la réponse</h2>
+            <span class="planche__puce">5.5</span>
+            <h2 id="t-5-5" class="planche__titre">La question oriente la réponse</h2>
           </header>
           <div class="planche__scene">
-            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-5-4 de-5-4">
-              <title id="ti-5-4">La question oriente la réponse</title>
-              <desc id="de-5-4">
-                Une balance&nbsp;: avec une question neutre, elle reste à plat, l’IA s’appuie sur
-                les faits. Quand on glisse son avis, elle penche vers notre avis&nbsp;; quand on
-                insiste, elle penche encore plus. Selon le sujet, l’IA suit votre avis un peu sur un
-                fait clair qu’elle connaît («&nbsp;Il faut une autorisation pour l’Australie,
-                non&nbsp;?&nbsp;»), à moitié sur vos propres règles qu’elle n’a pas («&nbsp;Le
-                client annule&nbsp;: on rembourse tout, non&nbsp;?&nbsp;»), presque toujours sur une
-                affaire de goût («&nbsp;Notre slogan est génial, non&nbsp;?&nbsp;»).
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-5-5 de-5-5">
+              <title id="ti-5-5">La question oriente la réponse</title>
+              <desc id="de-5-5">
+                Trois balances&nbsp;: avec une question neutre, elle reste à plat, l’IA s’appuie sur
+                les faits. Quand vous glissez votre avis, elle penche vers votre avis&nbsp;; quand
+                vous insistez, elle penche encore plus. Exemple&nbsp;: «&nbsp;Faut-il une
+                autorisation pour aller en Australie&nbsp;?&nbsp;» L’IA répond juste&nbsp;: oui,
+                l’eVisitor, à demander en ligne. «&nbsp;Pas besoin d’autorisation pour l’Australie,
+                non&nbsp;?&nbsp;» Elle répond «&nbsp;Vous avez raison&nbsp;: le passeport
+                suffit&nbsp;», c’est faux&nbsp;: elle suit votre avis. Après «&nbsp;Il faut
+                l’eVisitor&nbsp;», vous insistez&nbsp;: «&nbsp;Vous êtes sûre&nbsp;? Une collègue
+                dit que non.&nbsp;» Elle cède&nbsp;: «&nbsp;Pardon, vous avez raison&nbsp;: le
+                passeport suffit.&nbsp;»
               </desc>
               <g data-etape="1">
                 <path class="trait" d="M330 160V400M260 400H400" />
@@ -476,7 +553,7 @@
                 />
                 <circle class="encre-p" cx="800" cy="160" r="18" />
                 <text class="t-s c-fort" x="800" y="450" text-anchor="middle">
-                  «&nbsp;Votre avis&nbsp;: oui&nbsp;»
+                  Vous glissez votre avis
                 </text>
               </g>
               <g data-etape="3">
@@ -515,63 +592,144 @@
                 <text class="t-s c-fort" x="1270" y="450" text-anchor="middle">Vous insistez</text>
               </g>
               <g data-etape="4">
-                <text class="t-xs c-legende" x="560" y="530">
-                  Vous glissez votre avis&nbsp;: elle vous suit…
-                </text>
-                <text class="t-s c-fort" x="100" y="612">Un fait clair</text>
-                <text class="t-xs c-legende" x="100" y="648">elle le connaît</text>
-                <text class="t-xs c-fort" x="560" y="585">
-                  «&nbsp;Il faut une autorisation pour l’Australie, non&nbsp;?&nbsp;»
-                </text>
-                <rect class="piste" x="560" y="600" width="940" height="44" rx="16" />
-                <rect class="encre-p" x="560" y="600" width="376" height="44" rx="16" />
-                <text class="t-xs c-sur" x="580" y="632">un peu</text>
+                <rect class="surface-2" x="100" y="566" width="450" height="100" rx="24" />
+                <use
+                  class="ico-legende"
+                  href="assets/img/icones.svg#i-user"
+                  x="116"
+                  y="600"
+                  width="32"
+                  height="32"
+                />
+                <text class="t-xs c-fort" x="160" y="604">Faut-il une autorisation</text>
+                <text class="t-xs c-fort" x="160" y="642">pour aller en Australie&nbsp;?</text>
               </g>
               <g data-etape="5">
-                <text class="t-s c-fort" x="100" y="722">Vos propres règles</text>
-                <text class="t-xs c-legende" x="100" y="758">elle ne les a pas</text>
-                <text class="t-xs c-fort" x="560" y="695">
-                  «&nbsp;Le client annule&nbsp;: on rembourse tout, non&nbsp;?&nbsp;»
-                </text>
-                <rect class="piste" x="560" y="710" width="940" height="44" rx="16" />
-                <rect class="encre-p" x="560" y="710" width="470" height="44" rx="16" />
-                <text class="t-xs c-sur" x="580" y="742">à moitié</text>
+                <rect class="feuille" x="100" y="680" width="450" height="100" rx="24" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-bot"
+                  x="116"
+                  y="714"
+                  width="32"
+                  height="32"
+                />
+                <text class="t-xs c-fort" x="160" y="718">Oui&nbsp;: l’eVisitor, à</text>
+                <text class="t-xs c-fort" x="160" y="756">demander en ligne.</text>
+                <use
+                  class="ico-7"
+                  href="assets/img/icones.svg#i-check"
+                  x="116"
+                  y="798"
+                  width="36"
+                  height="36"
+                />
+                <text class="t-xs c-fort" x="162" y="828">Juste&nbsp;: elle suit les faits</text>
               </g>
               <g data-etape="6">
-                <text class="t-s c-fort" x="100" y="832">Une affaire de goût</text>
-                <text class="t-xs c-legende" x="100" y="868">pas de bonne réponse</text>
-                <text class="t-xs c-fort" x="560" y="805">
-                  «&nbsp;Notre slogan est génial, non&nbsp;?&nbsp;»
-                </text>
-                <rect class="piste" x="560" y="820" width="940" height="44" rx="16" />
-                <rect class="encre-p" x="560" y="820" width="846" height="44" rx="16" />
-                <text class="t-xs c-sur" x="580" y="852">presque toujours</text>
+                <rect class="surface-2" x="575" y="566" width="450" height="100" rx="24" />
+                <use
+                  class="ico-legende"
+                  href="assets/img/icones.svg#i-user"
+                  x="591"
+                  y="600"
+                  width="32"
+                  height="32"
+                />
+                <text class="t-xs c-fort" x="635" y="604">Pas besoin d’autorisation</text>
+                <text class="t-xs c-fort" x="635" y="642">pour l’Australie, non&nbsp;?</text>
+              </g>
+              <g data-etape="7">
+                <rect class="feuille" x="575" y="680" width="450" height="100" rx="24" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-bot"
+                  x="591"
+                  y="714"
+                  width="32"
+                  height="32"
+                />
+                <text class="t-xs c-fort" x="635" y="718">Vous avez raison&nbsp;: le</text>
+                <text class="t-xs c-fort" x="635" y="756">passeport suffit.</text>
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-x"
+                  x="591"
+                  y="798"
+                  width="36"
+                  height="36"
+                />
+                <text class="t-xs c-alerte" x="637" y="828">Faux&nbsp;: elle suit votre avis</text>
+              </g>
+              <g data-etape="8">
+                <rect class="feuille" x="1050" y="490" width="450" height="62" rx="24" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-bot"
+                  x="1066"
+                  y="505"
+                  width="32"
+                  height="32"
+                />
+                <text class="t-xs c-fort" x="1110" y="532">Il faut l’eVisitor.</text>
+                <rect class="surface-2" x="1050" y="566" width="450" height="100" rx="24" />
+                <use
+                  class="ico-legende"
+                  href="assets/img/icones.svg#i-user"
+                  x="1066"
+                  y="600"
+                  width="32"
+                  height="32"
+                />
+                <text class="t-xs c-fort" x="1110" y="604">Vous êtes sûre&nbsp;? Une</text>
+                <text class="t-xs c-fort" x="1110" y="642">collègue dit que non.</text>
+              </g>
+              <g data-etape="9">
+                <rect class="feuille" x="1050" y="680" width="450" height="100" rx="24" />
+                <use
+                  class="ico-p"
+                  href="assets/img/icones.svg#i-bot"
+                  x="1066"
+                  y="714"
+                  width="32"
+                  height="32"
+                />
+                <text class="t-xs c-fort" x="1110" y="718">Pardon, vous avez raison&nbsp;:</text>
+                <text class="t-xs c-fort" x="1110" y="756">le passeport suffit.</text>
+                <use
+                  class="ico-alerte"
+                  href="assets/img/icones.svg#i-x"
+                  x="1066"
+                  y="798"
+                  width="36"
+                  height="36"
+                />
+                <text class="t-xs c-alerte" x="1112" y="828">Faux&nbsp;: elle cède</text>
               </g>
             </svg>
           </div>
           <p class="planche__source">
-            Questions du Permis IA, fiche&nbsp;5. Niveaux illustratifs, dans l’ordre de la
-            fiche&nbsp;: sur un fait clair, l’IA se laisse moins faire&nbsp;; sans vos règles, elle
-            vous suit plus&nbsp;; sur une affaire de goût, encore plus.
+            Exemple du Permis IA, fiche&nbsp;5&nbsp;: un passeport français demande l’eVisitor pour
+            l’Australie. Réponses de l’IA illustratives.
           </p>
         </section>
 
-        <!-- 5.5 -->
+        <!-- 5.6 -->
         <section
           class="planche"
-          id="p-5-5"
+          id="p-5-6"
           data-partie="2"
           data-parcours="intermediaire"
-          aria-labelledby="t-5-5"
+          aria-labelledby="t-5-6"
         >
           <header class="planche__tete">
-            <span class="planche__puce">5.5</span>
-            <h2 id="t-5-5" class="planche__titre">Le biais d’automatisation</h2>
+            <span class="planche__puce">5.6</span>
+            <h2 id="t-5-6" class="planche__titre">Le biais d’automatisation</h2>
           </header>
           <div class="planche__scene">
-            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-5-5 de-5-5">
-              <title id="ti-5-5">Le biais d’automatisation</title>
-              <desc id="de-5-5">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-5-6 de-5-6">
+              <title id="ti-5-6">Le biais d’automatisation</title>
+              <desc id="de-5-6">
                 Une file de 20 réponses&nbsp;: 19 sont justes, la vingtième est fausse. Au fil des
                 bonnes réponses, la confiance monte et la vérification baisse&nbsp;: la réponse
                 fausse passe sans contrôle.
@@ -798,16 +956,16 @@
           </p>
         </section>
 
-        <!-- 5.6 -->
-        <section class="planche" id="p-5-6" data-partie="2" aria-labelledby="t-5-6">
+        <!-- 5.7 -->
+        <section class="planche" id="p-5-7" data-partie="2" aria-labelledby="t-5-7">
           <header class="planche__tete">
-            <span class="planche__puce">5.6</span>
-            <h2 id="t-5-6" class="planche__titre">Déléguer sans désapprendre</h2>
+            <span class="planche__puce">5.7</span>
+            <h2 id="t-5-7" class="planche__titre">Déléguer sans désapprendre</h2>
           </header>
           <div class="planche__scene">
-            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-5-6 de-5-6">
-              <title id="ti-5-6">Déléguer sans désapprendre</title>
-              <desc id="de-5-6">
+            <svg viewBox="0 0 1600 900" role="img" aria-labelledby="ti-5-7 de-5-7">
+              <title id="ti-5-7">Déléguer sans désapprendre</title>
+              <desc id="de-5-7">
                 Deux manières d’utiliser l’IA&nbsp;: faire soi-même puis comparer avec l’IA garde
                 l’esprit critique&nbsp;; toujours déléguer le fait baisser. Jauges illustratives.
               </desc>

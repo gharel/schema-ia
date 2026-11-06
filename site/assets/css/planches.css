@@ -1126,6 +1126,138 @@ a {
   display: block;
 }
 
+/* ── Glossaire ───────────────────────────────────────────
+   Une carte par lettre ; chaque mot renvoie aux planches qui le montrent (couleur de leur partie). */
+.glossaire__intro {
+  color: var(--texte-doux);
+  font-size: var(--text-lg);
+}
+
+.glossaire__lettres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.glossaire__lettres a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  box-shadow: var(--ombre-sm);
+  color: var(--texte-fort);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.glossaire__lettres a:hover {
+  background: var(--surface-2);
+}
+
+.glossaire {
+  max-width: var(--largeur);
+  margin: 0 auto;
+  padding-inline: var(--space-6);
+  display: grid;
+  gap: var(--space-8);
+}
+
+.glossaire__groupe {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--surface);
+  box-shadow: var(--ombre-md);
+}
+
+.glossaire__groupe::before {
+  content: '';
+  display: block;
+  height: 6px;
+  background: var(--primaire);
+}
+
+.glossaire__lettre {
+  padding: var(--space-6) var(--space-8) 0;
+  color: var(--primaire-texte);
+  font-size: var(--text-3xl);
+  font-weight: 800;
+}
+
+.glossaire__liste {
+  display: grid;
+  gap: var(--space-8);
+  padding: var(--space-4) var(--space-8) var(--space-8);
+}
+
+.terme {
+  display: grid;
+  gap: var(--space-2);
+  scroll-margin-top: calc(var(--hauteur-bandeau) + var(--space-4));
+}
+
+.terme__mot {
+  color: var(--texte-fort);
+  font-size: var(--text-xl);
+  font-weight: 800;
+}
+
+.terme__def,
+.terme__planches {
+  margin: 0;
+}
+
+.terme__def {
+  max-width: 70ch;
+  color: var(--texte);
+  line-height: var(--leading-relaxed);
+}
+
+.terme__planches ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.terme__planches a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  background: var(--partie-fond);
+  color: var(--partie-texte);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.terme__planches a:hover {
+  text-decoration: underline;
+}
+
+.terme__planches .rang {
+  font-weight: 800;
+}
+
+@media (max-width: 640px) {
+  .glossaire {
+    padding-inline: var(--space-4);
+  }
+
+  .glossaire__lettre {
+    padding-inline: var(--space-5);
+  }
+
+  .glossaire__liste {
+    padding-inline: var(--space-5);
+  }
+}
+
 /* ═══ Mode projection ════════════════════════════════════
    Une seule planche plein écran, scène 16:9 centrée (bandes si l'écran n'est pas 16:9), fond uni.
    Les éléments [data-etape] n'apparaissent qu'à leur tour (classe .etape-vue posée par projection.js). */
@@ -1419,6 +1551,12 @@ body.projection {
 @media (max-width: 400px) {
   .bandeau__logo .logo {
     height: 26px;
+  }
+
+  /* Accueil, Projeter, Glossaire, thème, outils et logo tiennent sur 360 px. */
+  .bandeau__interieur,
+  .bandeau__actions {
+    gap: var(--space-1);
   }
 
   .bouton-icone,
@@ -1822,8 +1960,8 @@ body.projection {
   stroke-dasharray: 12 8;
 }
 
-.hach-8-3 {
-  fill: url(#hach-8-3);
+.hach-8-6 {
+  fill: url(#hach-8-6);
   stroke: var(--alerte);
   stroke-width: 4;
   stroke-dasharray: 12 8;

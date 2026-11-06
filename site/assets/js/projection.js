@@ -11,7 +11,7 @@
  * - ?parcours=initiation ou ?parcours=intermediaire : seulement les planches de ce parcours
  *   (attribut data-parcours), y compris d'une page à l'autre. ?express reste un alias d'initiation.
  * - Le hash (#p-1-3) positionne la planche ; il est mis à jour pendant la projection.
- * - La numérotation (« 1.2 · 2 / 44 », ou « Initiation · 3 / 14 » en parcours) et la navigation entre
+ * - La numérotation (« 1.2 · 2 / 45 », ou « Initiation · 3 / 14 » en parcours) et la navigation entre
  *   les pages viennent de plan.js.
  *
  * Module ES sans dépendance.

@@ -2,11 +2,12 @@ import { existsSync } from 'node:fs';
 import { expect } from '@playwright/test';
 import { CHAPITRES } from '../site/assets/js/plan.js';
 
-// Le sommaire, puis chaque chapitre du plan dont la page existe déjà dans site/.
+// Le sommaire, le glossaire, puis chaque chapitre du plan dont la page existe déjà dans site/.
 // PAGES_TESTEES=2-memoire.html,3-modele-effort.html limite les tests de page à cette liste.
 const filtre = process.env.PAGES_TESTEES?.split(',').map((f) => f.trim());
 export const PAGES = [
   { nom: 'sommaire', url: 'index.html' },
+  { nom: 'glossaire', url: 'glossaire.html' },
   ...CHAPITRES.filter((c) => existsSync(new URL(`../site/${c.fichier}`, import.meta.url))).map(
     (c) => ({ nom: `chapitre ${c.numero}`, url: c.fichier }),
   ),

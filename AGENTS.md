@@ -7,6 +7,7 @@ Mini-site statique projeté en formation. Une notion = une planche = un grand sc
 ```
 site/index.html                 Sommaire (héros + éventail de miniatures, recherche, 3 parties, cartes-chapitres), écrit à la main
 site/1-tokens.html              Chapitre 1 = page DE RÉFÉRENCE à copier pour les chapitres 2 à 9
+site/glossaire.html             Glossaire : les mots de l’IA, une phrase chacun, liés à leurs planches (écrit à la main ; lien « Glossaire » dans le bandeau de chaque page)
 site/assets/js/plan.js          SEULE source de vérité : parties, chapitres, planches (id, titre, parcours, motsCles), fichiers, PARCOURS
 site/assets/js/projection.js    Mode projection (étapes, clavier, parcours, navigation entre pages)
 site/assets/js/recherche.js         Recherche du sommaire (titre, mots-clés, chapitre, numéro ; sans dépendance)
@@ -60,14 +61,14 @@ tests/site.spec.js              Playwright (+ aides.js)
 ## Parcours et recherche
 
 - Deux parcours sans recouvrement, définis dans `plan.js` (`PARCOURS`, champ `parcours` de chaque planche) : **Initiation** (les bases) et **Intermédiaire** (aller plus loin). Les autres planches ne sont dans aucun parcours (vues avec « Tout projeter »).
-- `?parcours=initiation` ou `?parcours=intermediaire` (avec `?projection`) limite la navigation aux planches du parcours, dans la page et d’une page à l’autre ; `?express` reste un alias d’initiation. Le pied affiche « Initiation · 3 / 14 » (« 1.2 · 2 / 44 » hors parcours). Totaux toujours calculés depuis `plan.js`.
+- `?parcours=initiation` ou `?parcours=intermediaire` (avec `?projection`) limite la navigation aux planches du parcours, dans la page et d’une page à l’autre ; `?express` reste un alias d’initiation. Le pied affiche « Initiation · 3 / 14 » (« 1.2 · 2 / 45 » hors parcours). Totaux toujours calculés depuis `plan.js`.
 - Sommaire : boutons « Tout projeter », « Initiation · n », « Intermédiaire · n » ; marqueurs distincts par forme + lettre + couleur (pastille pleine « I », carré à contour « M ») avec légende.
 - Recherche (`recherche.js`) : champ sous le héros, raccourci « / », insensible à la casse et aux accents, tolère une lettre manquante, titre avant mots-clés avant titre de chapitre, 8 résultats, ↓ ↑ Entrée Échap. Chaque résultat : lien vers la planche et lien « Projeter ». Le bloc est masqué sans JavaScript.
 - Héros : éventail de trois vraies planches en miniature (copies des SVG de 1.3, 6.3 et 9.2, `.miniature`, `aria-hidden`). Si l’un de ces schémas change, lancer `npm run miniatures` (recopie le SVG dans `index.html`). `projection.js` ignore les miniatures.
 
 ## Ajouter une planche ou un chapitre
 
-1. Planche : l’ajouter dans `plan.js` (au bon rang) avec **titre + parcours + mots-clés** (`p(id, titre, parcours, motsCles)`), écrire la section dans la page du chapitre (avec `data-parcours`), et dans `index.html` la ligne de la carte-chapitre (+ marqueur `.marque--initiation` ou `.marque--intermediaire`, + « n planches »). Le test « sommaire suit le plan » échoue sinon. Les mots-clés alimentent la recherche : synonymes, noms propres, sigles que dirait un stagiaire.
+1. Planche : l’ajouter dans `plan.js` (au bon rang) avec **titre + parcours + mots-clés** (`p(id, titre, parcours, motsCles)`), écrire la section dans la page du chapitre (avec `data-parcours`), et dans `index.html` la ligne de la carte-chapitre (+ marqueur `.marque--initiation` ou `.marque--intermediaire`, + « n planches »). Le test « sommaire suit le plan » échoue sinon. Les mots-clés alimentent la recherche : synonymes, noms propres, sigles que dirait un stagiaire. Si la planche introduit un mot, l’ajouter à `glossaire.html` (ordre alphabétique, lien `<span class="rang">n.n</span>Titre`). Un test vérifie l’ordre des mots et que chaque lien mène à une planche du plan avec son titre : après une renumérotation, mettre les liens à jour.
 2. Chapitre : copier `1-tokens.html` (bandeau, en-tête de chapitre, pied, liens précédent/suivant), changer titre d’onglet « Titre · L’IA en schémas · Skazy Formation », `data-partie`, numéro. Le fichier doit porter le nom prévu dans `plan.js`. Les tests la prennent en compte dès que le fichier existe (`tests/aides.js`).
 3. Nouvelle icône : l’ajouter à `outils/sprite.js`, `npm run sprite`.
 

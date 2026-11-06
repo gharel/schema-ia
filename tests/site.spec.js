@@ -25,8 +25,9 @@ for (const { nom, url } of PAGES) {
     test('titre d’onglet et métadonnées', async ({ page }) => {
       await ouvrir(page, url);
       const chapitre = CHAPITRES.find((c) => c.fichier === url);
-      const attendu = chapitre
-        ? `${chapitre.titre} · L’IA en schémas · Skazy Formation`
+      const titre = chapitre?.titre ?? (url === 'glossaire.html' ? 'Glossaire' : null);
+      const attendu = titre
+        ? `${titre} · L’IA en schémas · Skazy Formation`
         : 'L’IA en schémas · Skazy Formation';
       await expect(page).toHaveTitle(attendu);
       await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex');
@@ -49,8 +50,15 @@ for (const { nom, url } of PAGES) {
           'href',
           'index.html',
         );
-        await expect(page.getByRole('button', { name: 'Projeter' })).toBeVisible();
+        // Projeter : seulement sur les pages de planches (pas sur le glossaire).
+        if (CHAPITRES.some((c) => c.fichier === url)) {
+          await expect(page.getByRole('button', { name: 'Projeter' })).toBeVisible();
+        }
       }
+      const glossaire = page.locator('.bandeau a[href="glossaire.html"]');
+      await expect(glossaire).toHaveAccessibleName('Glossaire');
+      if (url === 'glossaire.html') await expect(glossaire).toHaveAttribute('aria-current', 'page');
+      else await expect(glossaire).not.toHaveAttribute('aria-current');
       const outils = page.locator('a.bandeau__lien-outils');
       await expect(outils).toHaveAttribute('href', 'https://gharel.github.io/home/');
       await expect(outils).toHaveAttribute('title', 'Tous les outils Skazy Formation');
@@ -305,6 +313,32 @@ for (const theme of ['light', 'dark']) {
   });
 }
 
+test('glossaire : mots dans l’ordre, chaque lien mène à une planche du plan, avec son titre', async ({
+  page,
+}) => {
+  await ouvrir(page, 'glossaire.html');
+  const mots = await page.$$eval('.terme__mot', (dts) => dts.map((d) => d.textContent.trim()));
+  expect(mots.length).toBeGreaterThan(30);
+  const tries = [...mots].sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
+  expect(mots).toEqual(tries);
+  const liens = await page.$$eval('.terme__planches a', (as) =>
+    as.map((a) => ({ href: a.getAttribute('href'), texte: a.textContent })),
+  );
+  for (const { href, texte } of liens) {
+    const [fichier, ancre] = href.split('#');
+    const planche = PLANCHES.find((p) => p.ancre === ancre);
+    expect(planche, href).toBeTruthy();
+    expect(planche.fichier, href).toBe(fichier);
+    expect(normaliser(texte), href).toBe(normaliser(`${planche.id}${planche.titre}`));
+  }
+  // Chaque lettre du sommaire de lettres mène à un groupe.
+  for (const href of await page.$$eval('.glossaire__lettres a', (as) =>
+    as.map((a) => a.getAttribute('href')),
+  )) {
+    await expect(page.locator(href)).toHaveCount(1);
+  }
+});
+
 test.describe('projection', () => {
   const idsVisibles = (page) =>
     page.evaluate(() => [...document.querySelectorAll('.planche:not([hidden])')].map((p) => p.id));
@@ -501,12 +535,12 @@ test.describe('recherche du sommaire', () => {
     expect(await champ(page).inputValue()).toBe('a/b');
   });
 
-  test('« biais » trouve 5.1, 5.2 et 5.5 en tête, avec les deux liens', async ({ page }) => {
+  test('« biais » trouve 5.1, 5.2 et 5.6 en tête, avec les deux liens', async ({ page }) => {
     await ouvrir(page, 'index.html');
     await champ(page).fill('biais');
     const trouves = await rangs(page);
     expect(trouves.length).toBeLessThanOrEqual(8);
-    expect(trouves.slice(0, 3).sort()).toEqual(['5.1', '5.2', '5.5']);
+    expect(trouves.slice(0, 3).sort()).toEqual(['5.1', '5.2', '5.6']);
     await expect(page.locator('#etat-recherche')).toHaveText(/planches trouvées/);
     const premier = page.locator('#resultats-recherche .resultat').first();
     const planche = PLANCHES.find((p) => p.id === trouves[0]);
@@ -521,11 +555,11 @@ test.describe('recherche du sommaire', () => {
     await expect(premier.locator('.resultat__chapitre')).toContainText('Biais et complaisance');
   });
 
-  test('« connecteur » trouve 7.5 en premier', async ({ page }) => {
+  test('« connecteur » trouve 7.3 en premier', async ({ page }) => {
     await ouvrir(page, 'index.html');
     await champ(page).fill('connecteur');
-    expect((await rangs(page))[0]).toBe('7.5');
-    expect(await rangs(page)).toContain('7.6');
+    expect((await rangs(page))[0]).toBe('7.3');
+    expect(await rangs(page)).toContain('7.4');
   });
 
   test('insensible à la casse, aux accents et à une lettre manquante', async ({ page }) => {
@@ -564,7 +598,7 @@ test.describe('recherche du sommaire', () => {
 
     await champ(page).fill('connecteur');
     await Promise.all([
-      page.waitForURL(/7-boite-outils\.html#p-7-5$/),
+      page.waitForURL(/7-boite-outils\.html#p-7-3$/),
       page.keyboard.press('Enter'),
     ]);
   });
