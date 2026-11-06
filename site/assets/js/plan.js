@@ -345,6 +345,12 @@ export const CHAPITRES = [
         M,
         'point de bascule, coût mensuel, rentabilité, API, forfait',
       ),
+      p(
+        '9.3',
+        'Deux limites : 5 heures et semaine',
+        I,
+        'limite, quota, fenêtre de 5 heures, 5 h, limite hebdomadaire, semaine, pause, blocage, abonnement, forfait, rate limit',
+      ),
     ],
   },
 ];
